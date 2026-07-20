@@ -7,329 +7,317 @@
 <title>藏道于喻 · 隐喻寓言合集</title>
 <style>
 :root{
-  --bg:#faf7f2; --card:#fffdf9; --ink:#2b2b2b; --ink-soft:#5f5a52; --ink-faint:#8c867b;
-  --accent:#8a5a2b; --accent2:#b5793b; --line:#e7e0d5;
+  --bg:#faf7f2;--card:#fffdf9;--ink:#2b2b2b;--ink-soft:#5f5a52;--ink-faint:#8c867b;
+  --accent:#8a5a2b;--accent2:#b5793b;--line:#e7e0d5;
   --shadow:0 1px 3px rgba(0,0,0,.05),0 10px 28px rgba(0,0,0,.05);
-  --badge:#efe6d8; --badge-ink:#7a5a30; --reveal:#f4efe6; --quote:#f6f1e8;
-  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","Source Han Serif CN","SimSun",Georgia,"Times New Roman",serif;
+  --badge:#efe6d8;--badge-ink:#7a5a30;--reveal:#f4efe6;--quote:#f6f1e8;
+  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,"Noto Sans SC",sans-serif;
 }
 [data-theme="dark"]{
-  --bg:#14161a; --card:#1c1f26; --ink:#e7e3db; --ink-soft:#a49f96; --ink-faint:#7d7870;
-  --accent:#d8a860; --accent2:#e6c184; --line:#2a2e37;
+  --bg:#14161a;--card:#1c1f26;--ink:#e7e3db;--ink-soft:#a49f96;--ink-faint:#7d7870;
+  --accent:#d8a860;--accent2:#e6c184;--line:#2a2e37;
   --shadow:0 1px 3px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.35);
-  --badge:#2a2e37; --badge-ink:#d8a860; --reveal:#20242c; --quote:#20242c;
+  --badge:#2a2e37;--badge-ink:#d8a860;--reveal:#20242c;--quote:#20242c;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
-  -webkit-text-size-adjust:100%; line-height:1.6;
-}
-a{color:var(--accent2); text-decoration:none}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-text-size-adjust:100%;line-height:1.6}
+a{color:var(--accent2);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* Top bar */
 .topbar{
-  position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px);
+  position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(10px);
   background:color-mix(in srgb, var(--bg) 82%, transparent);
   border-bottom:1px solid var(--line);
   padding:10px max(14px,env(safe-area-inset-left)) 10px max(14px,env(safe-area-inset-right));
-  display:flex; align-items:center; gap:12px;
+  display:flex;align-items:center;gap:10px;
 }
-.brand{font-family:var(--serif); font-weight:700; font-size:18px; letter-spacing:.03em; color:var(--accent); white-space:nowrap}
-.brand small{font-family:var(--sans); font-weight:400; font-size:11px; color:var(--ink-faint); margin-left:6px; letter-spacing:0}
+.brand{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.03em;color:var(--accent);white-space:nowrap}
+.brand small{font-family:var(--sans);font-weight:400;font-size:11px;color:var(--ink-faint);margin-left:6px;letter-spacing:0}
 .topbar .spacer{flex:1}
 .iconbtn{
-  border:1px solid var(--line); background:var(--card); color:var(--ink-soft);
-  border-radius:10px; padding:7px 11px; font-size:13px; cursor:pointer; font-family:var(--sans);
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:10px;padding:7px 11px;font-size:13px;cursor:pointer;font-family:var(--sans);
 }
 .iconbtn:active{transform:translateY(1px)}
+.iconbtn.ghost{border-color:transparent;background:transparent;color:var(--accent);font-weight:600;padding-left:4px}
 
-/* Layout */
-main{max-width:760px; margin:0 auto; padding:22px 18px 80px; padding-left:max(18px,env(safe-area-inset-left)); padding-right:max(18px,env(safe-area-inset-right))}
+#home,#reader{max-width:760px;margin:0 auto;padding:22px 18px 80px;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+#reader{padding-top:14px}
+
 .intro{
-  background:var(--card); border:1px solid var(--line); border-radius:16px;
-  padding:18px 20px; box-shadow:var(--shadow); margin-bottom:22px;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 20px;box-shadow:var(--shadow);margin-bottom:18px;
 }
-.intro h1{font-family:var(--serif); font-size:22px; margin:0 0 6px; color:var(--accent)}
-.intro p{margin:8px 0; color:var(--ink-soft); font-size:14.5px; line-height:1.75}
-.intro .how{font-size:13px; color:var(--ink-faint); border-top:1px dashed var(--line); margin-top:14px; padding-top:12px}
+.intro h1{font-family:var(--serif);font-size:22px;margin:0 0 6px;color:var(--accent)}
+.intro p{margin:8px 0;color:var(--ink-soft);font-size:14.5px;line-height:1.75}
+.intro .how{font-size:13px;color:var(--ink-faint);border-top:1px dashed var(--line);margin-top:14px;padding-top:12px}
 
-/* TOC */
-.toc{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 4px; margin-bottom:26px; box-shadow:var(--shadow)}
-.toc>summary{cursor:pointer; list-style:none; padding:10px 16px; font-weight:600; color:var(--accent); font-size:14px}
-.toc>summary::-webkit-details-marker{display:none}
-.toc>summary::before{content:"📖 "; }
-.toc ul{margin:2px 0 10px; padding:0 12px 0 26px}
-.toc li{list-style:none; margin:2px 0}
-.toc .disc{font-size:12px; color:var(--ink-faint); margin-top:10px; letter-spacing:.05em}
-.toc a{font-size:14px; color:var(--ink-soft)}
-.toc a.done::after{content:" ✓"; color:#5a9367; font-size:12px}
+.hometools{display:flex;gap:10px;margin-bottom:10px}
+.search{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-family:var(--sans)}
+.search::placeholder{color:var(--ink-faint)}
+.search:focus{outline:2px solid var(--accent2);outline-offset:-1px}
+.stat{color:var(--ink-faint);font-size:12.5px;margin:0 0 20px;padding-left:2px}
 
-/* Discipline section */
-.discipline{margin:0 0 40px}
-.discipline>h2{
-  font-family:var(--serif); font-size:19px; color:var(--ink);
-  border-bottom:2px solid var(--line); padding-bottom:8px; margin:0 0 18px;
-  position:sticky; top:52px; background:var(--bg); z-index:5;
+.disc-group{margin:0 0 28px}
+.disc-group>h2{font-family:var(--serif);font-size:17px;color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:7px;margin:0 0 12px}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px 14px;margin-bottom:12px;box-shadow:var(--shadow);
+  cursor:pointer;transition:transform .15s,border-color .15s;outline:none;display:block;
 }
+.card:hover,.card:focus-visible{transform:translateY(-2px);border-color:var(--accent2)}
+.card:active{transform:translateY(0)}
+.card .c-title{font-family:var(--serif);font-size:19px;color:var(--ink);margin:0 0 5px;letter-spacing:.02em}
+.card.read .c-title{color:var(--ink-soft)}
+.card .c-teaser{margin:0 0 10px;color:var(--ink-soft);font-size:13.5px;line-height:1.7}
+.card .c-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.card .c-tag{font-size:11px;background:var(--badge);color:var(--badge-ink);padding:2px 9px;border-radius:999px}
+.card .c-done{margin-left:auto;color:#5a9367;font-size:12px;font-weight:600;white-space:nowrap}
+.noresult{text-align:center;color:var(--ink-faint);font-size:14px;padding:30px 0}
 
-/* Story card */
 .story{
-  background:var(--card); border:1px solid var(--line); border-radius:18px;
-  padding:26px 26px 22px; margin-bottom:24px; box-shadow:var(--shadow);
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:26px 26px 22px;margin-bottom:24px;box-shadow:var(--shadow);
 }
-.story .tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
-.tag{font-size:11.5px; background:var(--badge); color:var(--badge-ink); padding:3px 10px; border-radius:999px; letter-spacing:.02em}
-.tag.level{background:transparent; border:1px solid var(--line); color:var(--ink-faint)}
-.story-title{font-family:var(--serif); font-size:24px; margin:2px 0 4px; color:var(--ink); letter-spacing:.02em}
-.story-sub{font-size:12.5px; color:var(--ink-faint); margin:0 0 18px}
-.fable{font-family:var(--serif); font-size:17.5px; line-height:2.0; color:var(--ink)}
-.fable p{margin:0 0 15px; text-indent:2em}
+.story .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tag{font-size:11.5px;background:var(--badge);color:var(--badge-ink);padding:3px 10px;border-radius:999px;letter-spacing:.02em}
+.tag.level{background:transparent;border:1px solid var(--line);color:var(--ink-faint)}
+.story-title{font-family:var(--serif);font-size:24px;margin:2px 0 4px;color:var(--ink);letter-spacing:.02em}
+.story-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 18px}
+.fable{font-family:var(--serif);font-size:17.5px;line-height:2.0;color:var(--ink)}
+.fable p{margin:0 0 15px;text-indent:2em}
 .fable p.noindent{text-indent:0}
 .fable blockquote{
-  margin:16px 0; padding:14px 18px; background:var(--quote); border-left:3px solid var(--accent);
-  border-radius:0 10px 10px 0; font-size:16.5px; line-height:1.95; text-indent:0;
+  margin:16px 0;padding:14px 18px;background:var(--quote);border-left:3px solid var(--accent);
+  border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.95;text-indent:0;
 }
 .fable blockquote p{text-indent:0}
-.fable .turn{text-align:center; color:var(--accent); letter-spacing:.4em; margin:20px 0; text-indent:0}
-.fable strong{color:var(--accent2); font-weight:700}
+.fable .turn{text-align:center;color:var(--accent);letter-spacing:.4em;margin:20px 0;text-indent:0}
+.fable strong{color:var(--accent2);font-weight:700}
 
-/* Reveal */
-.reveal{margin-top:22px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--reveal)}
+.reveal{margin-top:22px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--reveal)}
 .reveal>summary{
-  cursor:pointer; list-style:none; padding:14px 18px; font-weight:700; color:var(--accent);
-  font-family:var(--sans); font-size:15px; display:flex; align-items:center; gap:8px;
+  cursor:pointer;list-style:none;padding:14px 18px;font-weight:700;color:var(--accent);
+  font-family:var(--sans);font-size:15px;display:flex;align-items:center;gap:8px;
 }
 .reveal>summary::-webkit-details-marker{display:none}
-.reveal>summary .chev{transition:transform .2s; font-size:12px}
+.reveal>summary .chev{transition:transform .2s;font-size:12px}
 .reveal[open]>summary .chev{transform:rotate(90deg)}
-.reveal .body{padding:4px 20px 20px; font-family:var(--sans); font-size:14.5px; line-height:1.8; color:var(--ink)}
-.reveal .body h4{font-size:15px; color:var(--accent); margin:20px 0 8px; font-family:var(--serif)}
-.reveal .body p{margin:10px 0; color:var(--ink-soft)}
-.reveal .body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:var(--badge); padding:1px 6px; border-radius:6px; font-size:13px; color:var(--ink)}
+.reveal .body{padding:4px 20px 20px;font-family:var(--sans);font-size:14.5px;line-height:1.8;color:var(--ink)}
+.reveal .body h4{font-size:15px;color:var(--accent);margin:20px 0 8px;font-family:var(--serif)}
+.reveal .body p{margin:10px 0;color:var(--ink-soft)}
+.reveal .body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--badge);padding:1px 6px;border-radius:6px;font-size:13px;color:var(--ink)}
 .reveal .body strong{color:var(--ink)}
-.callout{border-left:3px solid var(--accent2); padding:8px 14px; margin:12px 0; background:color-mix(in srgb,var(--accent) 8%, transparent); border-radius:0 8px 8px 0; font-size:14px}
+.callout{border-left:3px solid var(--accent2);padding:8px 14px;margin:12px 0;background:color-mix(in srgb,var(--accent) 8%, transparent);border-radius:0 8px 8px 0;font-size:14px}
 
-/* table */
-.tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; border:1px solid var(--line); border-radius:10px}
-table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:380px}
-th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
-th{background:var(--badge); color:var(--badge-ink); font-weight:600; white-space:nowrap}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:380px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--badge);color:var(--badge-ink);font-weight:600;white-space:nowrap}
 tr:last-child td{border-bottom:none}
 
-.srcs{font-size:12.5px; color:var(--ink-faint); margin-top:14px; border-top:1px dashed var(--line); padding-top:10px; line-height:1.7}
+.srcs{font-size:12.5px;color:var(--ink-faint);margin-top:14px;border-top:1px dashed var(--line);padding-top:10px;line-height:1.7}
+.story-foot{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:12.5px;color:var(--ink-faint)}
+.markread{margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--ink-soft);border-radius:999px;padding:5px 14px;font-size:12.5px;cursor:pointer;font-family:var(--sans)}
+.markread.done{background:#5a9367;color:#fff;border-color:#5a9367}
 
-.story-foot{display:flex; align-items:center; gap:10px; margin-top:16px; font-size:12.5px; color:var(--ink-faint)}
-.markread{margin-left:auto; border:1px solid var(--line); background:transparent; color:var(--ink-soft); border-radius:999px; padding:5px 14px; font-size:12.5px; cursor:pointer; font-family:var(--sans)}
-.markread.done{background:#5a9367; color:#fff; border-color:#5a9367}
+footer{max-width:760px;margin:0 auto;padding:0 18px 60px;color:var(--ink-faint);font-size:12.5px;text-align:center;line-height:1.9}
+footer .count{color:var(--accent);font-weight:600}
 
-footer{max-width:760px; margin:0 auto; padding:0 18px 60px; color:var(--ink-faint); font-size:12.5px; text-align:center; line-height:1.9}
-footer .count{color:var(--accent); font-weight:600}
-
-@media (max-width:560px){
-  main{padding:16px 12px 70px}
-  .story{padding:20px 17px 18px; border-radius:16px}
+@media(max-width:560px){
+  #home,#reader{padding:16px 12px 70px}
+  .story{padding:20px 17px 18px;border-radius:16px}
   .story-title{font-size:21px}
-  .fable{font-size:16.5px; line-height:1.95}
-  .discipline>h2{top:50px}
+  .fable{font-size:16.5px;line-height:1.95}
+  .card{padding:14px 14px 12px}
+  .card .c-title{font-size:17px}
 }
 </style>
 </head>
 <body>
 <header class="topbar">
+  <button class="iconbtn ghost" id="backBtn" hidden>&#8592; 目录</button>
   <span class="brand">藏道于喻<small>隐喻寓言合集</small></span>
   <span class="spacer"></span>
-  <button class="iconbtn" id="themeBtn" title="切换深浅色">🌙 夜读</button>
+  <button class="iconbtn" id="themeBtn">&#127769; 夜读</button>
 </header>
 
-<main>
+<main id="home">
   <section class="intro">
     <h1>藏道于喻</h1>
-    <p>每一篇，都用一个寓言，把一个研究生水平的概念<strong>藏</strong>在故事里。读的时候先别急着找答案，读到最后自然会「原来讲的是这个」。</p>
-    <p class="how">📖 用法：每篇故事的答案（是什么概念 + 隐喻对照）默认<strong>折叠</strong>在故事末尾「🔑 揭晓」里，第一次读不剧透；温故时再点开。读完可点「标记温故」，进度存在本机浏览器里。手机上把本页「添加到主屏幕」，地铁没信号也能翻。</p>
+    <p>每一篇，都用一个寓言，把一个研究生水平的概念<strong>藏</strong>在故事里。先读故事，读到最后自然会「原来讲的是这个」。</p>
+    <p class="how">&#128214; 点任意一篇进去读；答案折叠在故事末尾「&#128273; 揭晓」里，第一次读不剧透。读完可点「标记温故」，进度存本机。手机可「添加到主屏幕」离线翻。</p>
   </section>
 
-  <details class="toc" id="toc">
-    <summary>目录 · 按学科浏览</summary>
-    <ul id="tocList"></ul>
-  </details>
+  <div class="hometools">
+    <input id="q" class="search" type="search" placeholder="&#128269; 搜书名 / 领域…" autocomplete="off">
+    <button class="iconbtn" id="randBtn" title="随机读一篇">&#127922; 随机</button>
+  </div>
+  <div class="stat" id="statLine"></div>
 
-  <!-- ===================== 学科板块从这里开始 ===================== -->
-
-  <!-- DISCIPLINE:prob -->
-  <section class="discipline" id="disc-prob">
-    <h2>📊 概率 · 统计 · 决策科学</h2>
-
-    <!-- STORY:ergodicity -->
-    <article class="story" id="story-ergodicity" data-concept="遍历性（Ergodicity）">
-      <div class="tags">
-        <span class="tag">概率 · 决策</span>
-        <span class="tag">经济学 · 统计物理</span>
-        <span class="tag level">研究生</span>
-      </div>
-      <h2 class="story-title">东风与西风</h2>
-      <p class="story-sub">第 1 篇 · 收录于 2026-07-20</p>
-
-      <div class="fable">
-        <p>古时候，山谷里有个村子，靠一条会改道的河吃饭。收成时好时坏，村里人穷了很多年。</p>
-        <p>有一年秋末，村口来了个背着布口袋的银发老妇，说自己是「替风管账的人」。</p>
-        <p>她把那只灰扑扑的口袋摊在打谷场上，说：谁愿意把自家一整年的存粮记在这口袋上，当晚就交给夜里的风裁断。<strong>风若从东边来，第二天你的粮就多出一半；风若从西边来，你的粮就少去四成。</strong>东风西风，各占一半，谁也说不准哪边。</p>
-        <p>村里人先是不敢，怕血本无归。老妇便当众替他们算了一笔账：「一半的机会多五成，一半的机会少四成。你们各自掂量，赚的那半边，比亏的那半边要狠一点。平均下来，每交一次，粮是往上走的。」</p>
-        <p>村里识字的老先生掐指一算，果然如此：往上的力气盖过往下的力气，长远看，是笔稳赚的买卖。全村动了心。</p>
-        <p>可怎么个交法，两兄弟起了争执。</p>
-        <p>哥哥是村里的老仓官，性子稳。他说：「既然平均是赚的，那就让全村都沾这个光。口袋一家传一家，每户只交一夜。第二天不管东风西风，天一亮就把口袋递给下一家。」</p>
-        <p>村子照办了。一百户人家，口袋传了一百夜。到头来清点：有的人家那夜正撞上东风，粮满得溢出仓；有的撞上西风，亏了一截，唉声叹气。可等把全村的粮堆到一处、一秤——<strong>真的比一年前多了。</strong>老妇没骗人，整个村子，更富了。</p>
-        <p>弟弟却不服。他年轻，脑子活，盯着老先生那笔账想：「既然每交一次平均都在涨，那我干嘛只交一夜就撒手？我把口袋留下，夜夜交给风，一夜涨一点，一年下来，我一个人就能富可敌村！」</p>
-        <p>哥哥拦，弟弟不听，把口袋锁进了自家粮仓。</p>
-        <p>第一夜，东风，粮多了一半，弟弟大笑。第二夜，西风，回去一截，他不慌：「平均是涨的，急什么。」第三夜、第四夜，东风西风轮着来，来的次数也差不多一样多。可怪就怪在这儿：<strong>每回东风让他多出来的，好像总补不平后面西风让他少掉的。</strong>他的仓，东风时鼓一鼓，西风时瘪下去，鼓起来的，没有瘪下去的实在。</p>
-        <p>半年过去，弟弟的粮仓见了底。他红着眼跑去找老先生理论：「你不是亲口算过，平均是赚的吗？我怎么会输光？」</p>
-        <p>老先生把两笔账并排摊开，盯了很久，脸色慢慢变了。</p>
-        <p>这时哥哥来了。他没有责备弟弟，只在空荡荡的仓里，说了这么一段话：</p>
-        <blockquote>
-          <p>「你和先生，都没算错。可你们算的，压根不是同一件事。</p>
-          <p>先生那笔账，是『一百个人各交一夜』摊出来的——那是<strong>横着看</strong>。人多，这家的东风补那家的西风，好坏彼此抵消，村子当然是往上的。</p>
-          <p>你做的，是『一个人交一百夜』——那是<strong>竖着看</strong>。天底下只有你一个，前一夜的风，决定了后一夜你从多高的地方往下摔。</p>
-          <p>你忘了：风不是<strong>加</strong>在你粮上的，是<strong>乘</strong>上去的。东风把一石变成一石半，紧跟一阵西风，一石半乘下来只剩九斗。一涨一跌，你没回到原地，你矮了一成。夜复一夜，就算东风西风来的次数一样多，你也是往坑里走的。</p>
-          <p>横着那条平均的路又肥又直，可它是一百个人分着走的，你一个人一辈子都走不到。你脚底下这条竖着的、越走越低的路，才是你真正的命。」</p>
-        </blockquote>
-        <p class="turn">· · ·</p>
-        <p class="noindent">弟弟怔在空仓里，这才醒过来——</p>
-        <p><strong>原来，一桩能让一百个人一起变富的买卖，能让一个人稳稳地穷死。</strong>富的是「人群」，穷的是「日子」，而他把自己的一生，押在了别人的平均数上。</p>
-      </div>
-
-      <details class="reveal">
-        <summary><span class="chev">▶</span>🔑 揭晓 · 这讲的是什么</summary>
-        <div class="body">
-          <p>这篇讲的是统计物理与经济学交叉处的一个概念：<strong>遍历性（ergodicity）</strong>，以及它的反面<strong>非遍历（non-ergodic）</strong>。核心是两种「平均」的区别：</p>
-          <p><strong>集合平均 / 期望值（ensemble average）</strong>：想象<strong>同一时刻、一大群平行的你</strong>各玩一次，横着一平均。这就是老先生算的、我们从小被教的「数学期望」。</p>
-          <p><strong>时间平均（time average）</strong>：<strong>一个你，纵着经历很多次</strong>，看你自己这条命随时间走出来的长期增长率。</p>
-          <div class="callout">一个随机过程是「遍历的」，当且仅当<strong>时间平均 = 集合平均</strong>——横着看和竖着看给出同一个答案。掷硬币、气体分子这类「加法型」过程往往遍历，所以期望值能代表个体命运。<strong>但财富是乘法型的，它不遍历。</strong></div>
-          <h4>用故事里的数字算</h4>
-          <p>单次期望（集合平均）：<code>0.5×1.5 + 0.5×0.6 = 1.05</code>，每轮 <strong>+5%</strong>，看着稳赚。✅ 这就是村子横着变富的原因。</p>
-          <p>单人长期增长率（时间平均）＝几何平均：<code>√(1.5×0.6) = √0.9 ≈ 0.949</code>，每轮 <strong>约 −5.1%</strong>。❌ 一个人一直玩，几乎必然归零。</p>
-          <p>同一个赌局，两个平均一正一负。期望值没错，但它描述的是「人群」，不是「你」。把只对人群成立的结论套到一条随时间展开的人生上，就是弟弟破产的全部原因——因为<strong>乘法里，一个 −40% 的坑，一个 +50% 都填不平</strong>（<code>1 → 0.6 → 0.9</code>）。</p>
-          <h4>故事里的隐喻分别对应什么</h4>
-          <div class="tblwrap">
-          <table>
-            <tr><th>故事里的东西</th><th>对应的概念</th></tr>
-            <tr><td>一家的粮仓</td><td>个人财富 / 单个个体的状态</td></tr>
-            <tr><td>夜里的东风 / 西风</td><td>随机的市场结果（赌局、投资、下注）</td></tr>
-            <tr><td>东风 +50% / 西风 −40%</td><td>乘法型涨跌（乘上去，不是加上去）</td></tr>
-            <tr><td>老先生「平均是赚的」那笔账</td><td>期望值 / 集合平均（ensemble average）</td></tr>
-            <tr><td>口袋全村传一圈、每户一夜、最后村子更富</td><td>集合平均在<strong>空间</strong>上实现：横跨很多人，好坏互相抵消。也是「风险共担 / 分散」为何有用</td></tr>
-            <tr><td>弟弟一人夜夜交、越交越穷</td><td>时间平均在<strong>时间</strong>上展开：一个人纵向经历很多次，命运由几何增长率决定</td></tr>
-            <tr><td>「风是乘的不是加的，一石半只剩九斗」</td><td>乘法动态（multiplicative dynamics）：<code>1.5×0.6=0.9</code>，一涨一跌净亏</td></tr>
-            <tr><td>「横着的路你一辈子走不到」</td><td>非遍历性：时间平均 ≠ 集合平均，个体走不到人群的平均命运</td></tr>
-            <tr><td>弟弟破产</td><td>破产风险 / 路径依赖（path dependence）：归零是吸收态，一旦到达再无翻身</td></tr>
-          </table>
-          </div>
-          <h4>出处与边界（诚实标注）</h4>
-          <p><strong>底层数学是标准、无争议的</strong>：遍历理论源自 19 世纪统计力学；「个人应最大化几何增长率而非期望值」由 J. L. Kelly Jr.《A New Interpretation of Information Rate》(Bell System Technical Journal, 35(4), 1956) 给出，即 Kelly 准则。更早的病灶可追到 18 世纪的圣彼得堡悖论（Bernoulli）。</p>
-          <p><strong>把它系统抬进经济学、主张主流经济学「错误地默认了遍历性」的框架</strong>，是物理学家 Ole Peters 的「遍历性经济学（ergodicity economics）」，代表作 Peters《The ergodicity problem in economics》(Nature Physics 15(12): 1216–1221, 2019)。这套「重构经济学」的主张在学界仍有争论（属实践/学派立场），但故事所依赖的「时间平均 ≠ 集合平均」这一数学事实是硬的。</p>
-          <div class="callout">一句话收尾：当你要做一个<strong>不能重来</strong>的决定时，别问「平均而言会怎样」，要问「如果这是我要反复走下去的路，我这条命会怎样」。弟弟输就输在，把第一个问题的答案，当成了第二个问题的答案。</div>
-          <p class="srcs">参考：<a href="https://www.nature.com/articles/s41567-019-0732-0" target="_blank" rel="noopener">Peters (2019), Nature Physics</a> · <a href="https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf" target="_blank" rel="noopener">Kelly (1956), BSTJ</a></p>
-        </div>
-      </details>
-
-      <div class="story-foot">
-        <span>难度：研究生 · 领域：概率/决策/统计物理</span>
-        <button class="markread" data-id="ergodicity">○ 标记温故</button>
-      </div>
-    </article>
-    <!-- /STORY:ergodicity -->
-
-  </section>
-  <!-- /DISCIPLINE:prob -->
-
-  <!-- DISCIPLINE:game -->
-  <section class="discipline" id="disc-game">
-    <h2>🎲 博弈论 · 网络科学</h2>
-
-    <!-- STORY:braess -->
-    <article class="story" id="story-braess" data-concept="布雷斯悖论（Braess's paradox）">
-      <div class="tags">
-        <span class="tag">博弈论 · 网络</span>
-        <span class="tag">交通 · 运筹</span>
-        <span class="tag level">研究生</span>
-      </div>
-      <h2 class="story-title">捷径</h2>
-      <p class="story-sub">第 2 篇 · 收录于 2026-07-20</p>
-
-      <div class="fable">
-        <p>从前有座青石村，村子和山那头的集市之间隔着一座大山。进城赶集得绕山走，有东、西两条道。</p>
-        <p>东道是这样：出村先过一座<strong>晃悠悠的独木吊桥</strong>，桥窄，人多了就得排队挨个过——过桥快慢，全看当天多少人挤在桥上；过了桥，是一条<strong>又宽又直的青石大路</strong>，无论多少人走，都是不紧不慢那么长一段。</p>
-        <p>西道正相反：出村先走一条<strong>同样的青石大路</strong>（宽，人多人少都一样长），走到头，再过一座<strong>一模一样的独木吊桥</strong>（人多就慢）。</p>
-        <p>两条道，一头一尾刚好对调，长短其实一个样。村民赶集赶了几辈子，早摸出了规矩：清早四千人出门，大伙儿自然而然分成两半，两千人走东、两千人走西。桥上不太挤，路又稳当，谁走哪条，到集市的时辰都差不多，谁也不吃亏。日子就这么顺顺当当过着。</p>
-        <p>有一年，来了个热心的工匠。他站在山腰看了半晌，一拍大腿：「你们这也太笨了！东道那座吊桥的这头，和西道那座吊桥的那头，明明隔得很近，我给你们架一条平平的石堤连起来，几步就跨过去，快得很！多了这条捷径，你们的选择不就更多了吗？」</p>
-        <p>村民一听有道理：多一条路，只会更好，哪有更差的理。石堤很快架好了，又平又快，走上去几乎不费工夫。</p>
-        <p>第一个精明人这么盘算：「那两条青石大路，不管我走不走，都是死沉沉那么长一段，太亏了。可吊桥呢，只要我赶早、人不多，过起来比大路快多了。那我干嘛走大路？我走东道的吊桥，蹿上那条石堤，再接西道的吊桥——两头都走快桥、一段大路都不沾，岂不美哉！」</p>
-        <p>这算盘打得精。可坏就坏在——<strong>四千个人，个个都是这么打算的。</strong></p>
-        <p>于是那天清早，四千人全涌向了东道的吊桥，过了桥挤上石堤，又全涌向西道的吊桥。两座本来一人一半、松松快快的吊桥，如今各自挤上了四千人，排起长队，蜗牛似的往前挪。原先稳稳当当的两条青石大路，反倒空空荡荡，没几个人走。</p>
-        <p>到集市一问时辰，家家都比往年晚了一大截。有人不服气，第二天改回老路——走一段吊桥再接青石大路——可这会儿吊桥上乌泱泱全是人，他排在四千人后头过桥，再走那段大路，反倒比走「捷径」的人还慢。于是只好又挤回「捷径」。<strong>谁单独改都更亏，只能认命，全村一起慢。</strong></p>
-        <p>大伙儿百思不得其解：明明多修了一条又快又平的近道，一步没拆旧路，怎么反倒人人都变慢了？</p>
-        <p>闹了小半年，一位上了岁数的老人拄着拐来到山腰，看着那条挤破头的石堤，只说了一句：</p>
-        <blockquote>
-          <p>「把它拆了吧。」</p>
-        </blockquote>
-        <p>村长舍不得：「这可是条好路啊，又平又快，拆了多可惜。」</p>
-        <blockquote>
-          <p>老人摇头：「正是这条『好路』，把大家都害了。它给了每个人一个只顾自己的算盘：都想抄两头的快桥、都想躲开那段公道的大路。可桥就那么窄，四千人的算盘一块儿打，就把两座桥全堵死了。没有这条捷径的时候，你们被『逼着』一半走东、一半走西，看着笨，其实是全村最快的走法。」</p>
-        </blockquote>
-        <p>石堤拆了。第二天清早，四千人又自然而然分成两半，东两千、西两千，桥不挤、路也稳。到集市一看时辰——<strong>又都比修石堤那阵子早了一大截。</strong></p>
-        <p class="turn">· · ·</p>
-        <p class="noindent"><strong>拆掉一条又快又好的路，所有人反而更快到了家。</strong>此时你若回头，再想想那条一开始人人叫好的「捷径」……</p>
-      </div>
-
-      <details class="reveal">
-        <summary><span class="chev">&#9654;</span>🔑 揭晓 · 这讲的是什么</summary>
-        <div class="body">
-          <p>这篇讲的是博弈论与网络科学里一个著名的反直觉结论：<strong>布雷斯悖论（Braess's paradox）</strong>。</p>
-          <div class="callout">在一个「人人各自只求自己最快」的网络里，<strong>多修一条路（多给一个选择），可能让所有人都变慢；反过来，拆掉一条路，可能让所有人都变快。</strong></div>
-          <h4>用故事里的数字算</h4>
-          <p>设每天清早 4000 人进城。吊桥会堵：桥上有 <code>x</code> 人时，过桥要 <code>x/100</code> 分钟（人越多越慢）。青石大路不堵：无论多少人，都要 <code>45</code> 分钟。</p>
-          <p><strong>没有石堤时</strong>：大家分成两半，东西各 2000 人。任一人耗时 = 过桥 <code>2000/100=20</code> + 大路 <code>45</code> = <strong>65 分钟</strong>。而且没人能靠单独改道变快——这已是稳定的均衡。</p>
-          <p><strong>架起石堤后</strong>：石堤几乎零耗时，于是人人都想「走东桥→石堤→西桥」，躲开两段大路。结果 4000 人全压上两座桥，每座桥 <code>4000/100=40</code> 分钟，整条捷径 = <code>40+0+40=80</code> 分钟。<strong>人人 80 分钟，比原来还慢 15 分钟。</strong></p>
-          <p>更扎心的是：这时你想改走老路（东桥+大路）= <code>40+45=85</code> 分钟，比 80 还慢——所以<strong>谁也不敢单独改，全村被锁死在更差的 80 分钟上</strong>。只有把石堤拆掉，才回得到 65 分钟。</p>
-          <h4>故事里的隐喻分别对应什么</h4>
-          <div class="tblwrap">
-          <table>
-            <tr><th>故事里的东西</th><th>对应的概念</th></tr>
-            <tr><td>青石村 → 集市 / 每天四千人</td><td>网络的起点与终点 / 自私选路的用户（车流）</td></tr>
-            <tr><td>独木吊桥（人越多越慢）</td><td>拥堵敏感路段：通行时间随流量上升（如 <code>t = x/100</code>）</td></tr>
-            <tr><td>青石大路（人多人少都一样长）</td><td>固定成本路段：通行时间恒为 45，与流量无关</td></tr>
-            <tr><td>清早自然分两半、各道时辰相同</td><td>纳什均衡：没人能靠单方改道变快（此时恰好也是社会最优）</td></tr>
-            <tr><td>热心工匠架的「几乎零耗时」石堤</td><td>新增的一条近乎零成本的连接边（那条「捷径」）</td></tr>
-            <tr><td>人人盘算「走两头快桥、躲开大路」</td><td>自私路由（selfish routing）：每个人只优化自己</td></tr>
-            <tr><td>两座桥全堵死、人人从 65 变 80</td><td>新的纳什均衡更差：个人理性加总反而拖垮集体</td></tr>
-            <tr><td>「谁单独改都更亏，只能认命」</td><td>这是个稳定却低劣的均衡，无人有动机单方偏离</td></tr>
-            <tr><td>拆掉石堤反而人人更快</td><td>布雷斯悖论的反面：减少网络反而降低总通勤时间</td></tr>
-            <tr><td>老人「被逼着一半走东一半走西才最快」</td><td>社会最优 vs 个人最优的鸿沟 = 无政府状态的代价（price of anarchy）</td></tr>
-          </table>
-          </div>
-          <h4>为什么这不只是脑筋急转弯</h4>
-          <p>关键在于：<strong>个人理性的加总 ≠ 集体最优。</strong>每个人都做了对自己最划算的选择（这正是纳什均衡的定义），最后却一起困在人人都更差的结果里。衡量「这种自私选择比理想调度差多少」的指标，叫<strong>无政府状态的代价（price of anarchy）</strong>（相关分析由 Koutsoupias 与 Papadimitriou 于 1999 年前后提出；而自私选路导致低效的思想更早可追到 Pigou 1920）。</p>
-          <h4>它真在现实里发生过</h4>
-          <p>不是纸上谈兵。<strong>韩国首尔</strong>在 2003 年拆掉了横贯市中心、日均十几万辆车的清溪川高架路（Cheonggyecheon），许多人预言会大堵车，结果周边交通反而更顺，成了布雷斯悖论最常被引用的现实案例。<strong>德国斯图加特</strong>也有类似记载：1969 年投钱扩建路网后交通没改善，反倒是后来关掉一段路才缓解。</p>
-          <div class="callout">一句话收尾：多给选择、多修一条路，未必是善政。当每个人都只顾自己抄近道时，那条「近道」可能正是把所有人一起拖慢的元凶。有时候，最好的治理不是加，而是减。</div>
-          <p class="srcs">参考：Braess, D. (1968)《&Uuml;ber ein Paradoxon aus der Verkehrsplanung》, Unternehmensforschung 12: 258&ndash;268（<a href="https://homepage.ruhr-uni-bochum.de/Dietrich.Braess/paradox.pdf" target="_blank" rel="noopener">原文 PDF</a>；英译 2005 年刊于 Transportation Science）· 首尔清溪川等现实案例见 <a href="https://en.wikipedia.org/wiki/Braess%27s_paradox" target="_blank" rel="noopener">Braess's paradox (Wikipedia)</a></p>
-        </div>
-      </details>
-
-      <div class="story-foot">
-        <span>难度：研究生 · 领域：博弈论/网络/运筹</span>
-        <button class="markread" data-id="braess">&#9675; 标记温故</button>
-      </div>
-    </article>
-    <!-- /STORY:braess -->
-
-  </section>
-  <!-- /DISCIPLINE:game -->
-
-  <!-- ▼▼▼ 新学科板块 / 新故事 在这里往下加 ▼▼▼ -->
-
+  <div id="cards"></div>
+  <p id="noresult" class="noresult" hidden>没找到匹配的故事</p>
 </main>
+
+<main id="reader" hidden></main>
+
+<!-- ====== 故事数据（隐藏容器，唯一真源）====== -->
+<!-- 加新故事：在 #stories 里追加一个 article.story，填好 data-id/disc/disc-label/title/teaser/date/concept，内容结构照已有的照抄。JS 自动生成首页卡片；新学科自动建板块。 -->
+<div id="stories" hidden>
+
+  <article class="story" data-id="ergodicity" data-disc="prob" data-disc-label="&#128202; 概率 · 统计 · 决策科学"
+           data-title="东风与西风" data-teaser="一桩能让一百个人一起变富的买卖，怎么让一个人稳稳地穷死？" data-date="2026-07-20"
+           data-concept="遍历性（Ergodicity）">
+    <div class="tags">
+      <span class="tag">概率 · 决策</span>
+      <span class="tag">经济学 · 统计物理</span>
+      <span class="tag level">研究生</span>
+    </div>
+    <h2 class="story-title">东风与西风</h2>
+    <p class="story-sub">第 1 篇 · 收录于 2026-07-20</p>
+    <div class="fable">
+      <p>古时候，山谷里有个村子，靠一条会改道的河吃饭。收成时好时坏，村里人穷了很多年。</p>
+      <p>有一年秋末，村口来了个背着布口袋的银发老妇，说自己是「替风管账的人」。</p>
+      <p>她把那只灰扑扑的口袋摊在打谷场上，说：谁愿意把自家一整年的存粮记在这口袋上，当晚就交给夜里的风裁断。<strong>风若从东边来，第二天你的粮就多出一半；风若从西边来，你的粮就少去四成。</strong>东风西风，各占一半，谁也说不准哪边。</p>
+      <p>村里人先是不敢，怕血本无归。老妇便当众替他们算了一笔账：「一半的机会多五成，一半的机会少四成。你们各自掂量，赚的那半边，比亏的那半边要狠一点。平均下来，每交一次，粮是往上走的。」</p>
+      <p>村里识字的老先生掐指一算，果然如此：往上的力气盖过往下的力气，长远看，是笔稳赚的买卖。全村动了心。</p>
+      <p>可怎么个交法，两兄弟起了争执。</p>
+      <p>哥哥是村里的老仓官，性子稳。他说：「既然平均是赚的，那就让全村都沾这个光。口袋一家传一家，每户只交一夜。第二天不管东风西风，天一亮就把口袋递给下一家。」</p>
+      <p>村子照办了。一百户人家，口袋传了一百夜。到头来清点：有的人家那夜正撞上东风，粮满得溢出仓；有的撞上西风，亏了一截，唉声叹气。可等把全村的粮堆到一处、一秤——<strong>真的比一年前多了。</strong>老妇没骗人，整个村子，更富了。</p>
+      <p>弟弟却不服。他年轻，脑子活，盯着老先生那笔账想：「既然每交一次平均都在涨，那我干嘛只交一夜就撒手？我把口袋留下，夜夜交给风，一夜涨一点，一年下来，我一个人就能富可敌村！」</p>
+      <p>哥哥拦，弟弟不听，把口袋锁进了自家粮仓。</p>
+      <p>第一夜，东风，粮多了一半，弟弟大笑。第二夜，西风，回去一截，他不慌：「平均是涨的，急什么。」第三夜、第四夜，东风西风轮着来，来的次数也差不多一样多。可怪就怪在这儿：<strong>每回东风让他多出来的，好像总补不平后面西风让他少掉的。</strong>他的仓，东风时鼓一鼓，西风时瘪下去，鼓起来的，没有瘪下去的实在。</p>
+      <p>半年过去，弟弟的粮仓见了底。他红着眼跑去找老先生理论：「你不是亲口算过，平均是赚的吗？我怎么会输光？」</p>
+      <p>老先生把两笔账并排摊开，盯了很久，脸色慢慢变了。</p>
+      <p>这时哥哥来了。他没有责备弟弟，只在空荡荡的仓里，说了这么一段话：</p>
+      <blockquote>
+        <p>「你和先生，都没算错。可你们算的，压根不是同一件事。</p>
+        <p>先生那笔账，是『一百个人各交一夜』摊出来的——那是<strong>横着看</strong>。人多，这家的东风补那家的西风，好坏彼此抵消，村子当然是往上的。</p>
+        <p>你做的，是『一个人交一百夜』——那是<strong>竖着看</strong>。天底下只有你一个，前一夜的风，决定了后一夜你从多高的地方往下摔。</p>
+        <p>你忘了：风不是<strong>加</strong>在你粮上的，是<strong>乘</strong>上去的。东风把一石变成一石半，紧跟一阵西风，一石半乘下来只剩九斗。一涨一跌，你没回到原地，你矮了一成。夜复一夜，就算东风西风来的次数一样多，你也是往坑里走的。</p>
+        <p>横着那条平均的路又肥又直，可它是一百个人分着走的，你一个人一辈子都走不到。你脚底下这条竖着的、越走越低的路，才是你真正的命。」</p>
+      </blockquote>
+      <p class="turn">· · ·</p>
+      <p class="noindent">弟弟怔在空仓里，这才醒过来——</p>
+      <p><strong>原来，一桩能让一百个人一起变富的买卖，能让一个人稳稳地穷死。</strong>富的是「人群」，穷的是「日子」，而他把自己的一生，押在了别人的平均数上。</p>
+    </div>
+    <details class="reveal">
+      <summary><span class="chev">&#9654;</span>&#128273; 揭晓 · 这讲的是什么</summary>
+      <div class="body">
+        <p>这篇讲的是统计物理与经济学交叉处的一个概念：<strong>遍历性（ergodicity）</strong>，以及它的反面<strong>非遍历（non-ergodic）</strong>。核心是两种「平均」的区别：</p>
+        <p><strong>集合平均 / 期望值（ensemble average）</strong>：想象<strong>同一时刻、一大群平行的你</strong>各玩一次，横着一平均。这就是老先生算的、我们从小被教的「数学期望」。</p>
+        <p><strong>时间平均（time average）</strong>：<strong>一个你，纵着经历很多次</strong>，看你自己这条命随时间走出来的长期增长率。</p>
+        <div class="callout">一个随机过程是「遍历的」，当且仅当<strong>时间平均 = 集合平均</strong>——横着看和竖着看给出同一个答案。掷硬币、气体分子这类「加法型」过程往往遍历，所以期望值能代表个体命运。<strong>但财富是乘法型的，它不遍历。</strong></div>
+        <h4>用故事里的数字算</h4>
+        <p>单次期望（集合平均）：<code>0.5 x 1.5 + 0.5 x 0.6 = 1.05</code>，每轮 <strong>+5%</strong>，看着稳赚。这就是村子横着变富的原因。</p>
+        <p>单人长期增长率（时间平均）= 几何平均：<code>sqrt(1.5 x 0.6) = sqrt(0.9) = 0.949</code>，每轮 <strong>约 -5.1%</strong>。一个人一直玩，几乎必然归零。</p>
+        <p>同一个赌局，两个平均一正一负。期望值没错，但它描述的是「人群」，不是「你」。把只对人群成立的结论套到一条随时间展开的人生上，就是弟弟破产的全部原因——因为<strong>乘法里，一个 -40% 的坑，一个 +50% 都填不平</strong>（<code>1 -> 0.6 -> 0.9</code>）。</p>
+        <h4>故事里的隐喻分别对应什么</h4>
+        <div class="tblwrap">
+        <table>
+          <tr><th>故事里的东西</th><th>对应的概念</th></tr>
+          <tr><td>一家的粮仓</td><td>个人财富 / 单个个体的状态</td></tr>
+          <tr><td>夜里的东风 / 西风</td><td>随机的市场结果（赌局、投资、下注）</td></tr>
+          <tr><td>东风 +50% / 西风 -40%</td><td>乘法型涨跌（乘上去，不是加上去）</td></tr>
+          <tr><td>老先生「平均是赚的」那笔账</td><td>期望值 / 集合平均（ensemble average）</td></tr>
+          <tr><td>口袋全村传一圈、每户一夜、最后村子更富</td><td>集合平均在<strong>空间</strong>上实现：横跨很多人，好坏互相抵消</td></tr>
+          <tr><td>弟弟一人夜夜交、越交越穷</td><td>时间平均在<strong>时间</strong>上展开：一个人纵向经历很多次</td></tr>
+          <tr><td>「风是乘的不是加的，一石半只剩九斗」</td><td>乘法动态（multiplicative dynamics）：<code>1.5 x 0.6 = 0.9</code></td></tr>
+          <tr><td>「横着的路你一辈子走不到」</td><td>非遍历性：时间平均 != 集合平均</td></tr>
+          <tr><td>弟弟破产</td><td>破产风险 / 路径依赖（path dependence）</td></tr>
+        </table>
+        </div>
+        <h4>出处与边界（诚实标注）</h4>
+        <p><strong>底层数学是标准、无争议的</strong>：遍历理论源自 19 世纪统计力学；「个人应最大化几何增长率而非期望值」由 J. L. Kelly Jr.《A New Interpretation of Information Rate》(Bell System Technical Journal, 35(4), 1956) 给出，即 Kelly 准则。</p>
+        <p><strong>把它系统抬进经济学的框架</strong>，是物理学家 Ole Peters 的「遍历性经济学（ergodicity economics）」，代表作 Peters《The ergodicity problem in economics》(Nature Physics 15(12): 1216-1221, 2019)。这套「重构经济学」的主张在学界仍有争论，但故事所依赖的「时间平均 != 集合平均」这一数学事实是硬的。</p>
+        <div class="callout">一句话收尾：当你要做一个<strong>不能重来</strong>的决定时，别问「平均而言会怎样」，要问「如果这是我要反复走下去的路，我这条命会怎样」。</div>
+        <p class="srcs">参考：<a href="https://www.nature.com/articles/s41567-019-0732-0" target="_blank" rel="noopener">Peters (2019), Nature Physics</a> · <a href="https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf" target="_blank" rel="noopener">Kelly (1956), BSTJ</a></p>
+      </div>
+    </details>
+    <div class="story-foot">
+      <span>难度：研究生 · 领域：概率/决策/统计物理</span>
+      <button class="markread" data-id="ergodicity">○ 标记温故</button>
+    </div>
+  </article>
+
+  <article class="story" data-id="braess" data-disc="game" data-disc-label="&#127922; 博弈论 · 网络科学"
+           data-title="捷径" data-teaser="多修一条又快又平的近道，为什么全村反而人人都变慢了？" data-date="2026-07-20"
+           data-concept="布雷斯悖论（Braess's paradox）">
+    <div class="tags">
+      <span class="tag">博弈论 · 网络</span>
+      <span class="tag">交通 · 运筹</span>
+      <span class="tag level">研究生</span>
+    </div>
+    <h2 class="story-title">捷径</h2>
+    <p class="story-sub">第 2 篇 · 收录于 2026-07-20</p>
+    <div class="fable">
+      <p>从前有座青石村，村子和山那头的集市之间隔着一座大山。进城赶集得绕山走，有东、西两条道。</p>
+      <p>东道是这样：出村先过一座<strong>晃悠悠的独木吊桥</strong>，桥窄，人多了就得排队挨个过——过桥快慢，全看当天多少人挤在桥上；过了桥，是一条<strong>又宽又直的青石大路</strong>，无论多少人走，都是不紧不慢那么长一段。</p>
+      <p>西道正相反：出村先走一条<strong>同样的青石大路</strong>（宽，人多人少都一样长），走到头，再过一座<strong>一模一样的独木吊桥</strong>（人多就慢）。</p>
+      <p>两条道，一头一尾刚好对调，长短其实一个样。村民赶集赶了几辈子，早摸出了规矩：清早四千人出门，大伙儿自然而然分成两半，两千人走东、两千人走西。桥上不太挤，路又稳当，谁走哪条，到集市的时辰都差不多，谁也不吃亏。日子就这么顺顺当当过着。</p>
+      <p>有一年，来了个热心的工匠。他站在山腰看了半晌，一拍大腿：「你们这也太笨了！东道那座吊桥的这头，和西道那座吊桥的那头，明明隔得很近，我给你们架一条平平的石堤连起来，几步就跨过去，快得很！多了这条捷径，你们的选择不就更多了吗？」</p>
+      <p>村民一听有道理：多一条路，只会更好，哪有更差的理。石堤很快架好了，又平又快，走上去几乎不费工夫。</p>
+      <p>第一个精明人这么盘算：「那两条青石大路，不管我走不走，都是死沉沉那么长一段，太亏了。可吊桥呢，只要我赶早、人不多，过起来比大路快多了。那我干嘛走大路？我走东道的吊桥，蹿上那条石堤，再接西道的吊桥——两头都走快桥、一段大路都不沾，岂不美哉！」</p>
+      <p>这算盘打得精。可坏就坏在——<strong>四千个人，个个都是这么打算的。</strong></p>
+      <p>于是那天清早，四千人全涌向了东道的吊桥，过了桥挤上石堤，又全涌向西道的吊桥。两座本来一人一半、松松快快的吊桥，如今各自挤上了四千人，排起长队，蜗牛似的往前挪。原先稳稳当当的两条青石大路，反倒空空荡荡，没几个人走。</p>
+      <p>到集市一问时辰，家家都比往年晚了一大截。有人不服气，第二天改回老路——走一段吊桥再接青石大路——可这会儿吊桥上乌泱泱全是人，他排在四千人后头过桥，再走那段大路，反倒比走「捷径」的人还慢。于是只好又挤回「捷径」。<strong>谁单独改都更亏，只能认命，全村一起慢。</strong></p>
+      <p>大伙儿百思不得其解：明明多修了一条又快又平的近道，一步没拆旧路，怎么反倒人人都变慢了？</p>
+      <p>闹了小半年，一位上了岁数的老人拄着拐来到山腰，看着那条挤破头的石堤，只说了一句：</p>
+      <blockquote>
+        <p>「把它拆了吧。」</p>
+      </blockquote>
+      <p>村长舍不得：「这可是条好路啊，又平又快，拆了多可惜。」</p>
+      <blockquote>
+        <p>老人摇头：「正是这条『好路』，把大家都害了。它给了每个人一个只顾自己的算盘：都想抄两头的快桥、都想躲开那段公道的大路。可桥就那么窄，四千人的算盘一块儿打，就把两座桥全堵死了。没有这条捷径的时候，你们被『逼着』一半走东、一半走西，看着笨，其实是全村最快的走法。」</p>
+      </blockquote>
+      <p>石堤拆了。第二天清早，四千人又自然而然分成两半，东两千、西两千，桥不挤、路也稳。到集市一看时辰——<strong>又都比修石堤那阵子早了一大截。</strong></p>
+      <p class="turn">· · ·</p>
+      <p class="noindent"><strong>拆掉一条又快又好的路，所有人反而更快到了家。</strong>此时你若回头，再想想那条一开始人人叫好的「捷径」……</p>
+    </div>
+    <details class="reveal">
+      <summary><span class="chev">&#9654;</span>&#128273; 揭晓 · 这讲的是什么</summary>
+      <div class="body">
+        <p>这篇讲的是博弈论与网络科学里一个著名的反直觉结论：<strong>布雷斯悖论（Braess's paradox）</strong>。</p>
+        <div class="callout">在一个「人人各自只求自己最快」的网络里，<strong>多修一条路（多给一个选择），可能让所有人都变慢；反过来，拆掉一条路，可能让所有人都变快。</strong></div>
+        <h4>用故事里的数字算</h4>
+        <p>设每天清早 4000 人进城。吊桥会堵：桥上有 <code>x</code> 人时，过桥要 <code>x/100</code> 分钟（人越多越慢）。青石大路不堵：无论多少人，都要 <code>45</code> 分钟。</p>
+        <p><strong>没有石堤时</strong>：大家分成两半，东西各 2000 人。任一人耗时 = 过桥 <code>2000/100=20</code> + 大路 <code>45</code> = <strong>65 分钟</strong>。没人能靠单独改道变快——这已是稳定的均衡。</p>
+        <p><strong>架起石堤后</strong>：石堤几乎零耗时，于是人人都想「走东桥 -> 石堤 -> 西桥」，躲开两段大路。结果 4000 人全压上两座桥，每座桥 <code>4000/100=40</code> 分钟，整条捷径 = <code>40+0+40=80</code> 分钟。<strong>人人 80 分钟，比原来还慢 15 分钟。</strong></p>
+        <p>更扎心的是：这时你想改走老路（东桥+大路）= <code>40+45=85</code> 分钟，比 80 还慢——所以<strong>谁也不敢单独改，全村被锁死在更差的 80 分钟上</strong>。只有把石堤拆掉，才回得到 65 分钟。</p>
+        <h4>故事里的隐喻分别对应什么</h4>
+        <div class="tblwrap">
+        <table>
+          <tr><th>故事里的东西</th><th>对应的概念</th></tr>
+          <tr><td>青石村 -> 集市 / 每天四千人</td><td>网络的起点与终点 / 自私选路的用户（车流）</td></tr>
+          <tr><td>独木吊桥（人越多越慢）</td><td>拥堵敏感路段：通行时间随流量上升</td></tr>
+          <tr><td>青石大路（人多人少都一样长）</td><td>固定成本路段：通行时间恒为 45</td></tr>
+          <tr><td>清早自然分两半、各道时辰相同</td><td>纳什均衡：没人能靠单方改道变快</td></tr>
+          <tr><td>热心工匠架的「几乎零耗时」石堤</td><td>新增的一条近乎零成本的连接边</td></tr>
+          <tr><td>人人盘算「走两头快桥、躲开大路」</td><td>自私路由（selfish routing）</td></tr>
+          <tr><td>两座桥全堵死、人人从 65 变 80</td><td>新的纳什均衡更差</td></tr>
+          <tr><td>「谁单独改都更亏，只能认命」</td><td>稳定却低劣的均衡，无人有动机单方偏离</td></tr>
+          <tr><td>拆掉石堤反而人人更快</td><td>布雷斯悖论的反面：减少网络反而降低总通勤时间</td></tr>
+          <tr><td>老人「被逼着一半走东一半走西才最快」</td><td>无政府状态的代价（price of anarchy）</td></tr>
+        </table>
+        </div>
+        <h4>为什么这不只是脑筋急转弯</h4>
+        <p>关键在于：<strong>个人理性的加总 != 集体最优。</strong>每个人都做了对自己最划算的选择，最后却一起困在人人都更差的结果里。衡量「这种自私选择比理想调度差多少」的指标，叫<strong>无政府状态的代价（price of anarchy）</strong>。</p>
+        <h4>它真在现实里发生过</h4>
+        <p><strong>韩国首尔</strong>在 2003 年拆掉了横贯市中心、日均十几万辆车的清溪川高架路（Cheonggyecheon），许多人预言会大堵车，结果周边交通反而更顺，成了布雷斯悖论最常被引用的现实案例。<strong>德国斯图加特</strong>也有类似记载：1969 年投钱扩建路网后交通没改善，反倒是后来关掉一段路才缓解。</p>
+        <div class="callout">一句话收尾：多给选择、多修一条路，未必是善政。当每个人都只顾自己抄近道时，那条「近道」可能正是把所有人一起拖慢的元凶。有时候，最好的治理不是加，而是减。</div>
+        <p class="srcs">参考：Braess, D. (1968)《&Uuml;ber ein Paradoxon aus der Verkehrsplanung》, Unternehmensforschung 12: 258-268（<a href="https://homepage.ruhr-uni-bochum.de/Dietrich.Braess/paradox.pdf" target="_blank" rel="noopener">原文 PDF</a>）· <a href="https://en.wikipedia.org/wiki/Braess%27s_paradox" target="_blank" rel="noopener">Braess's paradox (Wikipedia)</a></p>
+      </div>
+    </details>
+    <div class="story-foot">
+      <span>难度：研究生 · 领域：博弈论/网络/运筹</span>
+      <button class="markread" data-id="braess">○ 标记温故</button>
+    </div>
+  </article>
+
+</div>
 
 <footer>
   <p>藏道于喻 · 共 <span class="count" id="cnt">0</span> 篇 · 与 Aki 一起慢慢攒</p>
@@ -338,46 +326,110 @@ footer .count{color:var(--accent); font-weight:600}
 
 <script>
 (function(){
-  var root=document.documentElement, btn=document.getElementById('themeBtn');
-  function apply(t){ root.setAttribute('data-theme',t); btn.textContent = t==='dark' ? '☀️ 日读' : '🌙 夜读'; }
-  var saved=localStorage.getItem('fable_theme');
-  if(saved){ apply(saved); }
-  else { apply(matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'); }
-  btn.addEventListener('click',function(){
-    var t = root.getAttribute('data-theme')==='dark' ? 'light':'dark';
-    apply(t); localStorage.setItem('fable_theme',t);
+  var root=document.documentElement,tbtn=document.getElementById('themeBtn');
+  function applyT(t){root.setAttribute('data-theme',t);tbtn.innerHTML=t==='dark'?'&#9728;&#65039; 日读':'&#127769; 夜读';}
+  var savedT=localStorage.getItem('fable_theme');
+  applyT(savedT||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+  tbtn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';applyT(t);localStorage.setItem('fable_theme',t);});
+
+  var read=JSON.parse(localStorage.getItem('fable_read')||'{}');
+  var storiesBox=document.getElementById('stories');
+  var cardsBox=document.getElementById('cards');
+  var homeEl=document.getElementById('home');
+  var readerEl=document.getElementById('reader');
+  var backBtn=document.getElementById('backBtn');
+  var noresult=document.getElementById('noresult');
+  var statEl=document.getElementById('statLine');
+  var cntEl=document.getElementById('cnt');
+  var qEl=document.getElementById('q');
+
+  var arts=[].slice.call(storiesBox.querySelectorAll('article.story'));
+  var nodeMap={},model=[],discOrder=[],discLabels={};
+  arts.forEach(function(a){
+    var id=a.getAttribute('data-id');
+    nodeMap[id]=a;
+    var disc=a.getAttribute('data-disc');
+    if(discOrder.indexOf(disc)<0){discOrder.push(disc);discLabels[disc]=a.getAttribute('data-disc-label');}
+    var tags=[].slice.call(a.querySelectorAll('.tags .tag')).map(function(t){return t.textContent;}).filter(function(t){return!/研究生/.test(t);});
+    model.push({id:id,disc:disc,title:a.getAttribute('data-title'),teaser:a.getAttribute('data-teaser')||'',tags:tags});
   });
 
-  // read markers
-  var read = JSON.parse(localStorage.getItem('fable_read')||'{}');
-  document.querySelectorAll('.markread').forEach(function(b){
-    var id=b.getAttribute('data-id');
-    function paint(){ if(read[id]){ b.classList.add('done'); b.textContent='✓ 已温故'; } else { b.classList.remove('done'); b.textContent='○ 标记温故'; } }
-    paint();
-    b.addEventListener('click',function(){ read[id]=!read[id]; localStorage.setItem('fable_read',JSON.stringify(read)); paint(); buildTOC(); });
-  });
-
-  // build TOC + count
-  var list=document.getElementById('tocList'), cnt=document.getElementById('cnt');
-  function buildTOC(){
-    list.innerHTML=''; var n=0;
-    document.querySelectorAll('.discipline').forEach(function(sec){
-      var h=sec.querySelector('h2'); if(!h) return;
-      var stories=sec.querySelectorAll('.story'); if(!stories.length) return;
-      var li=document.createElement('li'); li.className='disc'; li.textContent=h.textContent; list.appendChild(li);
-      stories.forEach(function(s){
-        n++;
-        var t=s.querySelector('.story-title').textContent;
-        var id=s.id;
-        var cid=(s.querySelector('.markread')||{}).getAttribute ? s.querySelector('.markread').getAttribute('data-id'):null;
-        var a=document.createElement('a'); a.href='#'+id; a.textContent=t;
-        if(cid && read[cid]) a.className='done';
-        var wrap=document.createElement('li'); wrap.appendChild(a); list.appendChild(wrap);
+  var cardRefs={};
+  function buildCards(){
+    cardsBox.innerHTML='';
+    discOrder.forEach(function(disc){
+      var items=model.filter(function(m){return m.disc===disc;});
+      if(!items.length)return;
+      var grp=document.createElement('section');grp.className='disc-group';grp.setAttribute('data-disc',disc);
+      var h=document.createElement('h2');h.textContent=discLabels[disc];grp.appendChild(h);
+      items.forEach(function(m){
+        var card=document.createElement('article');card.className='card';card.setAttribute('tabindex','0');card.setAttribute('data-id',m.id);
+        var t=document.createElement('div');t.className='c-title';t.textContent=m.title;card.appendChild(t);
+        if(m.teaser){var te=document.createElement('p');te.className='c-teaser';te.textContent=m.teaser;card.appendChild(te);}
+        var foot=document.createElement('div');foot.className='c-foot';
+        m.tags.forEach(function(tg){var s=document.createElement('span');s.className='c-tag';s.textContent=tg;foot.appendChild(s);});
+        var done=document.createElement('span');done.className='c-done';foot.appendChild(done);
+        card.appendChild(foot);
+        cardRefs[m.id]={card:card,done:done};
+        card.addEventListener('click',function(){openStory(m.id);});
+        card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(m.id);}});
+        grp.appendChild(card);
       });
+      cardsBox.appendChild(grp);
     });
-    cnt.textContent=n;
+    paintDone();updateStat();
   }
-  buildTOC();
+
+  function paintDone(){
+    model.forEach(function(m){
+      var r=cardRefs[m.id];if(!r)return;
+      if(read[m.id]){r.done.textContent='\u2713 \u5df2\u6e29\u6545';r.card.classList.add('read');}
+      else{r.done.textContent='';r.card.classList.remove('read');}
+    });
+  }
+  function updateStat(){
+    var n=model.length;
+    var m=discOrder.filter(function(d){return model.some(function(x){return x.disc===d;});}).length;
+    var k=model.filter(function(x){return read[x.id];}).length;
+    statEl.textContent='\u5171 '+n+' \u7bc7 \u00b7 '+m+' \u4e2a\u5b66\u79d1 \u00b7 \u5df2\u6e29\u6545 '+k+' \u7bc7';
+    if(cntEl)cntEl.textContent=n;
+  }
+
+  var homeScroll=0;
+  function openStory(id){
+    var node=nodeMap[id];if(!node)return;
+    homeScroll=window.pageYOffset||0;
+    readerEl.innerHTML='';readerEl.appendChild(node);
+    homeEl.hidden=true;readerEl.hidden=false;backBtn.hidden=false;
+    window.scrollTo(0,0);
+    if(!(history.state&&history.state.reader))history.pushState({reader:id},'','#read');
+  }
+  function closeStory(){
+    readerEl.hidden=true;homeEl.hidden=false;backBtn.hidden=true;
+    window.scrollTo(0,homeScroll);
+  }
+  backBtn.addEventListener('click',function(){if(history.state&&history.state.reader){history.back();}else{closeStory();}});
+  window.addEventListener('popstate',function(){if(!readerEl.hidden)closeStory();});
+
+  document.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('.markread'):null;if(!b)return;
+    var id=b.getAttribute('data-id');read[id]=!read[id];localStorage.setItem('fable_read',JSON.stringify(read));
+    b.classList.toggle('done',!!read[id]);b.textContent=read[id]?'\u2713 \u5df2\u6e29\u6545':'\u25cb \u6807\u8bb0\u6e29\u6545';
+    paintDone();updateStat();
+  });
+  arts.forEach(function(a){var b=a.querySelector('.markread');if(!b)return;var id=b.getAttribute('data-id');b.classList.toggle('done',!!read[id]);b.textContent=read[id]?'\u2713 \u5df2\u6e29\u6545':'\u25cb \u6807\u8bb0\u6e29\u6545';});
+
+  function doFilter(){
+    var v=(qEl.value||'').trim().toLowerCase();var any=false;
+    model.forEach(function(m){var r=cardRefs[m.id];if(!r)return;var hay=(m.title+' '+m.teaser+' '+m.tags.join(' ')).toLowerCase();var hit=!v||hay.indexOf(v)>=0;r.card.style.display=hit?'':'none';if(hit)any=true;});
+    [].slice.call(cardsBox.querySelectorAll('.disc-group')).forEach(function(g){var vis=[].slice.call(g.querySelectorAll('.card')).some(function(c){return c.style.display!=='none';});g.style.display=vis?'':'none';});
+    noresult.hidden=any;
+  }
+  qEl.addEventListener('input',doFilter);
+
+  document.getElementById('randBtn').addEventListener('click',function(){if(!model.length)return;var m=model[Math.floor(Math.random()*model.length)];openStory(m.id);});
+
+  buildCards();
 })();
 </script>
 </body>
