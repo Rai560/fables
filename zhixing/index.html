@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知行 · Iron &amp; Ink</title>
+<style>
+:root{--bg:#f8f9fa;--bg2:#fff;--text:#1a1a2e;--text2:#555;--ac:#16a085;--bd:#e0e0e0;--sh:0 2px 12px rgba(0,0,0,.08);--ok:#27ae60;--warn:#f39c12;--err:#e74c3c;--r:12px;--fs:16px}
+[data-theme="dark"]{--bg:#1a1a2e;--bg2:#16213e;--text:#e8e8e8;--text2:#aaa;--bd:#2a2a4a;--sh:0 2px 12px rgba(0,0,0,.3)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:var(--fs);transition:background .3s,color .3s}a{color:var(--ac);text-decoration:none}
+.hd{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.hd h1{font-size:1.05rem;font-weight:700}.hd h1 b{color:var(--ac)}.hd h1 em{font-style:normal;font-size:.66rem;color:var(--text2);letter-spacing:2px;margin-left:8px;font-weight:400;vertical-align:1px}.hr{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.hb{background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 9px;cursor:pointer;font-size:.78rem;color:var(--text)}.hb:hover{border-color:var(--ac);color:var(--ac)}
+.pill{border-radius:20px;padding:3px 9px;font-size:.73rem;font-weight:600;color:#fff}.pg{background:var(--ac)}.py{background:var(--warn)}
+.ctn{max-width:820px;margin:0 auto;padding:20px 16px}.vw{display:none}.vw.on{display:block}
+.hs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}.sc{flex:1;min-width:90px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:11px;text-align:center}.sc .n{font-size:1.4rem;font-weight:700;color:var(--ac)}.sc .l{font-size:.72rem;color:var(--text2)}
+.cg{display:grid;gap:13px}.cc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh);cursor:pointer;transition:transform .2s;position:relative;overflow:hidden}.cc:hover{transform:translateY(-2px)}.cc.lk{opacity:.5;cursor:default}.cc.lk:hover{transform:none}
+.cn{font-size:.68rem;font-weight:700;color:var(--ac);letter-spacing:1px}.ct{font-size:1.05rem;font-weight:700;margin:3px 0}.cd{font-size:.83rem;color:var(--text2)}.cm{margin-top:8px;display:flex;gap:9px;align-items:center;font-size:.76rem;color:var(--text2)}
+.cb{position:absolute;top:9px;right:9px;font-size:.68rem;padding:2px 7px;border-radius:6px;font-weight:600}.cb-d{background:var(--ok);color:#fff}.cb-n{background:var(--ac);color:#fff}.cb-l{background:var(--bd);color:var(--text2)}
+.pb{margin-top:7px;height:4px;background:var(--bd);border-radius:2px;overflow:hidden}.pf{height:100%;background:var(--ac);transition:width .3s}
+.rn{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.bb{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:6px 11px;cursor:pointer;font-size:.83rem;color:var(--text)}.bb:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.sn{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}.sb{padding:4px 11px;border-radius:20px;border:1px solid var(--bd);background:var(--bg);cursor:pointer;font-size:.78rem;color:var(--text);transition:all .2s}.sb.on{background:var(--ac);color:#fff;border-color:var(--ac)}.sb.rd{border-color:var(--ok);color:var(--ok)}
+.sc2{background:var(--bg2);border-radius:var(--r);padding:20px;border:1px solid var(--bd)}.sc2 h2{font-size:1.15rem;margin-bottom:12px;color:var(--ac)}.sc2 h3{font-size:.97rem;margin:14px 0 7px}.sc2 p{margin-bottom:9px}.sc2 ul,.sc2 ol{margin:7px 0 11px 18px}.sc2 li{margin-bottom:4px}
+.sc2 table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.86rem}.sc2 th,.sc2 td{padding:7px;border:1px solid var(--bd)}
+.tip{background:rgba(22,160,133,.07);border-left:4px solid var(--ac);padding:9px 13px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.85rem}
+.wrn{background:rgba(243,156,18,.07);border-left:4px solid var(--warn);padding:9px 13px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.85rem}
+.nf{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:7px}.nf button{padding:7px 13px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);cursor:pointer;color:var(--text);font-size:.83rem}.nf button:hover{background:var(--ac);color:#fff;border-color:var(--ac)}.mr{background:var(--ok)!important;color:#fff!important;border-color:var(--ok)!important}
+.tb{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--bd);border-radius:28px;padding:6px 12px;display:none;align-items:center;gap:7px;box-shadow:0 4px 18px rgba(0,0,0,.14);z-index:200}.tb.show{display:flex}.tb button{background:none;border:none;cursor:pointer;font-size:.95rem;padding:3px 6px;border-radius:6px;color:var(--text)}.tb button:hover{background:rgba(22,160,133,.12)}.tsp{font-size:.72rem;color:var(--text2)}.tst{font-size:.72rem;color:var(--ac);max-width:90px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ov{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:center;justify-content:center}.ov.show{display:flex}
+.pmb{background:var(--bg2);border-radius:var(--r);padding:26px;text-align:center;min-width:250px}.pmt{font-size:2.6rem;font-weight:700;color:var(--ac);margin:12px 0;font-variant-numeric:tabular-nums}.pmb button{margin:4px;padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);cursor:pointer;color:var(--text)}.pmb button.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.sov{align-items:flex-start;padding-top:70px}.sbx{background:var(--bg2);border-radius:var(--r);padding:16px;width:90%;max-width:460px;max-height:68vh;overflow-y:auto}.sbx input{width:100%;padding:9px 13px;border:1px solid var(--bd);border-radius:8px;font-size:.95rem;background:var(--bg);color:var(--text);margin-bottom:10px}
+.sr{padding:9px;border-bottom:1px solid var(--bd);cursor:pointer}.sr:hover{background:rgba(22,160,133,.07)}.sr .src{font-size:.7rem;color:var(--ac)}.sr .srt{font-size:.85rem}.sr mark{background:rgba(22,160,133,.3);padding:0 2px;border-radius:2px}
+.fcc{text-align:center;padding:16px 0}.fcd{background:var(--bg2);border:2px solid var(--bd);border-radius:var(--r);padding:32px 18px;margin:16px auto;max-width:460px;min-height:160px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border .3s;position:relative}.fcd.fl{border-color:var(--ac)}.fcd .ff,.fcd .fb{width:100%}.fcd .fb{display:none}.fcd.fl .ff{display:none}.fcd.fl .fb{display:block}.fch{position:absolute;bottom:7px;right:11px;font-size:.7rem;color:var(--text2)}.fcn{margin-top:12px;display:flex;justify-content:center;gap:10px}.fcn button{padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);cursor:pointer;color:var(--text)}.fcr{margin-top:9px;font-size:.8rem;color:var(--text2)}
+.qi{text-align:center;padding:24px 0}.stb,.sub{background:var(--ac);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:.93rem;cursor:pointer}.sub{display:block;margin:14px auto}
+.qc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:14px;margin-bottom:11px}.qc .qn{font-size:.7rem;color:var(--ac);font-weight:600;margin-bottom:4px}.qc .qt{font-size:.9rem;font-weight:600;margin-bottom:8px}
+.qc .qo label{display:block;padding:7px 11px;margin:3px 0;border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.85rem}.qc .qo label:hover{border-color:var(--ac)}.qc .qo input{margin-right:6px}
+.qc .qo label.ok{border-color:var(--ok);background:rgba(39,174,96,.08)}.qc .qo label.no{border-color:var(--err);background:rgba(231,76,60,.08)}
+.qc .qe{margin-top:8px;padding:8px;background:rgba(22,160,133,.05);border-radius:8px;font-size:.8rem;display:none}
+.qres{text-align:center;padding:24px 0}.qres .qs{font-size:1.9rem;font-weight:700;color:var(--ac)}.qres .qcm{color:var(--text2);margin:7px 0 14px}
+.rbtn{background:var(--warn);color:#fff;border:none;border-radius:8px;padding:7px 15px;cursor:pointer;margin:0 4px;font-size:.85rem}
+.we{text-align:center;padding:30px;color:var(--text2)}
+@media(max-width:600px){.ctn{padding:10px 8px}.sc2{padding:12px}.hd{padding:7px 9px}.tb{bottom:8px}.fcd{padding:22px 12px;min-height:130px}}
+</style>
+</head>
+<body>
+<div class="hd"><h1><b>知行</b><em>Iron &amp; Ink</em></h1><div class="hr"><span class="pill py" id="stP">0天</span><span class="pill pg" id="prP">0%</span><button class="hb" id="sBtn">搜索</button><button class="hb" id="pmBtn">番茄钟</button><button class="hb" id="ftBtn">字+</button><button class="hb" id="thBtn">深色</button></div></div>
+<div class="ctn">
+<div class="vw on" id="vH"><div style="margin-bottom:16px"><h2 style="margin-bottom:5px;letter-spacing:1px">知者行之始 · 行者知之成</h2><p style="color:var(--text2);font-size:.83rem">铁与墨,练与学 &mdash; Iron &amp; Ink · 碎片化,日拱一卒</p></div><div class="hs" id="hSt"></div><div class="cg" id="cG"></div></div>
+<div class="vw" id="vR"><div class="rn"><button class="bb" id="bH">← 目录</button><span id="rT" style="font-weight:600;font-size:.9rem"></span><button class="hb" id="tBtn">听页面</button><button class="hb" id="fBtn">卡片</button></div><div class="sn" id="sN"></div><div class="sc2" id="sC"></div><div class="nf"><button id="pS">← 上一节</button><button class="mr" id="mR">标记已读</button><button id="nS">下一节 →</button></div></div>
+<div class="vw" id="vQ"><div class="rn"><button class="bb" id="bQ">← 返回</button><span id="qT" style="font-weight:600;font-size:.9rem"></span></div><div id="qB"></div></div>
+<div class="vw" id="vW"><div class="rn"><button class="bb" id="bW">← 目录</button><span style="font-weight:600">错题本</span></div><div id="wB"></div></div>
+<div class="vw" id="vF"><div class="rn"><button class="bb" id="bF">← 返回</button><span style="font-weight:600">关键概念卡片</span></div><div class="fcc" id="fB"></div></div>
+</div>
+<div class="tb" id="tBar"><button id="tPv">⏮</button><button id="tPl">▶</button><button id="tSt">⏹</button><button id="tNx">⏭</button><button id="tSp"><span class="tsp">1x</span></button><span class="tst" id="tSts">就绪</span></div>
+<div class="ov" id="pmOv"><div class="pmb"><h3>番茄钟</h3><p style="color:var(--text2);font-size:.8rem;margin-top:4px">专注25分钟</p><div class="pmt" id="pmTm">25:00</div><button class="pri" id="pmSt">开始</button><button id="pmRs">重置</button><button id="pmCl">关闭</button></div></div>
+<div class="ov sov" id="sOv"><div class="sbx"><input id="sIn" placeholder="搜索关键词..."><div id="sRs"></div></div></div>
+<script>
+
+var CH=[
+{id:"ch1",num:"Chapter 1",title:"健身教练概论",desc:"了解职业全貌:教练是什么、做什么、怎么发展。给学习一个方向感。",diff:1,st:"new",
+secs:[
+{id:"ch1s1",title:"1.1 健身教练到底是干嘛的",c:'<h2>1.1 健身教练到底是干嘛的</h2><p><b>一句话定义:</b>健身教练是"用科学方法,帮别人安全、有效地达成身体目标的人"。</p><h3>三个关键词拆解</h3><ul><li><b>科学</b> - 基于解剖学、生理学原理来指导,不是凭感觉跟风网红。后续每章都在给"科学"填弹药。</li><li><b>安全</b> - 不受伤是底线。好教练首先让会员"不出事",其次才是"练出效果"。</li><li><b>有效</b> - 真能帮人达成目标(减脂/增肌/体态/运动表现),而非陪练半年没变化。</li></ul><h3>教练 vs 容易混淆的角色</h3><ul><li><b>陪练</b>:只陪你练、数数,不负责评估和计划。</li><li><b>健身博主</b>:做内容涨粉,但不对你个人身体情况负责。</li><li><b>万能保姆</b>:什么都答应,没有专业边界。</li></ul><p>教练核心竞争力 = <b>专业判断力</b>:根据眼前这个人的身体状况,做出"该练什么、不该练什么、先练什么后练什么"的决策。</p><div class="tip">联系你自己:你练了一年多,遇到过"这动作该不该做""重量加到多少"的困惑。以前靠刷视频+试错,教练靠系统知识框架回答。学完这套,你就不再靠运气摸索了。</div>'},
+{id:"ch1s2",title:"1.2 健身教练分几种",c:'<h2>1.2 健身教练分几种</h2><ol><li><b>私人教练 PT (Personal Trainer)</b><br>一对一或小团,量身定制,按课时收费。你的<b>主战场</b>。</li><li><b>团操教练 GX (Group Exercise)</b><br>带团课:动感单车、搏击操、瑜伽、HIIT。<span style="color:var(--ac)">你之前上过 RPM,带课的就是 GX。</span></li><li><b>体能教练 (S&C)</b> - 服务运动员/队,需 NSCA-CSCS 等专证。</li><li><b>康复/功能性训练师</b> - 伤病恢复、体态矫正,需运动医学知识。</li><li><b>线上教练</b> - 远程写计划,适合有口碑后扩展。</li></ol><h3>你的定位</h3><p>A(健身房)+D(副业)= <b>主攻 PT</b>。团课可作副线增加曝光(上完你的课 → 约私教)。</p><div class="tip">新国职考的就是 PT 方向:运动计划制定、体适能评估,直接对口。</div>'},
+{id:"ch1s3",title:"1.3 私教完整工作流",c:'<h2>1.3 私教完整工作流程</h2><p>专业私教的工作是完整闭环:</p><ol><li><b>获客/咨询</b> - 了解目标、习惯、经历、伤病史。</li><li><b>体测评估</b> - 体成分、关节活动度、心肺、基础力量。(Ch5)</li><li><b>设定目标</b> - 评估+期望 → SMART 阶段目标。</li><li><b>制定计划</b> - 周频、动作、组数次数强度、渐进。(Ch6 核心)</li><li><b>带训执行</b> - 示范、纠正、控强度、保安全、鼓励。</li><li><b>跟踪调整</b> - 每4-6周重评,调整方案。</li><li><b>续课/转介绍</b> - 效果好 → 续费+推荐。增长飞轮。</li></ol><div class="wrn">关键认知:步骤 2-4(评估→目标→计划)占专业价值一大半。只会做第5步的是"陪练",被觉得不值钱。你把 2-4 学扎实,已超越大量同行。</div><h3>关于卖课</h3><p>教练需要会卖课(收入来源),但好的销售建立在<b>专业信任</b>上:评估准、计划清、效果见,会员自然续。</p>'},
+{id:"ch1s4",title:"1.4 职业道德(考点)",c:'<h2>1.4 职业道德与素养</h2><p>考试"送分区",不难但真的会考。</p><h3>五大准则</h3><ol><li><b>安全第一</b> - 识别运动禁忌症(心血管/急性损伤/孕期等),该拒就拒。"不受伤"优先于"满意"。</li><li><b>诚信</b> - 不夸大效果、不推销不必要课时、不推违禁补剂。</li><li><b>隐私保护</b> - 会员体重/体脂/病史是隐私,未经同意不可用于营销。</li><li><b>专业形象</b> - 着装整洁、守时、保持好体态。</li><li><b>终身学习</b> - 运动科学在更新,持证后仍需进修。</li></ol><div class="tip">考试技巧:记住优先级 安全>诚信>隐私>形象>学习,"哪个行为违反道德"题按此排即可。</div>'},
+{id:"ch1s5",title:"1.5 行业与发展路径",c:'<h2>1.5 行业现状与发展路径</h2><h3>趋势</h3><ul><li><b>需求涨:</b>健康意识+中产+"运动=生活方式" → 付费意愿增。</li><li><b>供给洗牌:</b>早期低门槛,现在持证化,有证vs无证差距拉大。</li><li><b>模式分化:</b>大型连锁 / 精品工作室 / 线上教练三路并行。</li></ul><h3>发展路线</h3><ol><li>实习教练 → 初级PT → 资深PT →</li><li>管理线(主管→经理→店长) / 专业线(专项深耕) / 创业线(工作室/线上IP)</li></ol><h3>收入</h3><p>底薪+课时提成+销售提成。核心:课时费x课时量=天花板。专业力定课时费,沟通力定课时量。</p><div class="tip">你走D(副业):拿证+种子客户+口碑,副业私教完全可行,不一定要先进健身房。</div>'},
+{id:"ch1s6",title:"1.6 新国职怎么考",c:'<h2>1.6 新国职:考什么、怎么考</h2><h3>三大板块</h3><table><tr style="background:var(--ac);color:#fff"><th>板块</th><th>形式</th><th>及格线</th><th>备注</th></tr><tr><td><b>理论</b></td><td>机考~60分钟</td><td>60/100</td><td>单选+多选+判断</td></tr><tr><td><b>体能</b></td><td>现场实测</td><td>达标即可</td><td>不计分,但必须过→进实操</td></tr><tr><td><b>实操</b></td><td>现场考核</td><td>60/100</td><td>抗阻训练指导、动作示范纠正</td></tr></table><h3>给你打气</h3><ul><li><b>理论</b>:本hub搞定。题型不偏,理解+记忆。</li><li><b>体能</b>:俯卧撑、深蹲等,你练一年多,大概率轻松。</li><li><b>实操</b>:你会练,学了理论加上表达就能过。</li></ul><h3>报考(初级)</h3><ul><li>年满16周岁 / 初中及以上 / 身体健康 / 无需工作经验</li></ul><div class="wrn">具体形式以当年官方通知为准,政策可能微调。</div><div class="tip">心态:不是高考,60分过线拿证即可。一章一章来,放轻松。</div>'}
+],
+fcs:[{f:"健身教练核心竞争力?",b:"专业判断力 - 根据个人情况做科学训练决策"},{f:"PT = ?",b:"Personal Trainer 私人教练"},{f:"GX = ?",b:"Group Exercise 团操教练"},{f:"私教工作闭环7步?",b:"获客→评估→目标→计划→执行→调整→续课"},{f:"职业道德5准则(优先级)?",b:"安全>诚信>隐私>形象>终身学习"},{f:"新国职理论及格线?",b:"60分(满分100),机考~60分钟"},{f:"体能测试性质?",b:"不计分但必须达标,是进实操的gate"},{f:"初级最低学历?",b:"初中及以上"}],
+quiz:[
+{q:"健身教练核心竞争力是?",t:"s",o:["肌肉围度大","专业判断力","销售话术","颜值高"],a:1,e:"核心=根据个人情况做科学训练决策。"},
+{q:"新国职全称是?",t:"s",o:["健身教练国家职业资格证书","健身教练职业能力培训证书","中国健美协会专业教练证","CBBA国际教练证"],a:1,e:"新国职=健身教练职业能力培训证书(体育总局人力中心)。A是旧国职。"},
+{q:"理论考试及格线?",t:"s",o:["70分","80分","60分","50分"],a:2,e:"满分100,60分及格。"},
+{q:"以下哪些属于私教工作流程?(多选)",t:"m",o:["体测评估","帮买蛋白粉","制定训练计划","跟踪调整"],a:[0,2,3],e:"帮买蛋白粉不属于专业职责。"},
+{q:"体能测试不计分但必须达标才能进实操。",t:"j",o:["正确","错误"],a:0,e:"体能是gate,不计分但必须通过。"},
+{q:"以下哪个违反职业道德?",t:"s",o:["拒绝为急性腰伤会员安排深蹲","未经同意发会员体测照到朋友圈","建议每周休息1-2天","告诉会员减脂需要时间"],a:1,e:"未经同意用身体数据做营销=违反隐私保护。"},
+{q:"PT和GX分别是?",t:"s",o:["Private/Group Exercise","Personal Trainer/Group Exercise","Physical Therapy/General Exercise","Personal Training/Gym Exercise"],a:1,e:"PT=Personal Trainer, GX=Group Exercise。"},
+{q:"教练只要会带练就够,评估计划不重要。",t:"j",o:["正确","错误"],a:1,e:"评估+计划占专业价值一大半。"},
+{q:"初级最低学历?",t:"s",o:["高中","大专","初中","无要求"],a:2,e:"初级:初中及以上。"},
+{q:"行业当前趋势?",t:"s",o:["门槛越来越低","持证化专业化,有证无证差距拉大","线下要消亡","必须本科体育学位"],a:1,e:"国家推动持证上岗,专业化洗牌。"}
+]},
+{id:"ch2",num:"Chapter 2",title:"运动解剖学",desc:"认识身体零件:骨骼、关节、肌肉。所有后续章节的地基。",diff:3,st:"locked",secs:[],fcs:[],quiz:[]},
+{id:"ch3",num:"Chapter 3",title:"运动生理学",desc:"能量代谢、心肺、肌肉生长。'为什么这样练'的底层逻辑。",diff:3,st:"locked",secs:[],fcs:[],quiz:[]},
+{id:"ch4",num:"Chapter 4",title:"营养学基础",desc:"三大营养素、能量平衡、运动饮食。帮客户管住嘴。",diff:2,st:"locked",secs:[],fcs:[],quiz:[]},
+{id:"ch5",num:"Chapter 5",title:"健康与体适能评估",desc:"体测、心肺/力量/柔韧评估、风险识别。",diff:2,st:"locked",secs:[],fcs:[],quiz:[]},
+{id:"ch6",num:"Chapter 6",title:"运动计划制定",desc:"选动作、定强度、排周期、做渐进。最值钱的能力。",diff:3,st:"locked",secs:[],fcs:[],quiz:[]},
+{id:"ch7",num:"附录",title:"运动损伤·急救·法规",desc:"常见损伤、CPR/AED、相关法规。考试必考。",diff:2,st:"locked",secs:[],fcs:[],quiz:[]}
+];
+
+// ===== STATE =====
+var SK="koujin_v1";
+function ld(){try{return JSON.parse(localStorage.getItem(SK))||{}}catch(e){return{}}}
+function sv(s){localStorage.setItem(SK,JSON.stringify(s))}
+var S=ld();S.read=S.read||{};S.quiz=S.quiz||{};S.wrong=S.wrong||[];S.streak=S.streak||{c:0,last:""};
+(function(){var td=new Date().toISOString().slice(0,10);if(S.streak.last===td)return;var yd=new Date(Date.now()-864e5).toISOString().slice(0,10);if(S.streak.last===yd){S.streak.c++;S.streak.last=td}else{S.streak.c=1;S.streak.last=td}sv(S)})();
+var curCh=null,curSec=0;
+
+// ===== UTILS =====
+function pct(){var t=0,d=0;CH.forEach(function(c){t+=c.secs.length;c.secs.forEach(function(s){if(S.read[s.id])d++})});return t?Math.round(d/t*100):0}
+function upd(){document.getElementById("prP").textContent=pct()+"%";document.getElementById("stP").textContent=S.streak.c+"天"}
+function show(id){document.querySelectorAll(".vw").forEach(function(v){v.classList.remove("on")});document.getElementById(id).classList.add("on");window.scrollTo(0,0)}
+
+// ===== HOME =====
+function home(){
+  var ts=0,ds=0;CH.forEach(function(c){ts+=c.secs.length;c.secs.forEach(function(s){if(S.read[s.id])ds++})});
+  var qd=Object.keys(S.quiz).length;
+  document.getElementById("hSt").innerHTML='<div class="sc"><div class="n">'+ds+'/'+ts+'</div><div class="l">已学小节</div></div><div class="sc"><div class="n">'+qd+'</div><div class="l">已测章节</div></div><div class="sc"><div class="n">'+S.wrong.length+'</div><div class="l">错题</div></div><div class="sc"><div class="n">'+S.streak.c+'</div><div class="l">连续天数</div></div>';
+  var g=document.getElementById("cG");
+  g.innerHTML=CH.map(function(ch){
+    var sd=ch.secs.filter(function(s){return S.read[s.id]}).length,tot=ch.secs.length;
+    var p=tot?Math.round(sd/tot*100):0;
+    var badge=ch.st==="locked"?'<span class="cb cb-l">待解锁</span>':(p===100&&tot?'<span class="cb cb-d">已完成</span>':'<span class="cb cb-n">可学习</span>');
+    var stars="\u2605".repeat(ch.diff)+"\u2606".repeat(3-ch.diff);
+    return '<div class="cc'+(ch.st==="locked"?" lk":"")+'" data-ch="'+ch.id+'">'+badge+'<div class="cn">'+ch.num+'</div><div class="ct">'+ch.title+'</div><div class="cd">'+ch.desc+'</div><div class="cm"><span style="color:var(--warn)">'+stars+'</span><span>'+tot+'节'+(tot?" | "+p+"%":" | 编写中")+'</span>'+(S.quiz[ch.id]?'<span style="color:var(--ok)">测试:'+S.quiz[ch.id].pct+'%</span>':'')+'</div>'+(tot?'<div class="pb"><div class="pf" style="width:'+p+'%"></div></div>':'')+'</div>'
+  }).join("");
+  g.innerHTML+='<div class="cc" data-ch="wb" style="border-left:4px solid var(--err)"><div class="cn">工具</div><div class="ct">错题本</div><div class="cd">答错的题集中复习。</div><div class="cm"><span>'+S.wrong.length+' 道</span></div></div>';
+}
+
+// ===== READER =====
+function openCh(id){
+  if(id==="wb"){showW();return}var ch=CH.find(function(c){return c.id===id});if(!ch||ch.st==="locked")return;
+  curCh=ch;curSec=0;document.getElementById("rT").textContent=ch.title;rNav();rSec();show("vR");
+}
+function rNav(){
+  var nav=document.getElementById("sN");
+  var h=curCh.secs.map(function(s,i){return '<button class="sb'+(i===curSec?" on":"")+(S.read[s.id]?" rd":"")+'" data-i="'+i+'">'+s.title.replace(/\s.*/,"")+'</button>'}).join("");
+  if(curCh.quiz.length)h+='<button class="sb" data-i="quiz" style="border-color:var(--ac);color:var(--ac);font-weight:600">测试</button>';
+  nav.innerHTML=h;
+}
+function rSec(){
+  var sec=curCh.secs[curSec];document.getElementById("sC").innerHTML=sec.c;
+  document.getElementById("mR").textContent=S.read[sec.id]?"已读 \u2713":"标记已读";rNav();
+}
+function markR(){S.read[curCh.secs[curSec].id]=true;sv(S);upd();rSec()}
+function goSec(i){if(i==="quiz"){openQz();return}curSec=i;rSec();window.scrollTo(0,0)}
+
+// ===== TTS =====
+var rates=[.8,1,1.2,1.5,2],ri=1;
+function tPlay(){
+  if(!window.speechSynthesis){alert("浏览器不支持语音");return}
+  var sy=speechSynthesis;
+  if(sy.paused){sy.resume();document.getElementById("tPl").textContent="\u23F8";return}
+  if(sy.speaking){sy.pause();document.getElementById("tPl").textContent="\u25B6";return}
+  var txt=document.getElementById("sC").innerText;if(!txt)return;
+  var u=new SpeechSynthesisUtterance(txt);u.lang="zh-CN";u.rate=rates[ri];
+  u.onend=function(){document.getElementById("tPl").textContent="\u25B6";document.getElementById("tSts").textContent="完毕"};
+  sy.speak(u);document.getElementById("tPl").textContent="\u23F8";document.getElementById("tSts").textContent="朗读中..."
+}
+function tStop(){speechSynthesis&&speechSynthesis.cancel();document.getElementById("tPl").textContent="\u25B6";document.getElementById("tSts").textContent="停止"}
+document.getElementById("tBtn").onclick=function(){var b=document.getElementById("tBar");b.classList.toggle("show");if(b.classList.contains("show"))tPlay();else tStop()};
+document.getElementById("tPl").onclick=tPlay;
+document.getElementById("tSt").onclick=function(){tStop();document.getElementById("tBar").classList.remove("show")};
+document.getElementById("tSp").onclick=function(){ri=(ri+1)%rates.length;document.querySelector(".tsp").textContent=rates[ri]+"x"};
+document.getElementById("tNx").onclick=function(){tStop();if(curSec<curCh.secs.length-1){curSec++;rSec();setTimeout(tPlay,300)}};
+document.getElementById("tPv").onclick=function(){tStop();if(curSec>0){curSec--;rSec();setTimeout(tPlay,300)}};
+
+// ===== FLASHCARDS =====
+var fcI=0,fcL=[];
+function openFc(){if(!curCh||!curCh.fcs||!curCh.fcs.length){alert("本章暂无卡片");return}fcL=curCh.fcs;fcI=0;rFc();show("vF")}
+function rFc(){
+  var fc=fcL[fcI];
+  document.getElementById("fB").innerHTML='<div class="fcd" id="fcD"><div class="ff"><p style="font-size:1.05rem;font-weight:600">'+fc.f+'</p></div><div class="fb"><p style="font-size:.95rem">'+fc.b+'</p></div><span class="fch">点击翻转</span></div><div class="fcn"><button id="fcP">\u2190 上一张</button><button id="fcN">下一张 \u2192</button></div><div class="fcr">'+(fcI+1)+' / '+fcL.length+'</div>';
+  document.getElementById("fcD").onclick=function(){this.classList.toggle("fl")};
+  document.getElementById("fcP").onclick=function(){if(fcI>0){fcI--;rFc()}};
+  document.getElementById("fcN").onclick=function(){if(fcI<fcL.length-1){fcI++;rFc()}};
+}
+document.getElementById("fBtn").onclick=openFc;
+document.getElementById("bF").onclick=function(){show("vR")};
+
+// ===== QUIZ =====
+function openQz(){
+  document.getElementById("qT").textContent=curCh.title+" \u00B7 章末测试";
+  document.getElementById("qB").innerHTML='<div class="qi"><h2>章末测试</h2><p style="color:var(--text2)">共'+curCh.quiz.length+'题,交卷后出结果</p><button class="stb" id="stQ">开始答题</button></div>';
+  show("vQ");document.getElementById("stQ").onclick=rQs;
+}
+function rQs(){
+  var b=document.getElementById("qB"),h="";
+  curCh.quiz.forEach(function(q,i){
+    var tp=q.t==="m"?" (多选)":q.t==="j"?" (判断)":" (单选)";
+    h+='<div class="qc" data-qi="'+i+'"><div class="qn">第'+(i+1)+'题'+tp+'</div><div class="qt">'+q.q+'</div><div class="qo">';
+    q.o.forEach(function(opt,oi){var it=q.t==="m"?"checkbox":"radio";h+='<label><input type="'+it+'" name="q'+i+'" value="'+oi+'"> '+opt+'</label>'});
+    h+='</div><div class="qe">'+q.e+'</div></div>';
+  });
+  h+='<button class="sub" id="subQ">提交答案</button>';b.innerHTML=h;
+  document.getElementById("subQ").onclick=grade;
+}
+function grade(){
+  var correct=0,total=curCh.quiz.length;
+  curCh.quiz.forEach(function(q,i){
+    var card=document.querySelector('.qc[data-qi="'+i+'"]');
+    var inputs=card.querySelectorAll("input");
+    var ua;if(q.t==="m"){ua=[];inputs.forEach(function(inp,oi){if(inp.checked)ua.push(oi)})}else{ua=-1;inputs.forEach(function(inp,oi){if(inp.checked)ua=oi})}
+    var ok;if(q.t==="m"){ok=JSON.stringify(ua.sort())===JSON.stringify(q.a.slice().sort())}else{ok=ua===q.a}
+    var labels=card.querySelectorAll("label");
+    if(q.t==="m"){q.a.forEach(function(ai){labels[ai].classList.add("ok")});ua.forEach(function(ui){if(q.a.indexOf(ui)<0)labels[ui].classList.add("no")})}
+    else{if(q.a>=0)labels[q.a].classList.add("ok");if(ua>=0&&ua!==q.a)labels[ua].classList.add("no")}
+    card.querySelector(".qe").style.display="block";inputs.forEach(function(inp){inp.disabled=true});
+    if(ok)correct++;else{var ex=S.wrong.find(function(w){return w.ci===curCh.id&&w.qi===i});if(!ex)S.wrong.push({ci:curCh.id,qi:i,q:q.q,o:q.o,a:q.a,t:q.t,e:q.e})}
+  });sv(S);
+  var p=Math.round(correct/total*100);var cm=p>=80?"很棒!基本掌握。":p>=60?"及格,部分需回顾。":"别急,回去重读再来。";
+  document.getElementById("subQ").outerHTML='<div class="qres"><div class="qs">'+correct+'/'+total+'</div><p class="qcm">正确率'+p+'% - '+cm+'</p><button class="rbtn" id="retQ">重新答</button><button class="rbtn" style="background:var(--ac)" id="bkQ">返回章节</button></div>';
+  document.getElementById("retQ").onclick=rQs;document.getElementById("bkQ").onclick=function(){show("vR")};
+  S.quiz[curCh.id]={score:correct,total:total,pct:p,date:new Date().toISOString().slice(0,10)};sv(S);upd();
+}
+
+// ===== WRONG BOOK =====
+function showW(){
+  var b=document.getElementById("wB");
+  if(!S.wrong.length){b.innerHTML='<div class="we"><p style="font-size:1rem">暂无错题</p><p>做完测试后错题自动收集。</p></div>'}
+  else{var h='<p style="margin-bottom:12px;color:var(--text2)">共'+S.wrong.length+'道</p>';
+    S.wrong.forEach(function(w){var ch=CH.find(function(c){return c.id===w.ci});h+='<div class="qc"><div class="qn">来自: '+(ch?ch.title:"")+'</div><div class="qt">'+w.q+'</div><div class="qo">';w.o.forEach(function(opt,oi){var isA=Array.isArray(w.a)?w.a.indexOf(oi)>=0:w.a===oi;h+='<label'+(isA?' class="ok"':"")+">"+opt+"</label>"});h+='</div><div class="qe" style="display:block">'+w.e+'</div></div>'});
+    h+='<button class="rbtn" style="background:var(--err);margin-top:12px" id="clW">清空错题</button>';b.innerHTML=h;
+    document.getElementById("clW").onclick=function(){if(confirm("确定清空?")){S.wrong=[];sv(S);showW()}}
+  }show("vW");
+}
+
+// ===== POMODORO =====
+var pmI=null,pmL=25*60;
+function pmR(){document.getElementById("pmTm").textContent=Math.floor(pmL/60)+":"+(pmL%60<10?"0":"")+pmL%60}
+document.getElementById("pmBtn").onclick=function(){document.getElementById("pmOv").classList.add("show");pmR()};
+document.getElementById("pmCl").onclick=function(){document.getElementById("pmOv").classList.remove("show")};
+document.getElementById("pmSt").onclick=function(){if(pmI)return;pmI=setInterval(function(){pmL--;pmR();if(pmL<=0){clearInterval(pmI);pmI=null;alert("番茄钟结束!休息5分钟。");pmL=25*60;pmR()}},1000)};
+document.getElementById("pmRs").onclick=function(){clearInterval(pmI);pmI=null;pmL=25*60;pmR()};
+
+// ===== SEARCH =====
+function openS(){document.getElementById("sOv").classList.add("show");document.getElementById("sIn").value="";document.getElementById("sRs").innerHTML="";document.getElementById("sIn").focus()}
+function closeS(){document.getElementById("sOv").classList.remove("show")}
+document.getElementById("sBtn").onclick=openS;
+document.getElementById("sOv").onclick=function(e){if(e.target===this)closeS()};
+document.getElementById("sIn").oninput=function(){
+  var q=this.value.trim().toLowerCase(),res=document.getElementById("sRs");
+  if(q.length<2){res.innerHTML="";return}var hits=[];
+  CH.forEach(function(ch){ch.secs.forEach(function(sec){var plain=sec.c.replace(/<[^>]+>/g,"");var idx=plain.toLowerCase().indexOf(q);if(idx>=0){var snip=plain.slice(Math.max(0,idx-18),Math.min(plain.length,idx+q.length+35));hits.push({ch:ch,sec:sec,snip:snip,q:q})}})});
+  if(!hits.length){res.innerHTML='<p style="color:var(--text2);padding:8px">无结果</p>';return}
+  res.innerHTML=hits.slice(0,8).map(function(h){var m=h.snip.replace(new RegExp("("+h.q+")","gi"),"<mark>$1</mark>");return '<div class="sr" data-ci="'+h.ch.id+'" data-si="'+h.sec.id+'"><div class="src">'+h.ch.title+" > "+h.sec.title+'</div><div class="srt">...'+m+"...</div></div>"}).join("")
+};
+document.getElementById("sRs").addEventListener("click",function(e){var r=e.target.closest(".sr");if(!r)return;closeS();var ch=CH.find(function(c){return c.id===r.dataset.ci});if(!ch||ch.st==="locked")return;curCh=ch;curSec=ch.secs.findIndex(function(s){return s.id===r.dataset.si});document.getElementById("rT").textContent=ch.title;rNav();rSec();show("vR")});
+
+// ===== FONT =====
+var fss=[14,16,18,20],fi=1;
+document.getElementById("ftBtn").onclick=function(){fi=(fi+1)%fss.length;document.documentElement.style.setProperty("--fs",fss[fi]+"px");this.textContent="字"+fss[fi]};
+
+// ===== THEME =====
+function setTh(t){document.documentElement.setAttribute("data-theme",t);document.getElementById("thBtn").textContent=t==="dark"?"浅色":"深色";localStorage.setItem("koujin_th",t)}
+document.getElementById("thBtn").onclick=function(){setTh(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark")};
+if(localStorage.getItem("koujin_th")==="dark")setTh("dark");
+
+// ===== EVENTS =====
+document.getElementById("cG").addEventListener("click",function(e){var c=e.target.closest(".cc");if(c)openCh(c.dataset.ch)});
+document.getElementById("sN").addEventListener("click",function(e){var b=e.target.closest(".sb");if(b)goSec(b.dataset.i==="quiz"?"quiz":parseInt(b.dataset.i))});
+document.getElementById("bH").onclick=function(){tStop();show("vH");home()};
+document.getElementById("bQ").onclick=function(){show("vR")};
+document.getElementById("bW").onclick=function(){show("vH");home()};
+document.getElementById("mR").onclick=markR;
+document.getElementById("pS").onclick=function(){if(curSec>0){curSec--;rSec();window.scrollTo(0,0)}};
+document.getElementById("nS").onclick=function(){if(curSec<curCh.secs.length-1){curSec++;rSec();window.scrollTo(0,0)}else openQz()};
+document.addEventListener("keydown",function(e){
+  if(e.target.tagName==="INPUT")return;
+  if(e.key==="ArrowLeft"&&document.getElementById("vR").classList.contains("on")){if(curSec>0){curSec--;rSec();window.scrollTo(0,0)}}
+  if(e.key==="ArrowRight"&&document.getElementById("vR").classList.contains("on")){if(curSec<curCh.secs.length-1){curSec++;rSec();window.scrollTo(0,0)}}
+  if((e.ctrlKey||e.metaKey)&&e.key==="k"){e.preventDefault();openS()}
+  if(e.key==="Escape"){closeS();document.getElementById("pmOv").classList.remove("show")}
+});
+// INIT
+home();upd();
+</script></body></html>
