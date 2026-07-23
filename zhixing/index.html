@@ -56,7 +56,24 @@ rt{font-size:.6em;color:var(--text2);font-weight:400;letter-spacing:0}
 <div class="tb" id="tBar"><button id="tPv">⏮</button><button id="tPl">▶</button><button id="tSt">⏹</button><button id="tNx">⏭</button><button id="tSp"><span class="tsp">1x</span></button><span class="tst" id="tSts">就绪</span></div>
 <div class="ov" id="pmOv"><div class="pmb"><h3>番茄钟</h3><p style="color:var(--text2);font-size:.8rem;margin-top:4px">专注25分钟</p><div class="pmt" id="pmTm">25:00</div><button class="pri" id="pmSt">开始</button><button id="pmRs">重置</button><button id="pmCl">关闭</button></div></div>
 <div class="ov sov" id="sOv"><div class="sbx"><input id="sIn" placeholder="搜索关键词..."><div id="sRs"></div></div></div>
-<div class="ov" id="bkOv"><div class="pmb" style="max-width:440px;text-align:left"><h3 style="text-align:center">进度备份 / 恢复</h3><p style="color:var(--text2);font-size:.8rem;margin:8px 0">进度只存在本浏览器里,换设备或清缓存会丢。<b>备份</b>=生成一段码复制保存好;<b>恢复</b>=把码粘进来还原(已读/测验/错题/打卡全部找回)。</p><button class="pri" id="bkGen">生成备份码</button><textarea id="bkTa" placeholder="备份码会出现在这里;或把之前保存的码粘进来点恢复" style="width:100%;height:88px;margin:10px 0;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--text);padding:8px;font-size:.72rem;box-sizing:border-box;resize:vertical"></textarea><div style="text-align:center"><button id="bkRes">恢复</button><button id="bkCl">关闭</button></div><p id="bkMsg" style="text-align:center;font-size:.8rem;margin-top:8px"></p></div></div>
+<div class="ov" id="bkOv"><div class="pmb" style="max-width:440px;text-align:left"><h3 style="text-align:center">进度备份 / 恢复</h3><p style="color:var(--text2);font-size:.8rem;margin:8px 0">进度只存在本浏览器里,换设备或清缓存会丢。<b>备份</b>=生成一段码复制保存好;<b>恢复</b>=把码粘进来还原(已读/测验/错题/打卡全部找回)。</p><button class="pri" id="bkGen">生成备份码</button><textarea id="bkTa" placeholder="备份码会出现在这里;或把之前保存的码粘进来点恢复" style="width:100%;height:88px;margin:10px 0;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--text);padding:8px;font-size:.72rem;box-sizing:border-box;resize:vertical"></textarea><div style="text-align:center"><button id="bkRes">恢复</button><button id="bkCl">关闭</button></div><p id="bkMsg" style="text-align:center;font-size:.8rem;margin-top:8px"></p>
+<hr style="border:none;border-top:1px solid var(--bd);margin:16px 0">
+<h3 style="text-align:center">&#9729; 云同步 <span style="font-size:.68rem;color:var(--text2);font-weight:400">(换设备自动同步)</span></h3>
+<p style="color:var(--text2);font-size:.8rem;margin:8px 0">开启后进度自动存到云端;换设备时输入<b>同步码</b>就自动同步,不用再手动备份。<br><span style="font-size:.72rem">同步码是你进度的钥匙,复制保存好。</span></p>
+<div id="syncOff">
+<button class="pri" id="syncEn">开启云同步</button>
+<div style="margin-top:10px;font-size:.78rem;color:var(--text2)">已在别的设备开过?粘同步码接入:</div>
+<input id="syncCode" placeholder="粘贴同步码" style="width:100%;margin-top:6px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--text);padding:8px;font-size:.72rem;box-sizing:border-box">
+<div style="text-align:center;margin-top:8px"><button id="syncJoin">接入这个同步码</button></div>
+</div>
+<div id="syncOn" style="display:none">
+<div style="font-size:.8rem;color:#27ae60;margin-bottom:6px">&#10003; 云同步已开启,进度自动上传</div>
+<div style="font-size:.78rem;color:var(--text2)">你的同步码(换设备时复制到新设备):</div>
+<textarea id="syncMy" readonly style="width:100%;height:52px;margin-top:6px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--text);padding:8px;font-size:.72rem;box-sizing:border-box;resize:none"></textarea>
+<div style="text-align:center;margin-top:8px"><button class="pri" id="syncCopy">复制同步码</button><button id="syncOffBtn">关闭同步</button></div>
+</div>
+<p id="syncMsg" style="text-align:center;font-size:.8rem;margin-top:8px"></p>
+</div></div>
 <script>
 
 var CH=[
@@ -219,7 +236,15 @@ quiz:[
 // ===== STATE =====
 var SK="koujin_v1";
 function ld(){try{return JSON.parse(localStorage.getItem(SK))||{}}catch(e){return{}}}
-function sv(s){localStorage.setItem(SK,JSON.stringify(s))}
+function sv(s){localStorage.setItem(SK,JSON.stringify(s));cloudPushDebounced()}
+/* ===== 云同步(jsonblob 匿名存储,换设备用同步码)===== */
+var JB="https://jsonblob.com/api/jsonBlob";var SYNCK="koujin_sync";
+function syncId(){return localStorage.getItem(SYNCK)||""}
+function snap(){return {read:S.read,quiz:S.quiz,wrong:S.wrong,streak:S.streak,_mt:S._mt||Date.now()}}
+function mrg(d){if(!d||typeof d!=="object")return;var k,i;var r=d.read||{};for(k in r){if(r[k])S.read[k]=r[k]}var q=d.quiz||{};for(k in q){if(!(k in S.quiz))S.quiz[k]=q[k]}var w=d.wrong||[];for(i=0;i<w.length;i++){if(S.wrong.indexOf(w[i])<0)S.wrong.push(w[i])}var st=d.streak||{};if((st.c||0)>(S.streak.c||0))S.streak.c=st.c;if((st.last||"")>(S.streak.last||""))S.streak.last=st.last}
+function cloudPush(){var id=syncId();if(!id)return;S._mt=Date.now();localStorage.setItem(SK,JSON.stringify(S));fetch(JB+"/"+id,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(snap())}).catch(function(){})}
+var _pt=null;function cloudPushDebounced(){if(!syncId())return;clearTimeout(_pt);_pt=setTimeout(cloudPush,2500)}
+function cloudPull(cb){var id=syncId();if(!id){if(cb)cb(false);return}fetch(JB+"/"+id,{headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){mrg(d);localStorage.setItem(SK,JSON.stringify(S));if(cb)cb(true)}).catch(function(){if(cb)cb(false)})}
 var S=ld();S.read=S.read||{};S.quiz=S.quiz||{};S.wrong=S.wrong||[];S.streak=S.streak||{c:0,last:""};
 (function(){var td=new Date().toISOString().slice(0,10);if(S.streak.last===td)return;var yd=new Date(Date.now()-864e5).toISOString().slice(0,10);if(S.streak.last===yd){S.streak.c++;S.streak.last=td}else{S.streak.c=1;S.streak.last=td}sv(S)})();
 var curCh=null,curSec=0;
@@ -372,7 +397,13 @@ document.getElementById("ftBtn").onclick=function(){fi=(fi+1)%fss.length;documen
 // ===== THEME =====
 function setTh(t){document.documentElement.setAttribute("data-theme",t);document.getElementById("thBtn").textContent=t==="dark"?"浅色":"深色";localStorage.setItem("koujin_th",t)}
 document.getElementById("thBtn").onclick=function(){setTh(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark")};
-var _bi=function(x){return document.getElementById(x)};var _bm=function(t,ok){var e=_bi("bkMsg");e.style.color=ok?"var(--ok)":"var(--err)";e.textContent=t};_bi("bkBtn").onclick=function(){_bm("",1);_bi("bkTa").value="";_bi("bkOv").classList.add("show")};_bi("bkCl").onclick=function(){_bi("bkOv").classList.remove("show")};_bi("bkGen").onclick=function(){var d={read:S.read,quiz:S.quiz,wrong:S.wrong,streak:S.streak};var code;try{code=btoa(unescape(encodeURIComponent(JSON.stringify(d))))}catch(e){_bm("生成失败",0);return}_bi("bkTa").value=code;_bi("bkTa").focus();_bi("bkTa").select();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(function(){_bm("已生成并复制,粘到备忘录/微信收藏保存好",1)},function(){_bm("已生成,请手动全选上面的码复制保存",1)})}else{_bm("已生成,请手动全选上面的码复制保存",1)}};_bi("bkRes").onclick=function(){var code=_bi("bkTa").value.trim();if(!code){_bm("请先粘贴备份码",0);return}var d;try{d=JSON.parse(decodeURIComponent(escape(atob(code))))}catch(e){_bm("备份码无效,检查是否复制完整",0);return}if(!d||typeof d!=="object"){_bm("备份码格式不对",0);return}S.read=d.read||{};S.quiz=d.quiz||{};S.wrong=d.wrong||[];S.streak=d.streak||{c:0,last:""};sv(S);_bm("恢复成功,即将刷新...",1);setTimeout(function(){location.reload()},700)};
+var _bi=function(x){return document.getElementById(x)};var _bm=function(t,ok){var e=_bi("bkMsg");e.style.color=ok?"var(--ok)":"var(--err)";e.textContent=t};_bi("bkBtn").onclick=function(){_bm("",1);_bi("bkTa").value="";syncRefresh();_bi("bkOv").classList.add("show")};_bi("bkCl").onclick=function(){_bi("bkOv").classList.remove("show")};_bi("bkGen").onclick=function(){var d={read:S.read,quiz:S.quiz,wrong:S.wrong,streak:S.streak};var code;try{code=btoa(unescape(encodeURIComponent(JSON.stringify(d))))}catch(e){_bm("生成失败",0);return}_bi("bkTa").value=code;_bi("bkTa").focus();_bi("bkTa").select();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(function(){_bm("已生成并复制,粘到备忘录/微信收藏保存好",1)},function(){_bm("已生成,请手动全选上面的码复制保存",1)})}else{_bm("已生成,请手动全选上面的码复制保存",1)}};_bi("bkRes").onclick=function(){var code=_bi("bkTa").value.trim();if(!code){_bm("请先粘贴备份码",0);return}var d;try{d=JSON.parse(decodeURIComponent(escape(atob(code))))}catch(e){_bm("备份码无效,检查是否复制完整",0);return}if(!d||typeof d!=="object"){_bm("备份码格式不对",0);return}S.read=d.read||{};S.quiz=d.quiz||{};S.wrong=d.wrong||[];S.streak=d.streak||{c:0,last:""};sv(S);_bm("恢复成功,即将刷新...",1);setTimeout(function(){location.reload()},700)};
+function _sm(t,ok){var e=_bi("syncMsg");if(!e)return;e.textContent=t;e.style.color=ok?"#27ae60":"#e74c3c"}
+function syncRefresh(){var id=syncId();if(id){_bi("syncOff").style.display="none";_bi("syncOn").style.display="";_bi("syncMy").value=id}else{_bi("syncOff").style.display="";_bi("syncOn").style.display="none"}if(_bi("syncMsg"))_bi("syncMsg").textContent=""}
+_bi("syncEn").onclick=function(){_sm("正在开启...",1);fetch(JB,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(snap())}).then(function(r){if(!r.ok)throw 0;var loc=r.headers.get("Location");if(!loc)throw 0;var id=loc.split("/").pop();localStorage.setItem(SYNCK,id);syncRefresh();_sm("已开启!同步码已生成,记得复制保存",1)}).catch(function(){_sm("开启失败:云端服务连不上(可能网络受限)",0)})};
+_bi("syncJoin").onclick=function(){var c=_bi("syncCode").value.trim();if(!c){_sm("请先粘贴同步码",0);return}_sm("正在接入...",1);fetch(JB+"/"+c,{headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){localStorage.setItem(SYNCK,c);mrg(d);localStorage.setItem(SK,JSON.stringify(S));_sm("接入成功,进度已同步,即将刷新...",1);setTimeout(function(){location.reload()},900)}).catch(function(){_sm("接入失败:同步码不对/不完整,或网络连不上",0)})};
+_bi("syncCopy").onclick=function(){var ta=_bi("syncMy");ta.select();try{document.execCommand("copy")}catch(e){}if(navigator.clipboard){navigator.clipboard.writeText(ta.value).catch(function(){})}_sm("同步码已复制",1)};
+_bi("syncOffBtn").onclick=function(){localStorage.removeItem(SYNCK);syncRefresh();_sm("已关闭云同步(本地进度保留)",1)};
 if(localStorage.getItem("koujin_th")==="dark")setTh("dark");
 
 // ===== EVENTS =====
@@ -393,6 +424,7 @@ document.addEventListener("keydown",function(e){
 });
 // INIT
 home();upd();
+cloudPull(function(ch){if(ch){home();upd()}});
 </script></body></html>
 
 <!-- pages rebuild nudge 2026-07-23 -->
