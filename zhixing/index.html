@@ -56,10 +56,11 @@ rt{font-size:.6em;color:var(--text2);font-weight:400;letter-spacing:0}
 <div id="gate"><div class="gbox"><div class="glogo">知行 &middot; Iron &amp; Ink</div><div class="gsub">请输入访问码</div><input id="gpw" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="&middot; &middot; &middot;"><button id="gbtn">进入</button><div id="gerr"></div></div></div>
 <div class="hd"><h1><b>知行</b><em>Iron &amp; Ink</em></h1><div class="hr"><span class="pill py" id="stP">0天</span><span class="pill pg" id="prP">0%</span><button class="hb" id="sBtn">搜索</button><button class="hb" id="pmBtn">番茄钟</button><button class="hb" id="ftBtn">字+</button><button class="hb" id="thBtn">深色</button><button class="hb" id="bkBtn">备份</button></div></div>
 <div class="ctn">
-<div class="vw on" id="vH"><div style="margin-bottom:16px"><h2 style="margin-bottom:5px;letter-spacing:1px">知者行之始 · 行者知之成</h2><p style="color:var(--text2);font-size:.83rem">铁与墨,练与学 &mdash; Iron &amp; Ink · 碎片化,日拱一卒</p></div><div class="hs" id="hSt"></div><div class="cg" id="cG"></div></div>
+<div class="vw on" id="vH"><div style="margin-bottom:16px"><h2 style="margin-bottom:5px;letter-spacing:1px">知者行之始 · 行者知之成</h2><p style="color:var(--text2);font-size:.83rem">铁与墨,练与学 &mdash; Iron &amp; Ink · 碎片化,日拱一卒</p></div><div class="hs" id="hSt"></div><div id="mockBn" onclick="openM()" style="cursor:pointer;background:linear-gradient(135deg,var(--ac),#7a1616);color:#fff;padding:15px 18px;border-radius:var(--r);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:1.02rem;letter-spacing:.5px">7 章综合模考</div><div style="font-size:.8rem;opacity:.92;margin-top:3px">学完全部章节了? 来一次跨章检验 &middot; 45 题 &middot; 限时 &middot; 模拟题</div></div><div style="font-size:.85rem;background:rgba(255,255,255,.2);padding:7px 14px;border-radius:20px;white-space:nowrap">开始 &rarr;</div></div><div class="cg" id="cG"></div></div>
 <div class="vw" id="vR"><div class="rn"><button class="bb" id="bH">← 目录</button><span id="rT" style="font-weight:600;font-size:.9rem"></span><button class="hb" id="tBtn">听页面</button><button class="hb" id="fBtn">卡片</button></div><div class="sn" id="sN"></div><div class="sc2" id="sC"></div><div class="nf"><button id="pS">← 上一节</button><button class="mr" id="mR">标记已读</button><button id="nS">下一节 →</button></div></div>
 <div class="vw" id="vQ"><div class="rn"><button class="bb" id="bQ">← 返回</button><span id="qT" style="font-weight:600;font-size:.9rem"></span></div><div id="qB"></div></div>
 <div class="vw" id="vW"><div class="rn"><button class="bb" id="bW">← 目录</button><span style="font-weight:600">错题本</span></div><div id="wB"></div></div>
+<div class="vw" id="vM"><div class="rn"><button class="bb" onclick="exitM()">&larr; 首页</button><span style="font-weight:600;font-size:.9rem">综合模考</span><span id="mTimer" style="font-weight:700;color:var(--ac)"></span></div><div id="mB"></div></div>
 <div class="vw" id="vF"><div class="rn"><button class="bb" id="bF">← 返回</button><span style="font-weight:600">关键概念卡片</span></div><div class="fcc" id="fB"></div></div>
 </div>
 <div class="tb" id="tBar"><button id="tPv">⏮</button><button id="tPl">▶</button><button id="tSt">⏹</button><button id="tNx">⏭</button><button id="tSp"><span class="tsp">1x</span></button><span class="tst" id="tSts">就绪</span></div>
@@ -315,6 +316,60 @@ document.getElementById("fBtn").onclick=openFc;
 document.getElementById("bF").onclick=function(){show("vR")};
 
 // ===== QUIZ =====
+var MOCK=[{"q": "新国职理论考试满分100分,及格线是多少分?", "t": "s", "o": ["70分", "60分", "80分", "90分"], "a": 1, "e": "满分100分,60分及格;体能测试不计分但必须达标才能进实操。", "ch": "ch1"}, {"q": "下列哪些属于健身教练的标准专业工作流程?(多选)", "t": "m", "o": ["体测与评估", "制定个性化训练计划", "督促会员办卡续费", "训练中跟踪并调整方案"], "a": [0, 1, 3], "e": "督促办卡续费属销售行为,不是专业服务闭环的环节。", "ch": "ch1"}, {"q": "未经会员同意,教练将其体测数据和照片发到社交平台做宣传,这种行为属于违反职业道德。", "t": "j", "o": ["正确", "错误"], "a": 0, "e": "会员身体数据/影像属隐私,未经明确同意使用即违反隐私保护原则。", "ch": "ch1"}, {"q": "一位患有高血压的会员想练力量,以下哪种做法最恰当?", "t": "s", "o": ["直接拒绝,让他别练", "安排大重量并要求憋气发力", "建议先就医评估,训练中避免憋气(瓦式呼吸)、以中低强度为主", "加大有氧强度让血压快速下降"], "a": 2, "e": "高血压人群禁忌憋气用力(Valsalva会致血压骤升),应医学评估加中低强度。", "ch": "ch1"}, {"q": "健身教练最核心的竞争力是什么?", "t": "s", "o": ["肌肉维度足够大", "能把课卖出高价", "基于科学做出个性化的训练决策", "社交媒体粉丝多"], "a": 2, "e": "核心是用专业判断为不同会员做科学、个性化的训练决策。", "ch": "ch1"}, {"q": "以下哪些是健身教练应遵守的职业道德?(多选)", "t": "m", "o": ["保护会员隐私", "在自己能力范围内提供服务", "夸大训练效果以促成签单", "尊重会员知情权与自主选择"], "a": [0, 1, 3], "e": "夸大效果促单属违反诚信,其余三项均为职业道德要求。", "ch": "ch1"}, {"q": "正常成年人全身骨骼总数约为多少块?", "t": "s", "o": ["206块", "256块", "186块", "160块"], "a": 0, "e": "成年人骨骼约206块。", "ch": "ch2"}, {"q": "杠铃平板卧推的主要原动肌(主动发力肌)是?", "t": "s", "o": ["背阔肌", "胸大肌", "股四头肌", "腹直肌"], "a": 1, "e": "卧推主动肌是胸大肌,协同肌为三角肌前束和肱三头肌。", "ch": "ch2"}, {"q": "标准深蹲主要锻炼的肌群是?", "t": "s", "o": ["胸大肌与肱三头肌", "股四头肌、臀大肌与腘绳肌", "背阔肌与肱二头肌", "腹直肌与腹外斜肌"], "a": 1, "e": "深蹲是下肢多关节动作,主练股四头肌、臀大肌、腘绳肌。", "ch": "ch2"}, {"q": "正握引体向上主要训练的是哪块肌肉?", "t": "s", "o": ["胸大肌", "股四头肌", "背阔肌", "腓肠肌"], "a": 2, "e": "引体向上主练背阔肌,协同肱二头肌。", "ch": "ch2"}, {"q": "下列哪些属于核心肌群?(多选)", "t": "m", "o": ["腹横肌", "多裂肌", "腓肠肌", "膈肌"], "a": [0, 1, 3], "e": "腓肠肌是小腿肌肉,不属核心;核心含腹横肌、多裂肌、膈肌、盆底肌等。", "ch": "ch2"}, {"q": "肱二头肌使肘关节屈曲,肱三头肌使肘关节伸展,两者互为拮抗肌。", "t": "j", "o": ["正确", "错误"], "a": 0, "e": "一块肌肉收缩、对侧放松,二者功能相反即互为拮抗肌。", "ch": "ch2"}, {"q": "按运动方式分类,肩关节和髋关节属于活动度最大的哪一类关节?", "t": "s", "o": ["球窝关节(杵臼关节)", "屈戌关节(滑车关节)", "车轴关节", "平面关节"], "a": 0, "e": "球窝关节(肩、髋)可多轴运动、活动度最大;肘膝为屈戌关节只能屈伸。", "ch": "ch2"}, {"q": "进行1-3RM的极限力量冲刺(约几秒内完成),主要依赖的供能系统是?", "t": "s", "o": ["磷酸原系统(ATP-CP)", "糖酵解系统", "有氧氧化系统", "脂肪有氧供能"], "a": 0, "e": "约10秒内的极限爆发主要靠磷酸原系统供能。", "ch": "ch3"}, {"q": "持续40分钟的中低强度慢跑,主要供能系统是?", "t": "s", "o": ["磷酸原系统", "糖酵解系统", "有氧氧化系统", "ATP-CP系统"], "a": 2, "e": "长时间中低强度运动以有氧氧化系统为主,脂肪参与供能。", "ch": "ch3"}, {"q": "估算最大心率(HRmax)最常用的简易公式是?", "t": "s", "o": ["200减年龄", "220减年龄", "210减年龄", "180减年龄"], "a": 1, "e": "最常用估算式为HRmax约等于220减年龄。", "ch": "ch3"}, {"q": "一位30岁会员,用「220减年龄」估算最大心率,减脂有氧建议强度为最大心率的60%-70%,其目标心率区间约为?", "t": "s", "o": ["每分钟95-114次", "每分钟114-133次", "每分钟133-152次", "每分钟150-170次"], "a": 1, "e": "220减30等于190;190乘60%等于114,190乘70%等于133,故约114-133次/分。", "ch": "ch3"}, {"q": "「超量恢复」指训练后经过适当休息与营养,机体机能会超过原有水平,这是训练带来进步的生理基础。", "t": "j", "o": ["正确", "错误"], "a": 0, "e": "超量恢复是训练进步的核心机制,故训练与恢复要合理搭配。", "ch": "ch3"}, {"q": "力量训练带来的肌肉增粗(肥大)主要发生在什么时候?", "t": "s", "o": ["训练进行的当下", "有充分休息和营养的恢复期", "热身阶段", "有氧运动过程中"], "a": 1, "e": "肌肉在训练后的恢复期修复并变粗,故同一大肌群不宜天天高强度练。", "ch": "ch3"}, {"q": "关于最大摄氧量(VO2max),下列说法正确的有?(多选)", "t": "m", "o": ["它是反映有氧(心肺)能力的重要指标", "可通过规律有氧训练提高", "数值越低代表心肺功能越好", "一定程度上受遗传影响"], "a": [0, 1, 3], "e": "VO2max越高代表心肺有氧能力越强,而非越低越好。", "ch": "ch3"}, {"q": "1克碳水化合物、1克蛋白质、1克脂肪的供能大约分别是多少大卡?", "t": "s", "o": ["碳水4、蛋白4、脂肪9", "碳水9、蛋白4、脂肪4", "三者都是4", "碳水4、蛋白9、脂肪4"], "a": 0, "e": "碳水和蛋白约4kcal/g,脂肪约9kcal/g(酒精约7)。", "ch": "ch4"}, {"q": "以增肌为目标的健身人群,每日蛋白质推荐摄入量大约是?", "t": "s", "o": ["每公斤体重0.8克", "每公斤体重1.6-2.0克", "每公斤体重3.5-4克", "每公斤体重0.5克"], "a": 1, "e": "久坐人群约0.8g/kg,增肌训练人群约1.6-2.0g/kg体重。", "ch": "ch4"}, {"q": "只要训练足够拼命,吃什么、吃多少都无所谓,营养对增肌减脂影响不大。", "t": "j", "o": ["正确", "错误"], "a": 1, "e": "营养是增肌减脂的决定性因素之一,俗称三分练七分吃。", "ch": "ch4"}, {"q": "减脂能否成功,最根本的前提是?", "t": "s", "o": ["完全不吃碳水", "造成热量摄入小于消耗的热量缺口", "只吃蛋白粉代餐", "做足够多有氧就能无视饮食"], "a": 1, "e": "减脂根本在于制造热量缺口,单靠有氧无视饮食难以成功。", "ch": "ch4"}, {"q": "增肌期饮食最合理的原则是?", "t": "s", "o": ["保持极低热量", "适度热量盈余并保证充足蛋白质", "只吃脂肪不吃碳水", "长期断食"], "a": 1, "e": "增肌需要适度热量盈余加充足蛋白,给肌肉合成原料。", "ch": "ch4"}, {"q": "关于运动补剂,下列说法正确的有?(多选)", "t": "m", "o": ["蛋白粉本质是食物补充,不是药物", "肌酸对提升力量表现有较多研究支持", "补剂可以完全替代正常饮食", "教练不应向会员兜售来路不明的补剂"], "a": [0, 1, 3], "e": "补剂只是补充,不能替代正常饮食。", "ch": "ch4"}, {"q": "运动后及时补充碳水加蛋白质的主要作用是?", "t": "s", "o": ["立刻长出肌肉", "促进肌糖原恢复和肌肉修复", "减少身体缺水", "直接提高最大心率"], "a": 1, "e": "运动后补碳水加蛋白有助糖原恢复与肌肉修复。", "ch": "ch4"}, {"q": "按中国成人标准,BMI处于哪个范围属于「超重」?", "t": "s", "o": ["24至27.9", "25至29.9", "大于等于23", "大于等于28"], "a": 0, "e": "中国标准:正常18.5-23.9,超重24-27.9,肥胖大于等于28(与WHO的25/30不同)。", "ch": "ch5"}, {"q": "首次体测评估最应安排在私教服务流程的哪个环节?", "t": "s", "o": ["卖课签单之后随便找时间", "正式开始训练之前,作为制定计划的依据", "会员主动要求时才做", "课程全部结束后"], "a": 1, "e": "评估是制定计划的依据,应在正式训练前完成。", "ch": "ch5"}, {"q": "体脂率比单纯看体重更能反映身体成分,两个体重相同的人体脂率可能相差很大。", "t": "j", "o": ["正确", "错误"], "a": 0, "e": "体重相同但肌肉脂肪比例不同,体脂率更能反映身体成分。", "ch": "ch5"}, {"q": "评估会员躯干与下肢柔韧性,最常用的简易测试是?", "t": "s", "o": ["坐位体前屈", "俯卧撑", "闭眼单脚站立", "握力测试"], "a": 0, "e": "坐位体前屈测柔韧;单脚站测平衡;握力测力量。", "ch": "ch5"}, {"q": "一次完整的首次体测评估通常包含哪些内容?(多选)", "t": "m", "o": ["身体成分(体脂、围度等)", "心肺功能(如台阶测试)", "柔韧性与体态姿势评估", "星座与血型"], "a": [0, 1, 2], "e": "体测评估看身体成分、心肺、柔韧体态等客观指标。", "ch": "ch5"}, {"q": "评估发现会员有明显的圆肩驼背(上交叉综合征),训练计划应如何安排?", "t": "s", "o": ["忽略体态,只上大重量", "加入针对紧张肌的拉伸加薄弱肌的强化,改善体态", "立即停止一切训练", "只做有氧不做力量"], "a": 1, "e": "上交叉综合征应松解紧张肌(胸、上斜方)、强化薄弱肌(菱形肌、深层颈屈肌)。", "ch": "ch5"}, {"q": "以「肌肉肥大(增肌)」为主要目标,最常用的重复次数区间是?", "t": "s", "o": ["1-5RM", "8-12RM", "15-20RM", "30RM以上"], "a": 1, "e": "增肌常用8-12RM;1-6RM偏最大力量,15RM以上偏耐力。", "ch": "ch6"}, {"q": "以「发展最大力量」为目标,负荷和次数通常怎么安排?", "t": "s", "o": ["大重量、1-6RM、组间充分休息", "小重量、20RM以上", "中等重量、每组12次", "自重、每组50次"], "a": 0, "e": "最大力量用大重量低次数(1-6RM)、组间休息2-5分钟。", "ch": "ch6"}, {"q": "安排一次训练课的动作顺序,一般原则是?", "t": "s", "o": ["先练小肌群再练大肌群", "先做孤立动作再做复合动作", "先做大肌群/多关节动作,再做小肌群/孤立动作", "完全随机安排"], "a": 2, "e": "大肌群、多关节动作(深蹲、卧推)趁体力充沛先做,更安全高效。", "ch": "ch6"}, {"q": "同一大肌群做完高强度力量训练后,通常建议间隔48-72小时再练该部位。", "t": "j", "o": ["正确", "错误"], "a": 0, "e": "给肌肉足够恢复时间,避免过度训练。", "ch": "ch6"}, {"q": "训练计划的「FITT原则」不包括下列哪一项?", "t": "s", "o": ["频率(Frequency)", "强度(Intensity)", "时间(Time)", "心情(Feeling)"], "a": 3, "e": "FITT等于频率Frequency、强度Intensity、时间Time、类型Type。", "ch": "ch6"}, {"q": "制定训练计划应遵循的科学原则有哪些?(多选)", "t": "m", "o": ["循序渐进原则", "超负荷原则", "个体差异原则", "所有人用同一套标准计划"], "a": [0, 1, 2], "e": "计划要循序渐进、超负荷、因人而异,不能一刀切。", "ch": "ch6"}, {"q": "以增肌为目标时,组间休息时间通常建议多长?", "t": "s", "o": ["10秒左右", "30秒以内", "60-90秒", "5分钟以上"], "a": 2, "e": "增肌约60-90秒;发展最大力量则需2-5分钟。", "ch": "ch6"}, {"q": "急性软组织损伤(如崴脚)早期处理的RICE原则中,第一个「R」代表?", "t": "s", "o": ["Run,继续跑动", "Rest,休息制动", "Rub,用力揉搓", "Recover,马上康复训练"], "a": 1, "e": "RICE等于Rest休息、Ice冰敷、Compression加压、Elevation抬高。", "ch": "ch7"}, {"q": "急性扭伤后应立即热敷并用力揉搓,以促进血液循环、加快恢复。", "t": "j", "o": ["正确", "错误"], "a": 1, "e": "急性期(约48-72小时内)应冷敷制动;热敷、揉搓会加重肿胀出血。", "ch": "ch7"}, {"q": "对成人进行心肺复苏(CPR)时,胸外按压的频率应是?", "t": "s", "o": ["每分钟60-80次", "每分钟100-120次", "每分钟40-60次", "每分钟150次以上"], "a": 1, "e": "按压100-120次/分,深度5-6厘米,按压与人工呼吸比为30比2。", "ch": "ch7"}, {"q": "一般来说,训练前热身和训练后放松分别更适合哪种拉伸方式?", "t": "s", "o": ["训练前动态拉伸,训练后静态拉伸", "训练前静态拉伸,训练后动态拉伸", "前后都用静态拉伸", "前后都用动态拉伸"], "a": 0, "e": "热身用动态拉伸激活;训练后用静态拉伸放松、改善柔韧。", "ch": "ch7"}, {"q": "会员训练中突然胸痛、面色苍白、呼吸困难,教练首先应该?", "t": "s", "o": ["鼓励他坚持完成这一组", "立即停止训练,让其休息,视情况拨打120急救", "让他喝点蛋白粉补充能量", "加大强度分散他的注意力"], "a": 1, "e": "出现疑似心脏事件症状应立即停训、休息、必要时拨打120。", "ch": "ch7"}];
+MOCK.forEach(function(q,i){q._oi=i;});
+var curMock=[],mockTimer=null;
+
+function openM(){
+  if(mockTimer){clearInterval(mockTimer);mockTimer=null;}
+  document.getElementById("mB").innerHTML='<div class="qi"><h2>7 章综合模考</h2><p style="color:var(--text2);line-height:1.7">跨全部 7 章 &middot; '+MOCK.length+' 题 &middot; 限时 45 分钟 &middot; 60 分及格<br>题型:单选 / 多选 / 判断,交卷后逐题解析,错题自动进错题本。</p><p style="font-size:.8rem;color:var(--text2);background:var(--bg2);padding:10px 12px;border-radius:8px;border-left:3px solid var(--ac);line-height:1.6">说明:本套为依据「新国职」考纲编写的<b>模拟练习题</b>,用于检验知识掌握与应用,<b>非官方真题</b>。</p><button class="stb" id="stM">开始模考</button></div>';
+  var tm=document.getElementById("mTimer");if(tm)tm.textContent="";
+  show("vM");
+  document.getElementById("stM").onclick=rMock;
+}
+function rMock(){
+  curMock=MOCK.slice();
+  for(var k=curMock.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var tmp=curMock[k];curMock[k]=curMock[j];curMock[j]=tmp;}
+  var b=document.getElementById("mB"),h="";
+  curMock.forEach(function(q,i){
+    var tp=q.t==="m"?" (多选)":q.t==="j"?" (判断)":" (单选)";
+    h+='<div class="qc" data-qi="'+i+'"><div class="qn">第'+(i+1)+'题'+tp+' &middot; 第'+q.ch.replace("ch","")+'章</div><div class="qt">'+q.q+'</div><div class="qo">';
+    q.o.forEach(function(opt,oi){var it=q.t==="m"?"checkbox":"radio";h+='<label><input type="'+it+'" name="mq'+i+'" value="'+oi+'"> '+opt+'</label>'});
+    h+='</div><div class="qe">'+q.e+'</div></div>';
+  });
+  h+='<button class="sub" id="subM">交卷</button>';b.innerHTML=h;
+  document.getElementById("subM").onclick=gradeM;
+  var left=45*60,tEl=document.getElementById("mTimer");
+  function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?"0":"")+m+":"+(ss<10?"0":"")+ss;}
+  tEl.textContent="\u23F1 "+fmt(left);
+  if(mockTimer)clearInterval(mockTimer);
+  mockTimer=setInterval(function(){left--;tEl.textContent="\u23F1 "+fmt(left);if(left<=0){clearInterval(mockTimer);mockTimer=null;tEl.textContent="\u23F1 时间到";gradeM();}},1000);
+  window.scrollTo(0,0);
+}
+function gradeM(){
+  if(mockTimer){clearInterval(mockTimer);mockTimer=null;}
+  var correct=0,total=curMock.length;
+  curMock.forEach(function(q,i){
+    var card=document.querySelector('#mB .qc[data-qi="'+i+'"]');if(!card)return;
+    var inputs=card.querySelectorAll("input");
+    var ua;if(q.t==="m"){ua=[];inputs.forEach(function(inp,oi){if(inp.checked)ua.push(oi)})}else{ua=-1;inputs.forEach(function(inp,oi){if(inp.checked)ua=oi})}
+    var ok;if(q.t==="m"){ok=JSON.stringify(ua.slice().sort())===JSON.stringify(q.a.slice().sort())}else{ok=ua===q.a}
+    var labels=card.querySelectorAll("label");
+    if(q.t==="m"){q.a.forEach(function(ai){labels[ai].classList.add("ok")});ua.forEach(function(ui){if(q.a.indexOf(ui)<0)labels[ui].classList.add("no")})}
+    else{if(q.a>=0)labels[q.a].classList.add("ok");if(ua>=0&&ua!==q.a)labels[ua].classList.add("no")}
+    card.querySelector(".qe").style.display="block";inputs.forEach(function(inp){inp.disabled=true});
+    if(ok)correct++;else{var ex=S.wrong.find(function(w){return w.ci==="mock"&&w.qi===q._oi});if(!ex)S.wrong.push({ci:"mock",qi:q._oi,q:q.q,o:q.o,a:q.a,t:q.t,e:q.e})}
+  });sv(S);
+  var p=Math.round(correct/total*100),pass=p>=60;
+  var cm=pass?("恭喜,已过及格线(60)! 把标红的错题再过一遍就更稳。"):("还差一点,回去把错题和薄弱章节啃一遍再来。");
+  var res='<div class="qres"><div class="qs" style="color:'+(pass?"var(--ok)":"var(--err)")+'">'+correct+'/'+total+' &middot; '+p+'分</div><p class="qcm">'+cm+'</p><button class="rbtn" id="retM">重新模考(重新乱序)</button><button class="rbtn" style="background:var(--ac)" id="bkM">返回首页</button></div>';
+  var sb=document.getElementById("subM");if(sb)sb.outerHTML=res;
+  var rt=document.getElementById("retM");if(rt)rt.onclick=openM;
+  var bk=document.getElementById("bkM");if(bk)bk.onclick=exitM;
+  var qr=document.querySelector("#mB .qres");if(qr)qr.scrollIntoView({behavior:"smooth"});
+}
+function exitM(){if(mockTimer){clearInterval(mockTimer);mockTimer=null;}home();show("vH");}
+
 function openQz(){
   document.getElementById("qT").textContent=curCh.title+" \u00B7 章末测试";
   document.getElementById("qB").innerHTML='<div class="qi"><h2>章末测试</h2><p style="color:var(--text2)">共'+curCh.quiz.length+'题,交卷后出结果</p><button class="stb" id="stQ">开始答题</button></div>';
@@ -355,7 +410,7 @@ function showW(){
   var b=document.getElementById("wB");
   if(!S.wrong.length){b.innerHTML='<div class="we"><p style="font-size:1rem">暂无错题</p><p>做完测试后错题自动收集。</p></div>'}
   else{var h='<p style="margin-bottom:12px;color:var(--text2)">共'+S.wrong.length+'道</p>';
-    S.wrong.forEach(function(w){var ch=CH.find(function(c){return c.id===w.ci});h+='<div class="qc"><div class="qn">来自: '+(ch?ch.title:"")+'</div><div class="qt">'+w.q+'</div><div class="qo">';w.o.forEach(function(opt,oi){var isA=Array.isArray(w.a)?w.a.indexOf(oi)>=0:w.a===oi;h+='<label'+(isA?' class="ok"':"")+">"+opt+"</label>"});h+='</div><div class="qe" style="display:block">'+w.e+'</div></div>'});
+    S.wrong.forEach(function(w){var ch=CH.find(function(c){return c.id===w.ci});h+='<div class="qc"><div class="qn">来自: '+(ch?ch.title:(w.ci==="mock"?"综合模考":""))+'</div><div class="qt">'+w.q+'</div><div class="qo">';w.o.forEach(function(opt,oi){var isA=Array.isArray(w.a)?w.a.indexOf(oi)>=0:w.a===oi;h+='<label'+(isA?' class="ok"':"")+">"+opt+"</label>"});h+='</div><div class="qe" style="display:block">'+w.e+'</div></div>'});
     h+='<button class="rbtn" style="background:var(--err);margin-top:12px" id="clW">清空错题</button>';b.innerHTML=h;
     document.getElementById("clW").onclick=function(){if(confirm("确定清空?")){S.wrong=[];sv(S);showW()}}
   }show("vW");
