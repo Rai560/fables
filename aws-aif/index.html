@@ -436,6 +436,26 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
       <div class="mode" onclick="start('wrong')"><div class="mt">错题重刷</div><div class="mn" id="cWrong"></div></div>
     </div>
     <div style="margin-top:14px;text-align:right"><button onclick="clearWrong()" style="background:none;border:1px solid var(--line);color:var(--mut);padding:7px 15px;border-radius:8px;cursor:pointer;font-size:13px">🗑️ 清空错题本</button><div class="mn" style="margin-top:6px;color:var(--mut)">题库重编号后，若错题重刷显示了你没做错的题，点这里清一次即可</div></div>
+    <div style="margin-top:18px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px;background:var(--card)">
+      <div style="font-weight:700;margin-bottom:4px">🔄 跨设备同步</div>
+      <div style="color:var(--mut);font-size:13px;margin-bottom:10px">打开网页会<b>自动</b>上传/下载进度(错题本+累计+当前刷到第几题)。但免费同步服务偶尔会失效——<b style="color:var(--warn)">换设备前建议手动导出一次进度码</b>做保险,这个 100% 可靠、永远不会丢。</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" onclick="exportCode()">📤 导出进度码</button>
+        <button class="btn sec" onclick="importCode()">📥 导入进度码</button>
+      </div>
+    </div>
+  </div>
+  <div id="codeModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;align-items:center;justify-content:center;padding:20px">
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;max-width:560px;width:100%;padding:22px;box-sizing:border-box">
+      <div style="font-weight:700;font-size:16px;margin-bottom:6px;color:#fff" id="cmTitle"></div>
+      <div id="cmHint" style="margin-bottom:11px;color:var(--mut);font-size:13px"></div>
+      <textarea id="cmText" style="width:100%;height:130px;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:vertical;box-sizing:border-box"></textarea>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+        <button class="btn" id="cmCopy" onclick="copyCode()">复制</button>
+        <button class="btn" id="cmDo" onclick="doImport()">导入</button>
+        <button class="btn sec" onclick="closeCodeModal()">关闭</button>
+      </div>
+    </div>
   </div>
   <div id="drill-run" style="display:none">
     <div class="qbar"><span id="qpos"></span><span id="qscore"></span></div>
@@ -652,6 +672,11 @@ function cloudPush(){var s=load();fetch(CLOUD,{method:"PUT",headers:{"Content-Ty
 var _pt=null;function cloudPushDebounced(){clearTimeout(_pt);_pt=setTimeout(cloudPush,2500)}
 function cloudPull(cb){fetch(CLOUD,{headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var l=load();if(d&&typeof d==="object"&&(d._mt||0)>(l._mt||0)){localStorage.setItem(SK,JSON.stringify({wrong:d.wrong||[],done:d.done||0,correct:d.correct||0,sess:d.sess||null,_mt:d._mt||0}));counts();}else{if((l.wrong&&l.wrong.length)||l.done||l.correct)cloudPush();}if(cb)cb();}).catch(function(){if(cb)cb();})}
 function clearWrong(){const s=load();if(!s.wrong.length){alert('错题本已经是空的了~');return;}if(!confirm('确定清空错题本?当前 '+s.wrong.length+' 题,清空后无法恢复。'))return;s.wrong=[];save(s);counts();alert('已清空错题本');}
+function exportCode(){var s=load();var code=btoa(unescape(encodeURIComponent(JSON.stringify(s))));document.getElementById('cmTitle').textContent='📤 我的进度码 (在这台设备导出)';document.getElementById('cmHint').innerHTML='复制下面这串,到另一台设备打开本页 → 点「导入进度码」→ 粘贴。含错题本 + 累计做对 + 当前刷到第几题。';var ta=document.getElementById('cmText');ta.value=code;ta.readOnly=true;document.getElementById('cmCopy').style.display='';document.getElementById('cmDo').style.display='none';document.getElementById('codeModal').style.display='flex';setTimeout(function(){ta.focus();ta.select();},50);}
+function importCode(){document.getElementById('cmTitle').textContent='📥 导入进度码 (粘贴到下面)';document.getElementById('cmHint').innerHTML='把另一台设备导出的进度码粘贴进来,点「导入」。<b style="color:var(--warn)">会覆盖这台设备当前进度</b>。';var ta=document.getElementById('cmText');ta.value='';ta.readOnly=false;ta.placeholder='在此粘贴进度码...';document.getElementById('cmCopy').style.display='none';document.getElementById('cmDo').style.display='';document.getElementById('codeModal').style.display='flex';setTimeout(function(){ta.focus();},50);}
+function copyCode(){var ta=document.getElementById('cmText');ta.select();function ok(){alert('已复制!到另一台设备粘贴导入即可。');}try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(ok,function(){document.execCommand('copy');ok();});}else{document.execCommand('copy');ok();}}catch(e){document.execCommand('copy');ok();}}
+function doImport(){var c=(document.getElementById('cmText').value||'').trim();if(!c){alert('请先粘贴进度码');return;}try{var s=JSON.parse(decodeURIComponent(escape(atob(c))));if(!s||typeof s!=='object'||!('done' in s))throw 0;s._mt=Date.now();localStorage.setItem(SK,JSON.stringify(s));counts();cloudPushDebounced();closeCodeModal();alert('✅ 导入成功!错题 '+((s.wrong&&s.wrong.length)||0)+' 题,累计做 '+(s.done||0)+' 题。进任意模式刷题会从上次位置续刷。');}catch(e){alert('❌ 进度码无效,请确认完整复制粘贴(不要漏字符)。');}}
+function closeCodeModal(){document.getElementById('codeModal').style.display='none';}
 // mode counts
 function counts(){
   const by={D1:0,D2:0,D3:0,D4:0,D5:0};let m=0,h=0;
