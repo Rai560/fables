@@ -645,12 +645,12 @@ const EXAM = new Date('2026-09-18T09:00:00+08:00');
 function nav(id,btn){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');window.scrollTo(0,0);}
 // storage
 const SK='aif_v1';
-const CLOUD="https://jsonblob.com/api/jsonBlob/019fb72d-6bb0-729c-83f5-89695d7dc154";
-function load(){try{return JSON.parse(localStorage.getItem(SK))||{wrong:[],done:0,correct:0,_mt:0}}catch(e){return{wrong:[],done:0,correct:0,_mt:0}}}
+const CLOUD="https://jsonblob.com/api/jsonBlob/019fc559-8d57-72b1-8ce8-fff0bdb699d4";
+function load(){try{return JSON.parse(localStorage.getItem(SK))||{wrong:[],done:0,correct:0,sess:null,_mt:0}}catch(e){return{wrong:[],done:0,correct:0,sess:null,_mt:0}}}
 function save(s){s._mt=Date.now();localStorage.setItem(SK,JSON.stringify(s));cloudPushDebounced()}
 function cloudPush(){var s=load();fetch(CLOUD,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(s)}).catch(function(){})}
 var _pt=null;function cloudPushDebounced(){clearTimeout(_pt);_pt=setTimeout(cloudPush,2500)}
-function cloudPull(cb){fetch(CLOUD,{headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var l=load();if(d&&typeof d==="object"&&(d._mt||0)>(l._mt||0)){localStorage.setItem(SK,JSON.stringify({wrong:d.wrong||[],done:d.done||0,correct:d.correct||0,_mt:d._mt||0}));counts();}else{if((l.wrong&&l.wrong.length)||l.done||l.correct)cloudPush();}if(cb)cb();}).catch(function(){if(cb)cb();})}
+function cloudPull(cb){fetch(CLOUD,{headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var l=load();if(d&&typeof d==="object"&&(d._mt||0)>(l._mt||0)){localStorage.setItem(SK,JSON.stringify({wrong:d.wrong||[],done:d.done||0,correct:d.correct||0,sess:d.sess||null,_mt:d._mt||0}));counts();}else{if((l.wrong&&l.wrong.length)||l.done||l.correct)cloudPush();}if(cb)cb();}).catch(function(){if(cb)cb();})}
 function clearWrong(){const s=load();if(!s.wrong.length){alert('错题本已经是空的了~');return;}if(!confirm('确定清空错题本?当前 '+s.wrong.length+' 题,清空后无法恢复。'))return;s.wrong=[];save(s);counts();alert('已清空错题本');}
 // mode counts
 function counts(){
@@ -664,9 +664,19 @@ function counts(){
 counts();
 cloudPull();
 // drill state
-let Q=[],pos=0,sel=[],graded=[];
+let Q=[],pos=0,sel=[],graded=[],curMode='';
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const MODEN={all:'全部 422',rand20:'随机 20 题',rand65:'随机 65 题',multi:'多选专练',hotspot:'热点/排序题',wrong:'错题重刷',D1:'D1 AI/ML 基础',D2:'D2 生成式AI基础',D3:'D3 应用基础模型',D4:'D4 负责任AI',D5:'D5 安全合规治理'};
+function persistSess(){if(!curMode)return;const s=load();s.sess=s.sess||{};s.sess[curMode]={ids:Q.map(x=>x.n),pos:pos,graded:graded.map(g=>g?{sel:g.sel.slice(),correct:g.correct}:null)};save(s);}
+function openRun(){document.getElementById('drill-home').style.display='none';document.getElementById('drill-res').style.display='none';document.getElementById('drill-run').style.display='block';}
+function resumeSess(mode,sv){curMode=mode;Q=sv.ids.map(id=>AIF_Q.find(q=>q.n===id)).filter(Boolean);pos=Math.min(sv.pos||0,Q.length-1);if(pos<0)pos=0;graded=(sv.graded||[]).slice();while(graded.length<Q.length)graded.push(null);sel=[];openRun();render();}
 function start(mode){
+  const st=load();const sv=st.sess&&st.sess[mode];
+  if(sv&&sv.ids&&sv.ids.length&&sv.pos<sv.ids.length&&(sv.pos>0||(sv.graded||[]).some(Boolean))){
+    if(confirm('检测到「'+(MODEN[mode]||mode)+'」上次刷到第 '+(sv.pos+1)+'/'+sv.ids.length+' 题。\n\n点「确定」= 从第 '+(sv.pos+1)+' 题继续\n点「取消」= 从头重刷(清空本轮进度)')){
+      resumeSess(mode,sv);return;
+    }
+  }
   let pool=[];
   if(mode==='all')pool=AIF_Q.slice();
   else if(mode==='rand20')pool=shuffle(AIF_Q.slice()).slice(0,20);
@@ -676,10 +686,9 @@ function start(mode){
   else if(mode==='wrong'){const w=load().wrong;pool=AIF_Q.filter(q=>w.includes(q.n));if(!pool.length){alert('错题本还是空的,先去刷题吧~');return;}}
   else if(mode[0]==='D')pool=AIF_Q.filter(q=>q.d===mode);
   if(!pool.length){alert('该分类暂无题目');return;}
-  Q=pool;pos=0;sel=[];graded=new Array(Q.length).fill(null);
-  document.getElementById('drill-home').style.display='none';
-  document.getElementById('drill-res').style.display='none';
-  document.getElementById('drill-run').style.display='block';
+  Q=pool;pos=0;sel=[];graded=new Array(Q.length).fill(null);curMode=mode;
+  persistSess();
+  openRun();
   render();
 }
 function render(){
@@ -719,6 +728,7 @@ function submitQ(){
   graded[pos]={sel:sel.slice(),correct};
   const s=load();s.done++;if(correct)s.correct++;
   if(!correct&&!s.wrong.includes(q.n))s.wrong.push(q.n);
+  s.sess=s.sess||{};s.sess[curMode]={ids:Q.map(x=>x.n),pos:pos,graded:graded.map(g=>g?{sel:g.sel.slice(),correct:g.correct}:null)};
   save(s);
   showGraded();
   document.getElementById('qscore').textContent=`累计 ${s.done} 做 / ${s.correct} 对`;
@@ -741,9 +751,10 @@ function move(d){
   const np=pos+d;
   if(np<0)return;
   if(np>=Q.length){finish();return;}
-  pos=np;render();
+  pos=np;persistSess();render();
 }
 function finish(){
+  const _fs=load();if(_fs.sess){delete _fs.sess[curMode];save(_fs);}
   const done=graded.filter(g=>g).length;const cor=graded.filter(g=>g&&g.correct).length;
   const gradeable=Q.filter(q=>q.t!=='h').length;
   const pct=done?Math.round(cor/done*100):0;
