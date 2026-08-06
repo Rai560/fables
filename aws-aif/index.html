@@ -427,6 +427,13 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     <h1>✍️ 真题刷题</h1>
     <div class="sub">422 题 · 逐题解析 · 错题自动进错题本</div>
     <div class="warnbox">⚠️ 社区题库,非官方真题,<b>答案未逐题核对</b>。练手感/考法用;存疑处 Aki 会逐领域校准。</div>
+    <div class="card" style="margin:14px 0 16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:700;font-size:15px">📊 我的测试记录</div>
+        <button onclick="clearHist()" style="background:none;border:1px solid var(--line);color:var(--mut);padding:4px 11px;border-radius:7px;cursor:pointer;font-size:12px">🗑️ 清空记录</button>
+      </div>
+      <div id="histBox"></div>
+    </div>
     <h3>按领域刷(对齐周计划,分类为自动初步版)</h3>
     <div class="modes">
       <div class="mode dom" onclick="start('D1')"><div class="mt">D1 AI/ML 基础</div><div class="mn" id="cD1"></div></div>
@@ -490,7 +497,10 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <div class="card wk"><div class="hd"><h3>第 2 周 · Domain 2:生成式 AI 基础</h3><span class="date">8/10–8/16 · 24%</span></div>
     <p style="color:var(--mut);font-size:13.5px;margin:6px 0 4px">生成式AI核心术语(token/embedding/FM/LLM/多模态/扩散模型) · Bedrock/Q/JumpStart/PartyRock 服务速记 · 22 张闪卡 · D2 真题入口。<b style="color:var(--ok)">Aki 亲写核对,内容可靠</b>。</p>
     <button class="btn" style="margin-top:8px" onclick="nav('w2',document.querySelectorAll('nav button')[3])">进入 D2 精讲 →</button></div>
-  <div class="card"><p style="color:var(--mut);font-size:13.5px">第 3–7 周材料会随进度陆续填入这里。想提前看某一周,跟 Aki 说一声。</p></div>
+  <div class="card wk"><div class="hd"><h3>第 3 周 · Domain 3：应用基础模型</h3><span class="date">8/17–8/23 · 28%</span></div>
+    <p style="color:var(--mut);font-size:13.5px;margin:6px 0 4px">占分最高。模型选型 · 推理参数 · RAG 与向量库 · 定制成本阶梯 · Agents · 提示工程技巧与风险 · 训练/微调 · 模型评估。24 张闪卡 · D3 真题入口。<b style="color:var(--ok)">Aki 亲写核对,内容可靠</b>。</p>
+    <button class="btn" style="margin-top:8px" onclick="nav('w3',document.querySelectorAll('nav button')[3])">进入 D3 精讲 →</button></div>
+  <div class="card"><p style="color:var(--mut);font-size:13.5px">第 4–7 周材料会随进度陆续填入这里。想提前看某一周,跟 Aki 说一声。</p></div>
   <div class="foot">Aki 陪跑 · 材料随周更新</div>
 </div></div>
 
@@ -663,6 +673,167 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <div class="card">
     <p style="font-size:14px">精讲看完,去题库把 D1 的 <b>130 道</b>练一遍找手感。<span style="color:var(--warn)">注意:题库答案未官方核对,存疑的先别死记,以本页精讲为准。</span></p>
     <button class="btn" style="margin-top:10px" onclick="nav('drill',document.querySelectorAll('nav button')[2]);setTimeout(function(){start('D1')},60)">去刷 D1 真题(130 题)→</button>
+  </div>
+
+  <div class="foot">Aki 亲写 · 对照 AIF-C01 官方考纲整理 · 有疑问随时问</div>
+</div></div>
+
+
+
+<!-- WEEK 3 / DOMAIN 3 -->
+<div id="w3" class="view"><div class="wrap">
+  <button class="btn sec" style="margin-bottom:14px" onclick="nav('weeks',document.querySelectorAll('nav button')[3])">← 每周材料</button>
+  <h1>第 3 周 · Domain 3：应用基础模型</h1>
+  <div class="sub">Applications of Foundation Models · 占分 28%(最高) · 8/17–8/23</div>
+
+  <div class="note">📌 <b>这块怎么考:</b>D3 是<b>分值最高的一块(28%)</b>，也是最“实战”的一块。不考你训模型的数学，考你<b>拿到一个业务场景，会不会选对做法</b>：该调 API 还是微调？该用 RAG 还是 fine-tune？prompt 怎么写更好？模型好不好用什么指标衡量？核心四件事——<b>选型 + 推理参数</b>、<b>RAG / 向量库</b>、<b>提示工程(技巧 + 风险)</b>、<b>训练微调 + 评估</b>。本页 Aki 亲自整理核对，可放心背。</div>
+
+  <h2>🎯 四个考点任务</h2>
+  <div class="card"><table>
+    <tr><th>任务</th><th>你要会</th></tr>
+    <tr><td>3.1 应用设计</td><td>选模型看什么；推理参数(temperature/top-p/max tokens)怎么影响输出；RAG 是什么、向量库怎么存；四种定制方式的成本高低；Agents 干什么</td></tr>
+    <tr><td>3.2 提示工程</td><td>提示的构成(上下文/指令/负向提示)；技巧(零样本/单样本/少样本/思维链/模板)；好处；<b>风险(注入/越狱/泄露/投毒/劫持)</b></td></tr>
+    <tr><td>3.3 训练与微调</td><td>预训练/微调/持续预训练的区别；微调方法；怎么准备微调数据</td></tr>
+    <tr><td>3.4 模型评估</td><td>怎么评估 FM 表现(人工评估/基准数据集)；指标(ROUGE/BLEU/BERTScore)；判断是否达成业务目标</td></tr>
+  </table></div>
+
+  <h2>3.1 应用设计</h2>
+  <h3>选模型看什么(选型标准)</h3>
+  <div class="card"><table>
+    <tr><th>因素</th><th>看什么</th></tr>
+    <tr><td>成本 Cost</td><td>按 token 计费贵不贵、要不要额外训练 / 托管费</td></tr>
+    <tr><td>模态 Modality</td><td>要文本 / 图像 / 多模态？任务对不对口</td></tr>
+    <tr><td>延迟 Latency</td><td>响应要多快(实时聊天 vs 离线批处理)</td></tr>
+    <tr><td>多语言 Multi-lingual</td><td>要不要支持中 / 英 / 多语种</td></tr>
+    <tr><td>模型大小 / 复杂度</td><td>大模型更强但更慢更贵；够用就行</td></tr>
+    <tr><td>可定制性 Customization</td><td>能不能微调 / 加 RAG</td></tr>
+    <tr><td>输入 / 输出长度</td><td>上下文窗口够不够装下你的输入</td></tr>
+  </table></div>
+
+  <h3>推理参数:怎么影响输出(高频送分)</h3>
+  <div class="card"><table>
+    <tr><th>参数</th><th>作用</th><th>调高会怎样</th></tr>
+    <tr><td><b>Temperature 温度</b></td><td>控制<b>随机性 / 创造性</b></td><td>越高越发散有创意；越低越确定保守</td></tr>
+    <tr><td>Top-p(核采样)</td><td>从<b>累积概率</b>前 p 的词里选</td><td>越高候选词越多、越多样</td></tr>
+    <tr><td>Top-k</td><td>从<b>概率最高的 k 个</b>词里选</td><td>同理，k 越大越多样</td></tr>
+    <tr><td>最大长度 Max tokens</td><td>限制<b>输出多长</b></td><td>越大能输出越长(也越贵)</td></tr>
+  </table></div>
+  <div class="note">💡 <b>最常考:</b>要<b>结果稳定 / 少胡说 / 可复现</b> → <b>调低 temperature</b>(甚至设 0)；要<b>更有创意 / 多样</b> → 调高 temperature。</div>
+
+  <h3>RAG 检索增强生成(D3 核心中的核心)</h3>
+  <div class="card"><p style="margin:0 0 8px"><b>RAG = Retrieval Augmented Generation</b>。让模型回答前，<b>先去你的知识库检索相关资料</b>，再带着这些真实资料生成答案。</p>
+  <p style="margin:0"><b>解决什么:</b>① 模型不知道你公司的私有 / 最新数据 → RAG 把它喂进去；② <b>减少幻觉</b>(基于真实资料回答)；③ <b>比微调便宜、还能随时更新数据</b>。</p></div>
+  <div class="card"><table>
+    <tr><th>RAG 四步</th><th>做什么</th></tr>
+    <tr><td>1. 分块 Chunking</td><td>把文档切成小块</td></tr>
+    <tr><td>2. 嵌入 Embedding</td><td>每块转成向量，存进<b>向量数据库</b></td></tr>
+    <tr><td>3. 检索 Retrieval</td><td>用户提问也转向量，找<b>语义最相近</b>的几块</td></tr>
+    <tr><td>4. 生成 Generation</td><td>把检索到的资料 + 问题一起给模型，生成有依据的答案</td></tr>
+  </table></div>
+  <div class="note">💡 AWS 里做 RAG 的托管方案 = <b>Amazon Bedrock Knowledge Bases(知识库)</b>。看到“基于公司文档回答”“减少幻觉又不想训模型”→ 答 RAG / Knowledge Bases。</div>
+
+  <h3>向量数据库:embedding 存哪</h3>
+  <div class="card"><table>
+    <tr><th>AWS 服务</th><th>说明</th></tr>
+    <tr><td>Amazon OpenSearch Service</td><td>最常见的向量检索选项</td></tr>
+    <tr><td>Aurora / RDS for PostgreSQL(pgvector)</td><td>关系库加 pgvector 扩展</td></tr>
+    <tr><td>Amazon Neptune / DocumentDB / MemoryDB</td><td>也提供向量能力</td></tr>
+  </table></div>
+
+  <h3>四种定制方式:成本从低到高(必考阶梯)</h3>
+  <div class="card"><table>
+    <tr><th>方式</th><th>怎么做</th><th>成本 / 何时用</th></tr>
+    <tr><td><b>① 提示工程</b></td><td>只改<b>提示词</b>，不动模型</td><td><b>最便宜</b>，先试这个</td></tr>
+    <tr><td><b>② RAG</b></td><td>把资料喂进上下文</td><td>较便宜，要<b>私有 / 最新知识</b>时用</td></tr>
+    <tr><td><b>③ 微调</b></td><td>用自己数据<b>再训练</b></td><td>较贵，要<b>特定风格 / 领域</b>时用</td></tr>
+    <tr><td><b>④ 预训练</b></td><td>从零训 FM</td><td><b>最贵</b>，几乎没人做</td></tr>
+  </table></div>
+  <div class="warnbox">⚠️ <b>决策顺序:</b>先<b>提示工程</b> → 不够就 <b>RAG</b>(缺知识) → 还不够再 <b>微调</b>(要风格 / 领域能力)。题问“最省成本”→提示工程；“用公司最新数据”→RAG；“学会特定语气”→微调。</div>
+
+  <h3>Agents 代理:做多步任务</h3>
+  <div class="card"><p style="margin:0">Agent = 让模型<b>自己拆任务、调工具 / API、多步完成</b>复杂事。AWS = <b>Amazon Bedrock Agents</b>。看到“多步骤 / 自动编排”→ Agents。</p></div>
+
+  <h2>3.2 提示工程(技巧 + 风险)</h2>
+  <h3>提示的构成</h3>
+  <div class="card"><table>
+    <tr><th>要素</th><th>意思</th></tr>
+    <tr><td>指令 Instruction</td><td>你要它做什么</td></tr>
+    <tr><td>上下文 Context</td><td>背景信息 / 参考资料</td></tr>
+    <tr><td>负向提示 Negative Prompt</td><td>明确<b>不要</b>什么</td></tr>
+    <tr><td>输入 / 示例</td><td>要处理的内容 / 给的例子</td></tr>
+  </table></div>
+  <h3>核心技巧(高频)</h3>
+  <div class="card"><table>
+    <tr><th>技巧</th><th>意思</th></tr>
+    <tr><td><b>零样本 Zero-shot</b></td><td><b>不给例子</b>，直接做</td></tr>
+    <tr><td><b>单样本 One-shot</b></td><td>给<b>1 个</b>示例</td></tr>
+    <tr><td><b>少样本 Few-shot</b></td><td>给<b>几个</b>示例，照着做(最常用)</td></tr>
+    <tr><td><b>思维链 CoT</b></td><td>让它<b>一步步推理</b>，数学/推理题效果好</td></tr>
+    <tr><td>提示模板 Prompt Template</td><td>固定结构填空复用(对应 Bedrock 提示管理)</td></tr>
+  </table></div>
+
+  <h3>⚠️ 提示工程的风险(对应你刷的 407/410 题)</h3>
+  <div class="card"><table>
+    <tr><th>风险</th><th>意思</th></tr>
+    <tr><td><b>提示注入 Prompt Injection</b></td><td>用户塞<b>恶意指令</b>骗模型执行</td></tr>
+    <tr><td><b>越狱 Jailbreaking</b></td><td>绕过安全限制，诱导输出<b>本不该输出</b>的内容</td></tr>
+    <tr><td><b>提示泄露 Prompt Leaking</b></td><td>诱导模型<b>吐出隐藏的系统提示 / 机密指令</b></td></tr>
+    <tr><td><b>提示劫持 Hijacking</b></td><td>用注入<b>改变模型原本任务</b></td></tr>
+    <tr><td>提示投毒 Poisoning</td><td>植入恶意内容影响输出</td></tr>
+  </table></div>
+  <div class="warnbox">⚠️ <b>对应真题:</b>“保密系统指令”→<b>提示泄露</b>(410题)；“防绕过安全功能”→<b>提示攻击</b>(407题)。缓解=<b>Bedrock Guardrails</b>+输入校验。</div>
+
+  <h2>3.3 训练与微调</h2>
+  <div class="card"><table>
+    <tr><th>方式</th><th>意思</th></tr>
+    <tr><td>预训练</td><td><b>海量通用数据</b>从零训(极贵)</td></tr>
+    <tr><td>持续预训练</td><td>用<b>大量领域无标注数据</b>继续训，补领域知识</td></tr>
+    <tr><td><b>微调 Fine-tuning</b></td><td><b>少量有标注数据</b>再训，贴具体任务 / 风格</td></tr>
+    <tr><td>指令微调</td><td>用“指令-回答”样本训，让它更会听指令</td></tr>
+    <tr><td>RLHF</td><td>用<b>人的偏好打分</b>训练，让输出更符合人类期望</td></tr>
+  </table></div>
+
+  <h2>3.4 模型评估</h2>
+  <div class="card"><table>
+    <tr><th>指标</th><th>用于</th><th>一句话</th></tr>
+    <tr><td><b>ROUGE</b></td><td>评<b>摘要</b></td><td>看生成摘要和参考摘要<b>重叠</b>多少(Recall 导向)</td></tr>
+    <tr><td><b>BLEU</b></td><td>评<b>翻译</b></td><td>看机器翻译和参考译文<b>重叠</b>多少(Precision 导向)</td></tr>
+    <tr><td><b>BERTScore</b></td><td>评<b>语义</b></td><td>用 embedding 比语义接近度(不只看字面)</td></tr>
+  </table></div>
+  <div class="note">💡 <b>秒配:</b>评<b>摘要</b>→ROUGE；评<b>翻译</b>→BLEU；比<b>语义</b>→BERTScore。</div>
+
+  <h2>🗺️ D3 AWS 服务速记</h2>
+  <div class="card"><table>
+    <tr><th>服务</th><th>干什么</th><th>看到就想到</th></tr>
+    <tr><td><b>Bedrock Knowledge Bases</b></td><td>托管 RAG</td><td>基于文档回答、减少幻觉</td></tr>
+    <tr><td><b>Bedrock Agents</b></td><td>多步拆解、调工具</td><td>多步骤任务 / 自动编排</td></tr>
+    <tr><td><b>Bedrock Guardrails</b></td><td>护栏:过滤有害+防提示攻击</td><td>安全 / 防越狱注入</td></tr>
+    <tr><td>Bedrock 提示管理</td><td>存/复用/版本化提示模板</td><td>复用标准模板</td></tr>
+    <tr><td>OpenSearch / Aurora(pgvector)</td><td>向量数据库</td><td>存 embedding / 相似度检索</td></tr>
+    <tr><td>SageMaker</td><td>训练/微调/评估/部署</td><td>要更多控制</td></tr>
+  </table></div>
+
+  <h2>🃏 D3 闪卡(24 张)</h2>
+  <div class="sub" style="margin-bottom:6px">点卡片翻面 · 先想再翻</div>
+  <div class="fc-wrap">
+    <div class="fc" id="d3fc" onclick="fc3Flip()">
+      <div class="fc-in">
+        <div class="fc-f"><div class="fc-term" id="fc3Term"></div><div class="fc-en" id="fc3En"></div><span class="fc-hint">点击翻面 →</span></div>
+        <div class="fc-b"><div class="fc-def" id="fc3Def"></div><span class="fc-hint">← 点击翻回</span></div>
+      </div>
+    </div>
+    <div class="fc-bar">
+      <button class="btn sec" onclick="fc3Prev(event)">← 上一张</button>
+      <span id="fc3Pos">1 / 24</span>
+      <button class="btn sec" onclick="fc3Next(event)">下一张 →</button>
+    </div>
+    <div style="text-align:center;margin-top:8px"><button class="btn sec" onclick="fc3Shuf(event)">🔀 打乱顺序</button></div>
+  </div>
+
+  <h2>✍️ 刷 D3 真题</h2>
+  <div class="card">
+    <p style="font-size:14px">精讲看完,去题库把 D3 的 <b>88 道</b>练一遍。<span style="color:var(--warn)">题库答案未官方核对,存疑的先别死记,以本页精讲为准。</span></p>
+    <button class="btn" style="margin-top:10px" onclick="nav('drill',document.querySelectorAll('nav button')[2]);setTimeout(function(){start('D3')},60)">去刷 D3 真题(88 题)→</button>
   </div>
 
   <div class="foot">Aki 亲写 · 对照 AIF-C01 官方考纲整理 · 有疑问随时问</div>
@@ -847,11 +1018,11 @@ function nav(id,btn){document.querySelectorAll('.view').forEach(v=>v.classList.r
 const SK='aif_v1';
 const CLOUD="https://api.jsonbin.io/v3/b/6a700590da38895dfeb1c0b6";
 const CKEY="$2a$10$nI.z2jvJ3a1NhgCBALLP.uO786c4YfTSN8zvRChxYPtFoLb7.yjJa";
-function load(){try{return JSON.parse(localStorage.getItem(SK))||{wrong:[],done:0,correct:0,sess:null,_mt:0}}catch(e){return{wrong:[],done:0,correct:0,sess:null,_mt:0}}}
+function load(){var d;try{d=JSON.parse(localStorage.getItem(SK))}catch(e){d=null}if(!d||typeof d!=='object')d={};if(!Array.isArray(d.wrong))d.wrong=[];if(typeof d.done!=='number')d.done=0;if(typeof d.correct!=='number')d.correct=0;if(!('sess' in d))d.sess=null;if(typeof d._mt!=='number')d._mt=0;if(!Array.isArray(d.hist))d.hist=[];return d}
 function save(s){s._mt=Date.now();localStorage.setItem(SK,JSON.stringify(s));cloudPushDebounced()}
 function cloudPush(){var s=load();fetch(CLOUD,{method:"PUT",headers:{"Content-Type":"application/json","X-Access-Key":CKEY,"X-Bin-Versioning":"false"},body:JSON.stringify(s)}).catch(function(){})}
 var _pt=null;function cloudPushDebounced(){clearTimeout(_pt);_pt=setTimeout(cloudPush,2500)}
-function cloudPull(cb){fetch(CLOUD+"/latest",{headers:{"X-Access-Key":CKEY}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(env){var d=env&&env.record?env.record:null;var l=load();if(d&&typeof d==="object"&&(d._mt||0)>(l._mt||0)){localStorage.setItem(SK,JSON.stringify({wrong:d.wrong||[],done:d.done||0,correct:d.correct||0,sess:d.sess||null,_mt:d._mt||0}));counts();}else{if((l.wrong&&l.wrong.length)||l.done||l.correct)cloudPush();}if(cb)cb();}).catch(function(){if(cb)cb();})}
+function cloudPull(cb){fetch(CLOUD+"/latest",{headers:{"X-Access-Key":CKEY}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(env){var d=env&&env.record?env.record:null;var l=load();if(d&&typeof d==="object"&&(d._mt||0)>(l._mt||0)){localStorage.setItem(SK,JSON.stringify({wrong:d.wrong||[],done:d.done||0,correct:d.correct||0,sess:d.sess||null,hist:d.hist||[],_mt:d._mt||0}));counts();renderHist();}else{if((l.wrong&&l.wrong.length)||l.done||l.correct)cloudPush();}if(cb)cb();}).catch(function(){if(cb)cb();})}
 function clearWrong(){const s=load();if(!s.wrong.length){alert('错题本已经是空的了~');return;}if(!confirm('确定清空错题本?当前 '+s.wrong.length+' 题,清空后无法恢复。'))return;s.wrong=[];save(s);counts();alert('已清空错题本');}
 function exportCode(){var s=load();var code=btoa(unescape(encodeURIComponent(JSON.stringify(s))));document.getElementById('cmTitle').textContent='📤 我的进度码 (在这台设备导出)';document.getElementById('cmHint').innerHTML='复制下面这串,到另一台设备打开本页 → 点「导入进度码」→ 粘贴。含错题本 + 累计做对 + 当前刷到第几题。';var ta=document.getElementById('cmText');ta.value=code;ta.readOnly=true;document.getElementById('cmCopy').style.display='';document.getElementById('cmDo').style.display='none';document.getElementById('codeModal').style.display='flex';setTimeout(function(){ta.focus();ta.select();},50);}
 function importCode(){document.getElementById('cmTitle').textContent='📥 导入进度码 (粘贴到下面)';document.getElementById('cmHint').innerHTML='把另一台设备导出的进度码粘贴进来,点「导入」。<b style="color:var(--warn)">会覆盖这台设备当前进度</b>。';var ta=document.getElementById('cmText');ta.value='';ta.readOnly=false;ta.placeholder='在此粘贴进度码...';document.getElementById('cmCopy').style.display='none';document.getElementById('cmDo').style.display='';document.getElementById('codeModal').style.display='flex';setTimeout(function(){ta.focus();},50);}
@@ -867,7 +1038,21 @@ function counts(){
   document.getElementById('cHot').textContent=h+' 题';
   const s=load();document.getElementById('cWrong').textContent=(s.wrong.length||0)+' 题';
 }
+function renderHist(){
+  var el=document.getElementById('histBox');if(!el)return;
+  var h=(load().hist)||[];
+  if(!h.length){el.innerHTML='<div class="mn" style="color:var(--mut)">还没有测试记录。完成任意一轮刷题(刷到最后一题、看到「本轮完成」)后，成绩会自动记在这里，换页 / 关网页都不会丢。</div>';return;}
+  var rows=h.slice(0,30).map(function(r){
+    var d=new Date(r.ts);var p=function(n){return('0'+n).slice(-2)};
+    var dt=(d.getMonth()+1)+'/'+d.getDate()+' '+p(d.getHours())+':'+p(d.getMinutes());
+    var col=r.pct>=70?'var(--ok)':(r.pct>=50?'var(--warn)':'#e05a5a');
+    return '<tr><td style="white-space:nowrap;color:var(--mut);font-size:12.5px">'+dt+'</td><td>'+(r.name||r.mode)+'</td><td>'+r.cor+' / '+r.done+'</td><td style="color:'+col+';font-weight:700">'+r.pct+'%</td></tr>';
+  }).join('');
+  el.innerHTML='<table><tr><th>时间</th><th>模式</th><th>对 / 做</th><th>正确率</th></tr>'+rows+'</table>'+(h.length>30?'<div class="mn" style="color:var(--mut);margin-top:6px">只显示最近 30 条(共 '+h.length+' 条)</div>':'');
+}
+function clearHist(){var s=load();if(!s.hist||!s.hist.length){alert('还没有测试记录~');return;}if(!confirm('确定清空测试记录？共 '+s.hist.length+' 条，清空后无法恢复。(不影响错题本和刷题进度)'))return;s.hist=[];save(s);renderHist();alert('已清空测试记录');}
 counts();
+renderHist();
 cloudPull();
 // drill state
 let Q=[],pos=0,sel=[],graded=[],curMode='';
@@ -978,8 +1163,10 @@ function move(d){
   pos=np;persistSess();render();
 }
 function finish(){
-  const _fs=load();if(_fs.sess){delete _fs.sess[curMode];save(_fs);}
   const done=graded.filter(g=>g).length;const cor=graded.filter(g=>g&&g.correct).length;
+  const _fs=load();if(_fs.sess){delete _fs.sess[curMode];}
+  if(done>0){_fs.hist.unshift({ts:Date.now(),mode:curMode,name:(MODEN[curMode]||curMode),done:done,cor:cor,pct:done?Math.round(cor/done*100):0,total:Q.length});if(_fs.hist.length>100)_fs.hist=_fs.hist.slice(0,100);}
+  save(_fs);
   const gradeable=Q.filter(q=>q.t!=='h').length;
   const pct=done?Math.round(cor/done*100):0;
   document.getElementById('drill-run').style.display='none';
@@ -987,16 +1174,18 @@ function finish(){
   box.innerHTML=`<div class="res"><h1>本轮完成</h1>
     <span class="big" style="color:${pct>=70?'var(--ok)':'var(--warn)'}">${pct}%</span>
     <p style="color:var(--mut)">可评分题 ${done} 做 / ${cor} 对 ${gradeable<Q.length?'· 含'+(Q.length-gradeable)+'道排序题(未计分)':''}</p>
+    ${done>0?'<p style="color:var(--ok);font-size:13px;margin-top:-4px">✓ 已记入上方「测试记录」，换页 / 关网页都不会丢</p>':''}
     <div class="btnrow" style="justify-content:center;margin-top:20px">
       <button class="btn" onclick="exitDrill()">返回选模式</button>
       <button class="btn sec" onclick="start('wrong')">刷错题本</button>
     </div></div>`;
+  renderHist();
 }
 function exitDrill(){
   document.getElementById('drill-run').style.display='none';
   document.getElementById('drill-res').style.display='none';
   document.getElementById('drill-home').style.display='block';
-  counts();window.scrollTo(0,0);
+  counts();renderHist();window.scrollTo(0,0);
 }
 
 // ===== D1 flashcards =====
@@ -1076,6 +1265,47 @@ function fc2Next(e){if(e)e.stopPropagation();fc2I=(fc2I+1)%D2FC.length;fc2Render
 function fc2Prev(e){if(e)e.stopPropagation();fc2I=(fc2I-1+D2FC.length)%D2FC.length;fc2Render();}
 function fc2Shuf(e){if(e)e.stopPropagation();for(var i=fc2Order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fc2Order[i];fc2Order[i]=fc2Order[j];fc2Order[j]=t;}fc2I=0;fc2Render();}
 fc2Render();
+const D3FC=[
+ {t:"RAG 检索增强生成",en:"Retrieval Augmented Generation",d:"回答前<b>先检索知识库</b>再生成，减少幻觉、不用重训模型。D3 头号考点。"},
+ {t:"Bedrock Knowledge Bases",en:"托管 RAG",d:"AWS 托管 RAG：自动分块/嵌入/检索。看到“基于文档回答”就选它。"},
+ {t:"向量数据库",en:"Vector Database",d:"存 embedding、按<b>语义相似度</b>检索。AWS: OpenSearch、Aurora(pgvector)、Neptune。"},
+ {t:"四种定制方式",en:"成本阶梯",d:"<b>提示工程 < RAG < 微调 < 预训练</b>。先试最便宜的，不够再加。"},
+ {t:"Temperature",en:"推理参数",d:"控制<b>随机性/创造性</b>。要稳定→调低; 要创意→调高。"},
+ {t:"Top-p / Top-k",en:"采样参数",d:"控制输出<b>多样性</b>的旋钮。调高都更发散。"},
+ {t:"Max tokens",en:"推理参数",d:"限制<b>输出长度</b>。设大能出更长(也更贵)。"},
+ {t:"Bedrock Agents",en:"代理",d:"让模型<b>拆任务、调 API、多步完成</b>复杂事。"},
+ {t:"提示工程",en:"Prompt Engineering",d:"只改<b>提示词</b>引导输出，<b>不改模型、最省成本</b>。定制第一选择。"},
+ {t:"零/单/少样本",en:"Zero/One/Few-shot",d:"给 0/1/几个 示例。few-shot 最常用的提效手段。"},
+ {t:"思维链",en:"Chain-of-Thought",d:"让模型<b>一步步推理</b>，数学/推理题效果显著提升。"},
+ {t:"负向提示",en:"Negative Prompt",d:"明确告诉模型<b>不要</b>做什么/不要出现什么。"},
+ {t:"提示注入",en:"Prompt Injection",d:"用户塞<b>恶意指令</b>骗模型执行。头号提示风险。"},
+ {t:"越狱",en:"Jailbreaking",d:"绕过安全限制，诱导输出<b>本不该输出</b>的内容。"},
+ {t:"提示泄露",en:"Prompt Leaking",d:"诱导模型<b>吐出隐藏的系统指令</b>。对应真题 410。"},
+ {t:"提示攻击",en:"Prompt Attacks",d:"Bedrock Guardrails 护栏策略，<b>检测并阻止</b>注入/越狱。对应真题 407。"},
+ {t:"Bedrock Guardrails",en:"护栏",d:"过滤有害内容、挡提示攻击、脱敏。防越狱/注入/泄露的主力。"},
+ {t:"预训练 vs 微调",en:"Pre-train vs Fine-tune",d:"预训练=海量数据从零学(极贵); 微调=现成FM+少量领域数据(便宜贴业务)。"},
+ {t:"持续预训练",en:"Continued Pre-training",d:"用<b>大量领域无标注数据</b>继续训，补领域知识。"},
+ {t:"RLHF",en:"RL from Human Feedback",d:"用<b>人的偏好打分</b>训练，让输出更符合人类期望。"},
+ {t:"ROUGE",en:"评摘要",d:"看生成<b>摘要</b>和参考摘要重叠多少(Recall导向)。"},
+ {t:"BLEU",en:"评翻译",d:"看机器<b>翻译</b>和参考译文重叠多少(Precision导向)。"},
+ {t:"BERTScore",en:"评语义",d:"用 embedding 比<b>语义</b>接近度，不只看字面重叠。"},
+ {t:"业务指标",en:"Business Metrics",d:"技术分之外看业务:生产力、用户参与、转化率、ARPU、CLV、效率。"}
+];
+let fc3I=0,fc3Order=D3FC.map(function(_,i){return i;});
+function fc3Render(){
+  var el=document.getElementById('d3fc');if(!el)return;
+  var c=D3FC[fc3Order[fc3I]];el.classList.remove('flip');
+  document.getElementById('fc3Term').textContent=c.t;
+  document.getElementById('fc3En').textContent=c.en;
+  document.getElementById('fc3Def').innerHTML=c.d;
+  document.getElementById('fc3Pos').textContent=(fc3I+1)+' / '+D3FC.length;
+}
+function fc3Flip(){var el=document.getElementById('d3fc');if(el)el.classList.toggle('flip');}
+function fc3Next(e){if(e)e.stopPropagation();fc3I=(fc3I+1)%D3FC.length;fc3Render();}
+function fc3Prev(e){if(e)e.stopPropagation();fc3I=(fc3I-1+D3FC.length)%D3FC.length;fc3Render();}
+function fc3Shuf(e){if(e)e.stopPropagation();for(var i=fc3Order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fc3Order[i];fc3Order[i]=fc3Order[j];fc3Order[j]=t;}fc3I=0;fc3Render();}
+fc3Render();
+
 </script>
 </body>
 </html>
