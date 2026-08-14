@@ -522,7 +522,13 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <div class="card wk"><div class="hd"><h3>第 3 周 · Domain 3：应用基础模型</h3><span class="date">8/17–8/23 · 28%</span></div>
     <p style="color:var(--mut);font-size:13.5px;margin:6px 0 4px">占分最高。模型选型 · 推理参数 · RAG 与向量库 · 定制成本阶梯 · Agents · 提示工程技巧与风险 · 训练/微调 · 模型评估。24 张闪卡 · D3 真题入口。<b style="color:var(--ok)">Aki 亲写核对,内容可靠</b>。</p>
     <button class="btn" style="margin-top:8px" onclick="nav('w3',document.querySelectorAll('nav button')[3])">进入 D3 精讲 →</button></div>
-  <div class="card"><p style="color:var(--mut);font-size:13.5px">第 4–7 周材料会随进度陆续填入这里。想提前看某一周,跟 Aki 说一声。</p></div>
+  <div class="card wk"><div class="hd"><h3>第 4 周 · Domain 4：负责任的 AI</h3><span class="date">8/24–8/30 · 14%</span></div>
+    <p style="color:var(--mut);font-size:13.5px;margin:6px 0 4px">公平/透明/可解释/防偏见 · SageMaker Clarify 与 Bedrock Guardrails 双送分王 · 决策树 vs 黑盒 · 22 张闪卡 · D4 真题入口。<b style="color:var(--ok)">Aki 亲写核对,内容可靠</b>。</p>
+    <button class="btn" style="margin-top:8px" onclick="nav('w4',document.querySelectorAll('nav button')[3])">进入 D4 精讲 →</button></div>
+  <div class="card wk"><div class="hd"><h3>第 5 周 · Domain 5：安全、合规与治理</h3><span class="date">8/31–9/6 · 14%</span></div>
+    <p style="color:var(--mut);font-size:13.5px;margin:6px 0 4px">IAM/KMS/VPC/CloudTrail/Macie/Artifact 关键词配对 · 共担责任模型 · 数据驻留与治理 · 22 张闪卡 · D5 真题入口。<b style="color:var(--ok)">Aki 亲写核对,内容可靠</b>。</p>
+    <button class="btn" style="margin-top:8px" onclick="nav('w5',document.querySelectorAll('nav button')[3])">进入 D5 精讲 →</button></div>
+  <div class="card"><p style="color:var(--mut);font-size:13.5px">第 6–7 周(全 5 域刷题冲刺 + 查漏补缺)会随进度补上。5 个领域精讲已全部就位 🎉</p></div>
   <div class="foot">Aki 陪跑 · 材料随周更新</div>
 </div></div>
 
@@ -856,6 +862,226 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <div class="card">
     <p style="font-size:14px">精讲看完,去题库把 D3 的 <b>88 道</b>练一遍。<span style="color:var(--warn)">题库答案未官方核对,存疑的先别死记,以本页精讲为准。</span></p>
     <button class="btn" style="margin-top:10px" onclick="nav('drill',document.querySelectorAll('nav button')[2]);setTimeout(function(){start('D3')},60)">去刷 D3 真题(88 题)→</button>
+  </div>
+
+  <div class="foot">Aki 亲写 · 对照 AIF-C01 官方考纲整理 · 有疑问随时问</div>
+</div></div>
+
+<!-- WEEK 4 / DOMAIN 4 -->
+<div id="w4" class="view"><div class="wrap">
+  <button class="btn sec" style="margin-bottom:14px" onclick="nav('weeks',document.querySelectorAll('nav button')[3])">← 每周材料</button>
+  <h1>第 4 周 · Domain 4：负责任的 AI</h1>
+  <div class="sub">Guidelines for Responsible AI · 占分 14% · 8/24–8/30</div>
+
+  <div class="note">📌 <b>这块怎么考:</b>D4 全是"价值观题"——不考代码，考你懂不懂<b>怎么把 AI 做得公平、透明、不作恶</b>。核心两件事:①<b>负责任地开发</b>(防偏见 / 防毒性 / 防幻觉 / 保护弱势群体)②<b>让模型可解释、透明</b>(能说清它凭什么这么判)。题目几乎都在问:出了 XX 问题该用哪个 AWS 工具 / 该采取哪种做法。<b>SageMaker Clarify 和 Bedrock Guardrails 是这块的送分王</b>,认准它俩。</div>
+
+  <h2>🎯 两个考点任务</h2>
+  <div class="card"><table>
+    <tr><th>任务</th><th>你要会</th></tr>
+    <tr><td>4.1 负责任地开发 AI</td><td>负责任 AI 的几大支柱;偏见/毒性/幻觉/知识产权是什么、怎么减;怎么收集有代表性的数据;Guardrails 挡有害内容;治理框架</td></tr>
+    <tr><td>4.2 透明与可解释</td><td>透明度 vs 可解释性;哪些模型天生可解释(决策树)哪些是黑盒(神经网络);PDP/特征重要性;用什么工具做(Clarify / Model Cards)</td></tr>
+  </table></div>
+
+  <h2>4.1 负责任地开发 AI</h2>
+  <h3>负责任 AI 的几大支柱(记关键词)</h3>
+  <div class="card"><table>
+    <tr><th>支柱</th><th>一句话</th></tr>
+    <tr><td><b>公平 Fairness</b></td><td>不同人群一视同仁,别歧视</td></tr>
+    <tr><td><b>可解释 Explainability</b></td><td>能说清模型为什么这么判</td></tr>
+    <tr><td><b>透明 Transparency</b></td><td>公开模型怎么建、用了什么数据、有何局限</td></tr>
+    <tr><td>隐私与安全 Privacy & Security</td><td>保护用户数据不泄露</td></tr>
+    <tr><td>稳健 Robustness / 安全 Safety</td><td>不产生有害输出、抗攻击</td></tr>
+    <tr><td>可控 Governance / 可问责</td><td>有人负责、有流程管</td></tr>
+  </table></div>
+
+  <h3>四大"坑":偏见 / 毒性 / 幻觉 / 知识产权</h3>
+  <div class="card"><table>
+    <tr><th>问题</th><th>意思</th><th>典型场景</th></tr>
+    <tr><td><b>偏见 Bias</b></td><td>对某人群系统性不公</td><td>简历筛选歧视某性别 / 贷款审批看人下菜</td></tr>
+    <tr><td><b>毒性 Toxicity</b></td><td>输出仇恨/侮辱/暴力/色情</td><td>内容审核、社媒过滤</td></tr>
+    <tr><td><b>幻觉 Hallucination</b></td><td>一本正经胡说、答非所问</td><td>生成与输入无关的编造内容</td></tr>
+    <tr><td><b>知识产权 / 抄袭</b></td><td>侵权、学生用 AI 代写</td><td>版权、原创性、剽窃</td></tr>
+  </table></div>
+
+  <h3>怎么减少偏见(高频)</h3>
+  <div class="card"><table>
+    <tr><th>阶段</th><th>做法</th></tr>
+    <tr><td><b>数据收集时</b></td><td>收<b>多样化、有代表性</b>的数据(覆盖不同性别/种族/地区),别让某群体缺席</td></tr>
+    <tr><td>训练前(预处理)</td><td>重采样 / 重加权,平衡各群体样本</td></tr>
+    <tr><td>训练后(后处理)</td><td>调整输出阈值,降低不同群体间的差异</td></tr>
+    <tr><td>全程</td><td>用 <b>SageMaker Clarify</b> 检测偏见指标</td></tr>
+  </table></div>
+  <div class="note">💡 <b>秒配:</b>题问"数据集不能代表所有人群怎么办"→ 收集<b>更多样化 / 有代表性</b>的数据;题问"用什么 AWS 工具查偏见"→ <b>SageMaker Clarify</b>。</div>
+
+  <h3>挡住有害内容:Bedrock Guardrails</h3>
+  <div class="card"><p style="margin:0"><b>Amazon Bedrock Guardrails(安全护栏)</b> = D4/D5 的万能钥匙。它能:①<b>过滤有害内容</b>(仇恨/侮辱/暴力/色情)②<b>拒绝特定话题</b>(如不谈政治、只答公司批准的主题)③<b>屏蔽/脱敏 PII</b>(个人信息)④<b>挡提示攻击</b>(注入/越狱)。看到"过滤有害""限制话题""防越狱"→ 全选 Guardrails。</p></div>
+
+  <h3>AI 治理与合规</h3>
+  <div class="card"><table>
+    <tr><th>概念</th><th>意思</th></tr>
+    <tr><td>AI 治理框架</td><td>一套<b>政策 + 流程 + 角色</b>,确保 AI 负责任、可问责、以人为本</td></tr>
+    <tr><td>以人为本 Human-centered</td><td>AI 服务于人,关键决策<b>保留人工介入</b></td></tr>
+    <tr><td>ISO 认证</td><td>证明公司按国际标准<b>管理 AI 风险</b>、负责任地用 AI</td></tr>
+    <tr><td>红队测试 Red-teaming</td><td>故意"绕过安全功能"生成有害内容,来<b>测试模型安全性</b></td></tr>
+  </table></div>
+
+  <h2>4.2 透明与可解释</h2>
+  <h3>透明度 vs 可解释性(常混,分清)</h3>
+  <div class="card"><table>
+    <tr><th>概念</th><th>回答的问题</th></tr>
+    <tr><td><b>透明度 Transparency</b></td><td>这模型<b>怎么建的</b>?用了什么数据?有何局限?(对外公开)</td></tr>
+    <tr><td><b>可解释性 Explainability</b></td><td>这个具体预测<b>为什么</b>是这个结果?(能拆解原因)</td></tr>
+  </table></div>
+  <div class="note">💡 提高透明度的结果 = 让相关方<b>更信任、更好理解</b>模型,便于监管审计。</div>
+
+  <h3>哪些模型天生可解释、哪些是黑盒(送分)</h3>
+  <div class="card"><table>
+    <tr><th>模型</th><th>可解释性</th></tr>
+    <tr><td><b>决策树 / 线性回归</b></td><td><b>最强</b>——能直接看到规则/权重,想要"可解释模型"就选它</td></tr>
+    <tr><td><b>神经网络 / 深度学习</b></td><td><b>最弱(黑盒)</b>——准确率高但说不清为什么</td></tr>
+  </table></div>
+  <div class="warnbox">⚠️ 真题套路:换成神经网络后<b>准确率↑但可解释性↓</b>(黑盒代价);要"可解释性最强的模型"→<b>决策树</b>。</div>
+
+  <h3>做透明可解释,用什么 AWS 工具</h3>
+  <div class="card"><table>
+    <tr><th>工具</th><th>干什么</th></tr>
+    <tr><td><b>SageMaker Clarify</b></td><td>①检测<b>偏见</b> ②<b>特征重要性</b>解释预测(哪些输入影响结果)——透明+可解释一把抓</td></tr>
+    <tr><td><b>PDP 部分依赖图</b></td><td>展示某个特征怎么影响预测,放进模型报告给相关方看</td></tr>
+    <tr><td><b>SageMaker Model Cards</b></td><td>把模型用途/数据/性能/局限<b>记录成档</b>,便于透明与审计</td></tr>
+    <tr><td>SageMaker Model Monitor</td><td>上线后<b>监控模型质量随时间下降</b>(数据漂移),及时报警</td></tr>
+  </table></div>
+  <div class="note">💡 "透明+可解释组合"这种多选题,常同时选 <b>Clarify + Model Cards</b>。</div>
+
+  <h2>🗺️ D4 AWS 服务速记</h2>
+  <div class="card"><table>
+    <tr><th>服务</th><th>干什么</th><th>看到就想到</th></tr>
+    <tr><td><b>SageMaker Clarify</b></td><td>偏见检测 + 可解释性</td><td>查偏见 / 解释预测 / 特征重要性</td></tr>
+    <tr><td><b>Bedrock Guardrails</b></td><td>护栏:过滤有害 / 限话题 / 脱敏 / 挡攻击</td><td>有害内容 / 只答特定主题 / 防越狱</td></tr>
+    <tr><td><b>SageMaker Model Cards</b></td><td>记录模型文档</td><td>透明 / 可解释 / 审计留档</td></tr>
+    <tr><td>SageMaker Model Monitor</td><td>监控质量随时间下降</td><td>模型漂移 / 上线后监控</td></tr>
+    <tr><td>SageMaker Canvas</td><td>无代码建模</td><td>不会写代码也能做预测</td></tr>
+  </table></div>
+
+  <h2>🃏 D4 闪卡(22 张)</h2>
+  <div class="sub" style="margin-bottom:6px">点卡片翻面 · 先想再翻</div>
+  <div class="fc-wrap">
+    <div class="fc" id="d4fc" onclick="fc4Flip()">
+      <div class="fc-in">
+        <div class="fc-f"><div class="fc-term" id="fc4Term"></div><div class="fc-en" id="fc4En"></div><span class="fc-hint">点击翻面 →</span></div>
+        <div class="fc-b"><div class="fc-def" id="fc4Def"></div><span class="fc-hint">← 点击翻回</span></div>
+      </div>
+    </div>
+    <div class="fc-bar">
+      <button class="btn sec" onclick="fc4Prev(event)">← 上一张</button>
+      <span id="fc4Pos">1 / 22</span>
+      <button class="btn sec" onclick="fc4Next(event)">下一张 →</button>
+    </div>
+    <div style="text-align:center;margin-top:8px"><button class="btn sec" onclick="fc4Shuf(event)">🔀 打乱顺序</button></div>
+  </div>
+
+  <h2>✍️ 刷 D4 真题</h2>
+  <div class="card">
+    <p style="font-size:14px">精讲看完,去题库把 D4 的 <b>56 道</b>练一遍。<span style="color:var(--warn)">题库答案未官方核对,存疑的先别死记,以本页精讲为准。</span></p>
+    <button class="btn" style="margin-top:10px" onclick="nav('drill',document.querySelectorAll('nav button')[2]);setTimeout(function(){start('D4')},60)">去刷 D4 真题(56 题)→</button>
+  </div>
+
+  <div class="foot">Aki 亲写 · 对照 AIF-C01 官方考纲整理 · 有疑问随时问</div>
+</div></div>
+
+<!-- WEEK 5 / DOMAIN 5 -->
+<div id="w5" class="view"><div class="wrap">
+  <button class="btn sec" style="margin-bottom:14px" onclick="nav('weeks',document.querySelectorAll('nav button')[3])">← 每周材料</button>
+  <h1>第 5 周 · Domain 5：安全、合规与治理</h1>
+  <div class="sub">Security, Compliance, and Governance for AI Solutions · 占分 14% · 8/31–9/6</div>
+
+  <div class="note">📌 <b>这块怎么考:</b>D5 是"把 AI 系统管好、锁好"的一块。核心两件事:①<b>把 AI 系统做安全</b>(谁能访问、数据怎么加密、怎么不走公网、怎么审计)②<b>合规与数据治理</b>(数据在哪存、存多久、能不能出境、怎么证明合规)。这块 AWS 服务名超多,但大多数题只要认准<b>"关键词 → 服务"的固定配对</b>就能拿分(下面速记表就是提分核心)。</div>
+
+  <h2>🎯 两个考点任务</h2>
+  <div class="card"><table>
+    <tr><th>任务</th><th>你要会</th></tr>
+    <tr><td>5.1 保护 AI 系统安全</td><td>共担责任模型;IAM 最小权限;加密(KMS 客户密钥);VPC/PrivateLink 不走公网;CloudTrail 审计;Macie 查敏感数据;Bedrock 数据隐私</td></tr>
+    <tr><td>5.2 合规与数据治理</td><td>数据驻留(不出境);数据保留/删除策略;合规报告(Artifact);Model Cards;人工审核(A2I);监控(CloudWatch/Model Monitor)</td></tr>
+  </table></div>
+
+  <h2>5.1 保护 AI 系统安全</h2>
+  <h3>共担责任模型(必考概念)</h3>
+  <div class="card"><p style="margin:0"><b>Shared Responsibility Model:AWS 管"云本身"的安全(硬件/机房/底层设施),你管"云里"的安全(你的数据、访问权限、加密配置、IAM)。</b>题问"用 Bedrock 时公司自己要负责哪些安全"→ 答:数据、访问控制、加密密钥这些<b>客户侧</b>的事。</p></div>
+
+  <h3>关键安全手段(逐个记)</h3>
+  <div class="card"><table>
+    <tr><th>需求</th><th>用什么</th></tr>
+    <tr><td>只让授权的人 / 团队访问,限制访问特定模型</td><td><b>IAM 最小权限</b>(策略精确到人/模型/数据)</td></tr>
+    <tr><td>用<b>公司自己管理的密钥</b>加密数据 / 模型</td><td><b>AWS KMS 客户管理密钥(CMK)</b></td></tr>
+    <tr><td>API 调用<b>不走公共互联网</b> / 私有访问 / 数据不暴露</td><td><b>VPC + PrivateLink(VPC 端点)</b></td></tr>
+    <tr><td>记录"谁在什么时候调了哪个 API"(审计)</td><td><b>AWS CloudTrail</b></td></tr>
+    <tr><td>无互联网的<b>隔离环境</b>跑训练/推理</td><td>SageMaker <b>VPC / 网络隔离</b>模式</td></tr>
+    <tr><td>发现 S3 里的<b>敏感数据 / PII</b> 并告警</td><td><b>Amazon Macie</b></td></tr>
+    <tr><td>响应里<b>屏蔽个人信息 PII</b></td><td>Bedrock <b>Guardrails</b>(PII 脱敏)</td></tr>
+  </table></div>
+  <div class="warnbox">⚠️ 三个最容易混:<b>IAM</b>=谁能访问(权限);<b>KMS</b>=加密密钥;<b>CloudTrail</b>=记录谁调了 API(审计日志)。<b>Macie</b>=专门找 S3 里的敏感数据。别张冠李戴。</div>
+
+  <h3>Bedrock 的数据隐私(送分)</h3>
+  <div class="card"><p style="margin:0">用 Bedrock 时:<b>你的数据不会被用来训练底层基础模型,也不会分享给第三方模型提供商</b>。数据加密传输和存储。题问"用第三方模型分析机密文件担心隐私"→ 答:Bedrock 不拿你的数据训模型。</p></div>
+
+  <h2>5.2 合规与数据治理</h2>
+  <h3>数据治理关键概念</h3>
+  <div class="card"><table>
+    <tr><th>概念</th><th>意思</th><th>典型题</th></tr>
+    <tr><td><b>数据驻留 Data Residency</b></td><td>数据必须<b>留在特定地区/国家</b>不能出境</td><td>患者/PII 数据不得离开所在国 → 把数据留在该 AWS 区域</td></tr>
+    <tr><td>数据保留/删除</td><td>规定数据<b>存多久、何时删</b></td><td>"有数据存储和删除指导方针" = 数据治理策略</td></tr>
+    <tr><td>只用<b>经批准的数据</b>训练</td><td>数据来源受控、可追溯</td><td>数据治理 / 数据血缘</td></tr>
+  </table></div>
+
+  <h3>合规与文档留档</h3>
+  <div class="card"><table>
+    <tr><th>工具</th><th>干什么</th></tr>
+    <tr><td><b>AWS Artifact</b></td><td>下载 AWS 的<b>合规报告 / 审计证明</b>(ISO/SOC 等),向监管证明合规</td></tr>
+    <tr><td><b>SageMaker Model Cards</b></td><td>记录模型用途/数据/性能/局限,合规留档</td></tr>
+    <tr><td>SageMaker Model Monitor</td><td>持续监控模型质量、是否偏离</td></tr>
+    <tr><td><b>Amazon A2I(Augmented AI)</b></td><td>搭<b>人工审核</b>工作流,设置置信度阈值,低置信度的交给人复核</td></tr>
+    <tr><td>CloudWatch</td><td>高可扩展地<b>监控系统性能</b>指标</td></tr>
+  </table></div>
+  <div class="note">💡 <b>成本题:</b>"日志安全保留 5 年、成本最低" → 存 <b>Amazon S3</b>(配生命周期规则转 Glacier 归档),不是一直放贵的存储。</div>
+
+  <h3>NLP 小知识:分词</h3>
+  <div class="card"><p style="margin:0"><b>分词 Tokenization</b> = 把文本<b>切成一个个 token(词/子词)</b>,是模型处理文本的第一步(不是加密、不是脱敏,别混)。</p></div>
+
+  <h2>🗺️ D5 AWS 服务速记(提分核心)</h2>
+  <div class="card"><table>
+    <tr><th>关键词</th><th>选这个</th></tr>
+    <tr><td>谁能访问 / 限制权限 / 最小权限</td><td><b>IAM</b></td></tr>
+    <tr><td>客户自管加密密钥</td><td><b>KMS</b></td></tr>
+    <tr><td>不走公网 / 私有访问 / 数据不上网</td><td><b>VPC + PrivateLink</b></td></tr>
+    <tr><td>记录谁调了 API / 审计</td><td><b>CloudTrail</b></td></tr>
+    <tr><td>找 S3 敏感数据 / PII 并告警</td><td><b>Macie</b></td></tr>
+    <tr><td>下载合规报告 / 审计证明</td><td><b>Artifact</b></td></tr>
+    <tr><td>过滤有害 / 脱敏 PII / 限话题</td><td><b>Bedrock Guardrails</b></td></tr>
+    <tr><td>人工审核 + 置信度阈值</td><td><b>Amazon A2I</b></td></tr>
+    <tr><td>监控性能 / 可扩展</td><td><b>CloudWatch</b></td></tr>
+    <tr><td>无服务器部署模型</td><td>SageMaker <b>Serverless</b> 推理</td></tr>
+  </table></div>
+
+  <h2>🃏 D5 闪卡(22 张)</h2>
+  <div class="sub" style="margin-bottom:6px">点卡片翻面 · 先想再翻</div>
+  <div class="fc-wrap">
+    <div class="fc" id="d5fc" onclick="fc5Flip()">
+      <div class="fc-in">
+        <div class="fc-f"><div class="fc-term" id="fc5Term"></div><div class="fc-en" id="fc5En"></div><span class="fc-hint">点击翻面 →</span></div>
+        <div class="fc-b"><div class="fc-def" id="fc5Def"></div><span class="fc-hint">← 点击翻回</span></div>
+      </div>
+    </div>
+    <div class="fc-bar">
+      <button class="btn sec" onclick="fc5Prev(event)">← 上一张</button>
+      <span id="fc5Pos">1 / 22</span>
+      <button class="btn sec" onclick="fc5Next(event)">下一张 →</button>
+    </div>
+    <div style="text-align:center;margin-top:8px"><button class="btn sec" onclick="fc5Shuf(event)">🔀 打乱顺序</button></div>
+  </div>
+
+  <h2>✍️ 刷 D5 真题</h2>
+  <div class="card">
+    <p style="font-size:14px">精讲看完,去题库把 D5 的 <b>51 道</b>练一遍。<span style="color:var(--warn)">题库答案未官方核对,存疑的先别死记,以本页精讲为准。</span></p>
+    <button class="btn" style="margin-top:10px" onclick="nav('drill',document.querySelectorAll('nav button')[2]);setTimeout(function(){start('D5')},60)">去刷 D5 真题(51 题)→</button>
   </div>
 
   <div class="foot">Aki 亲写 · 对照 AIF-C01 官方考纲整理 · 有疑问随时问</div>
@@ -1340,6 +1566,84 @@ function fc3Next(e){if(e)e.stopPropagation();fc3I=(fc3I+1)%D3FC.length;fc3Render
 function fc3Prev(e){if(e)e.stopPropagation();fc3I=(fc3I-1+D3FC.length)%D3FC.length;fc3Render();}
 function fc3Shuf(e){if(e)e.stopPropagation();for(var i=fc3Order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fc3Order[i];fc3Order[i]=fc3Order[j];fc3Order[j]=t;}fc3I=0;fc3Render();}
 fc3Render();
+
+const D4FC=[
+ {t:"负责任 AI",en:"Responsible AI",d:"六大支柱:<b>公平/可解释/透明/隐私安全/稳健/可问责</b>。D4 的总纲。"},
+ {t:"SageMaker Clarify",en:"偏见+可解释",d:"AWS 招牌工具:①检测<b>偏见</b> ②<b>特征重要性</b>解释预测。查偏见/解释预测就选它。"},
+ {t:"Bedrock Guardrails",en:"安全护栏",d:"过滤有害内容、拒绝特定话题、脱敏 PII、挡提示攻击。D4/D5 万能钥匙。"},
+ {t:"可解释性",en:"Explainability",d:"能说清<b>这个预测为什么是这个结果</b>。决策树强、神经网络弱。"},
+ {t:"透明度",en:"Transparency",d:"公开模型<b>怎么建的、用了什么数据、有何局限</b>,便于信任与审计。"},
+ {t:"偏见",en:"Bias",d:"对某人群系统性不公。典型:简历筛选歧视性别、贷款看人下菜。"},
+ {t:"减少偏见",en:"Bias Mitigation",d:"收集<b>多样化有代表性</b>的数据是根本;还可预处理/后处理调整;用 Clarify 检测。"},
+ {t:"毒性",en:"Toxicity",d:"输出仇恨/侮辱/暴力/色情。内容审核场景,用 Guardrails 挡。"},
+ {t:"幻觉",en:"Hallucination",d:"一本正经胡说、生成与输入无关的编造内容。减少靠 RAG。"},
+ {t:"知识产权/抄袭",en:"IP / Plagiarism",d:"版权侵权、学生用 AI 代写论文——负责任 AI 的挑战之一。"},
+ {t:"决策树最可解释",en:"Decision Tree",d:"要<b>可解释性最强</b>的模型就选决策树/线性模型,能直接看到规则。"},
+ {t:"神经网络=黑盒",en:"Black Box",d:"准确率高但<b>说不清为什么</b>。换成神经网络=准确率↑可解释性↓。"},
+ {t:"PDP 部分依赖图",en:"Partial Dependence Plots",d:"展示某特征怎么影响预测,放进模型报告给相关方看透明度。"},
+ {t:"SageMaker Model Cards",en:"模型卡片",d:"把模型用途/数据/性能/局限<b>记录成档</b>,做透明与审计。"},
+ {t:"SageMaker Model Monitor",en:"模型监控",d:"上线后监控<b>模型质量随时间下降</b>(数据漂移),及时报警。"},
+ {t:"公平性",en:"Fairness",d:"不同人群一视同仁。贷款/招聘/推荐场景高频。"},
+ {t:"以人为本",en:"Human-centered AI",d:"AI 服务于人,关键决策<b>保留人工介入</b>。"},
+ {t:"AI 治理框架",en:"AI Governance",d:"政策+流程+角色,确保 AI 负责任、可问责、以人为本。"},
+ {t:"红队测试",en:"Red-teaming",d:"故意绕过安全功能生成有害内容,来<b>测试模型安全性</b>。"},
+ {t:"数据代表性",en:"Representativeness",d:"训练数据要覆盖不同性别/种族/地区,否则模型对缺席群体不公。"},
+ {t:"儿童内容适宜",en:"Age Appropriateness",d:"给儿童的应用要确保生成内容适龄安全,用 Guardrails 兜底。"},
+ {t:"透明+可解释组合",en:"多选常客",d:"多选题常同时选 <b>Clarify + Model Cards</b>。"}
+];
+let fc4I=0,fc4Order=D4FC.map(function(_,i){return i;});
+function fc4Render(){
+  var el=document.getElementById('d4fc');if(!el)return;
+  var c=D4FC[fc4Order[fc4I]];el.classList.remove('flip');
+  document.getElementById('fc4Term').textContent=c.t;
+  document.getElementById('fc4En').textContent=c.en;
+  document.getElementById('fc4Def').innerHTML=c.d;
+  document.getElementById('fc4Pos').textContent=(fc4I+1)+' / '+D4FC.length;
+}
+function fc4Flip(){var el=document.getElementById('d4fc');if(el)el.classList.toggle('flip');}
+function fc4Next(e){if(e)e.stopPropagation();fc4I=(fc4I+1)%D4FC.length;fc4Render();}
+function fc4Prev(e){if(e)e.stopPropagation();fc4I=(fc4I-1+D4FC.length)%D4FC.length;fc4Render();}
+function fc4Shuf(e){if(e)e.stopPropagation();for(var i=fc4Order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fc4Order[i];fc4Order[i]=fc4Order[j];fc4Order[j]=t;}fc4I=0;fc4Render();}
+fc4Render();
+
+const D5FC=[
+ {t:"共担责任模型",en:"Shared Responsibility",d:"AWS 管<b>云本身</b>安全,你管<b>云里</b>的(数据/权限/加密/IAM)。"},
+ {t:"IAM 最小权限",en:"Least Privilege",d:"精确到人/模型/数据的访问控制。<b>限制访问特定模型、团队只看自己数据</b>就选它。"},
+ {t:"AWS KMS",en:"密钥管理",d:"<b>客户管理的加密密钥(CMK)</b>加密数据/模型。看到自管密钥就选 KMS。"},
+ {t:"VPC + PrivateLink",en:"私有访问",d:"API 调用<b>不走公共互联网</b>、数据不暴露。看到不上网/私有访问就选它。"},
+ {t:"AWS CloudTrail",en:"审计日志",d:"记录<b>谁在何时调了哪个 API</b>。审计/追责就选它。"},
+ {t:"Amazon Macie",en:"敏感数据发现",d:"专门发现 <b>S3 里的敏感数据/PII</b> 并告警。共享 S3 前查敏感信息。"},
+ {t:"AWS Artifact",en:"合规报告",d:"下载 AWS 的<b>合规报告/审计证明</b>(ISO/SOC),向监管证明合规。"},
+ {t:"Bedrock 数据隐私",en:"Data Privacy",d:"你的数据<b>不会被用来训练底层模型、不分享给第三方</b>。机密文件也放心。"},
+ {t:"SageMaker 网络隔离",en:"Network Isolation",d:"在<b>无互联网的隔离环境</b>跑训练/推理,满足监管。"},
+ {t:"Guardrails 脱敏 PII",en:"PII Masking",d:"响应里<b>屏蔽个人信息</b>,防止模型吐出患者/客户隐私。"},
+ {t:"数据驻留",en:"Data Residency",d:"数据必须<b>留在特定地区不出境</b>。患者/PII 不离所在国就把数据留在该区域。"},
+ {t:"数据保留/删除",en:"Retention Policy",d:"规定数据<b>存多久、何时删</b>。有存储和删除指导方针=数据治理策略。"},
+ {t:"经批准数据训练",en:"Approved Data",d:"只用来源受控、可追溯的数据训模型——数据治理要求。"},
+ {t:"Amazon A2I",en:"Augmented AI",d:"搭<b>人工审核</b>工作流,设置<b>置信度阈值</b>,低置信度交给人复核。"},
+ {t:"CloudWatch",en:"性能监控",d:"高可扩展地<b>监控系统性能</b>指标(区别于 Model Monitor 盯模型质量)。"},
+ {t:"日志低成本存 5 年",en:"S3 + Glacier",d:"日志安全长期保留、成本最低 → 存 <b>S3</b> 配生命周期转 Glacier 归档。"},
+ {t:"分词",en:"Tokenization",d:"把文本<b>切成 token</b>(词/子词),模型处理文本第一步。不是加密不是脱敏。"},
+ {t:"SageMaker Serverless",en:"无服务器推理",d:"部署模型<b>无需管服务器/基础设施</b>。看到无服务器部署选它。"},
+ {t:"限制访问基础模型",en:"Model Access",d:"控制员工能用哪些 FM → 用 <b>IAM 策略</b> 精细授权。"},
+ {t:"Bedrock 安全用 LLM",en:"Secure LLM",d:"组合拳:IAM 控权限 + KMS 加密 + VPC 隔离 + Guardrails 护栏。"},
+ {t:"生命周期阶段合规",en:"ML Lifecycle",d:"<b>业务目标定义/数据准备</b>阶段就要确定合规与监管要求,别等上线才补。"},
+ {t:"统一开发环境",en:"SageMaker Studio",d:"多团队协同、安全构建 AI 的统一环境 → SageMaker (Unified) Studio。"}
+];
+let fc5I=0,fc5Order=D5FC.map(function(_,i){return i;});
+function fc5Render(){
+  var el=document.getElementById('d5fc');if(!el)return;
+  var c=D5FC[fc5Order[fc5I]];el.classList.remove('flip');
+  document.getElementById('fc5Term').textContent=c.t;
+  document.getElementById('fc5En').textContent=c.en;
+  document.getElementById('fc5Def').innerHTML=c.d;
+  document.getElementById('fc5Pos').textContent=(fc5I+1)+' / '+D5FC.length;
+}
+function fc5Flip(){var el=document.getElementById('d5fc');if(el)el.classList.toggle('flip');}
+function fc5Next(e){if(e)e.stopPropagation();fc5I=(fc5I+1)%D5FC.length;fc5Render();}
+function fc5Prev(e){if(e)e.stopPropagation();fc5I=(fc5I-1+D5FC.length)%D5FC.length;fc5Render();}
+function fc5Shuf(e){if(e)e.stopPropagation();for(var i=fc5Order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fc5Order[i];fc5Order[i]=fc5Order[j];fc5Order[j]=t;}fc5I=0;fc5Render();}
+fc5Render();
 
 function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function baHtml(n){
