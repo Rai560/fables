@@ -723,6 +723,98 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <button class="btn sec" style="margin-bottom:14px" onclick="nav('weeks',document.querySelectorAll('nav button')[3])">← 每周材料</button>
   <h1>第 3 周 · Domain 3：应用基础模型</h1>
   <div class="sub">Applications of Foundation Models · 占分 28%(最高) · 8/17–8/23</div>
+  <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+    <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D3 七组混淆点速查 · 错题精炼(考前扫这个)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D3 的题几乎都是「给场景、选做法」,坑在<b style="color:var(--txt)">相似选项分不清</b>。把每组的<b style="color:var(--txt)">判别开关</b>记住就能秒选。以下 7 组 = 你摘的 19 道错题的全部考点。</div>
+    <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 7 条):</b>
+      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
+        <li>标注数据定制 → <b>微调</b>;没 RAG 选项的"用公司数据" → <b>微调</b>;有 RAG 且私有事实 → <b>RAG</b></li>
+        <li>嵌入 = 让文本能"算相似度";分块 = 为检索更准(<b>不是</b>省钱)</li>
+        <li>几个示例 → <b>Few-shot</b>;任务拆解依次调 → <b>提示链</b>(≠ 思维链)</li>
+        <li>限候选词个数 → <b>Top K</b>;调随机程度 → <b>温度</b>;控长度 → <b>Max tokens</b></li>
+        <li>生成文本评估 → <b>BERTScore/ROUGE</b>;分类 → <b>F1/AUC</b></li>
+        <li>只查文档 → <b>知识库</b>;多步 + 调 API → <b>Agents</b>;接外部服务 → <b>Action Group</b></li>
+        <li>环保 → 提计算效率;批量不急 → <b>Batch 推理</b>;硬时限 → 选<b>小模型</b></li>
+      </ol>
+    </div>
+    <div style="color:var(--mut);font-size:12.5px;margin-bottom:4px">↓ 展开每组看判别细节</div>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">1️⃣ 定制四阶梯 ⭐最重要(题 356 / 357 / 411)</summary>
+      <table>
+        <tr><th>方法</th><th>改模型?</th><th>用什么数据</th><th>何时选</th></tr>
+        <tr><td>提示工程</td><td>不改</td><td>不用</td><td>只改"怎么问",最便宜最快</td></tr>
+        <tr><td><b>RAG</b></td><td>不改</td><td>外挂知识库</td><td>用私有/最新事实回答、数据常变</td></tr>
+        <tr><td><b>微调</b></td><td>改权重</td><td><b>有标注</b>数据</td><td>教它特定领域的行为/格式/术语</td></tr>
+        <tr><td>持续预训练</td><td>改权重</td><td><b>无标注</b>大量文本</td><td>让模型懂整个领域语料(最重)</td></tr>
+      </table>
+      <div class="warnbox" style="font-size:12.5px;margin:8px 0 0">判别开关:①「高质量<b>标注</b>数据集 + 定制」→ 微调(356) ②「用公司数据生成回复」且<b>选项里没有 RAG</b> → 微调(411);<b>有 RAG 且是私有事实类要优先 RAG</b> ③「SageMaker 训好 → 导入 Bedrock 用」记死这条路径 = Bedrock <b>自定义模型导入(Custom Model Import)</b>(357)</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">2️⃣ 嵌入 / 向量 / 分块(题 192 / 203 / 172 / 110)</summary>
+      <div style="font-size:13px;color:var(--mut);margin:6px 0"><b style="color:var(--txt)">嵌入(Embedding)</b> = 把文本变成高维向量,语义相近的向量也相近。目的只有一个:<b style="color:var(--txt)">让文本能"算"相似度</b>(检索/聚类/语义匹配)。(192/203)</div>
+      <table>
+        <tr><th>概念</th><th>是什么</th><th>别混成</th></tr>
+        <tr><td><b>嵌入</b></td><td>文本→向量,捕捉语义</td><td>≠ 分词(只是拆文本)</td></tr>
+        <tr><td>量化 Quantization</td><td>降数据精度、省硬件</td><td>203 的 C 是这个坑</td></tr>
+        <tr><td>向量数据库</td><td>存 + 查向量</td><td>203 的 D 是这个坑</td></tr>
+        <tr><td><b>分块 Chunking</b></td><td>大文档切小块,<b>为检索更准</b></td><td>≠ 省存储/省钱(172)</td></tr>
+      </table>
+      <div class="warnbox" style="font-size:12.5px;margin:8px 0 0">AWS 向量库(110):<b>Aurora / RDS PostgreSQL(靠 pgvector)</b>、OpenSearch。Athena(S3 跑 SQL)、Redshift(数仓)、EMR(大数据处理)<b>都不是</b>向量库。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">3️⃣ 提示工程技术家族(题 216 / 168 / 108)</summary>
+      <table>
+        <tr><th>技术</th><th>一句话</th><th>关键词</th></tr>
+        <tr><td>Zero-shot</td><td>不给例子直接问</td><td>无示例</td></tr>
+        <tr><td>One-shot</td><td>给 <b>1 个</b>例子</td><td>一个示例</td></tr>
+        <tr><td><b>Few-shot</b></td><td>给<b>几个</b>例子让它模仿(216)</td><td>「一些/几个示例」</td></tr>
+        <tr><td>思维链 CoT</td><td><b>一次调用内</b>一步步推理</td><td>复杂推理</td></tr>
+        <tr><td><b>提示链 Chaining</b></td><td>大任务拆子任务,<b>多次依次</b>调(168)</td><td>「拆解 + 依次发送」</td></tr>
+        <tr><td>思维树 ToT</td><td>分支探索多条推理路径</td><td>多路径</td></tr>
+      </table>
+      <div class="warnbox" style="font-size:12.5px;margin:8px 0 0">最易混:<b>思维链 vs 提示链</b> —— 思维链是"一次调用内展示推理";提示链是"多次调用串成链"。看到「拆成子任务<b>依次</b>发」= 提示链。(108 是应用题:批量产文案 → 分类建提示 + 定格式定长度)</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">4️⃣ 推理参数(题 214)</summary>
+      <table>
+        <tr><th>参数</th><th>控制什么</th></tr>
+        <tr><td><b>温度 Temperature</b></td><td>随机性/创造性<b>程度</b>(高=更发散)</td></tr>
+        <tr><td><b>Top K</b></td><td>候选下一个词的<b>个数</b>(只从概率最高的 K 个里挑)(214)</td></tr>
+        <tr><td>Top P</td><td>按累积概率阈值挑候选词</td></tr>
+        <tr><td>Max tokens</td><td>输出<b>长度</b></td></tr>
+      </table>
+      <div class="note" style="font-size:12.5px;margin:8px 0 0">口诀:调"程度"→ 温度;限"个数"→ Top K;控"长度"→ Max tokens。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">5️⃣ 模型评估指标(题 102)</summary>
+      <table>
+        <tr><th>任务类型</th><th>用什么指标</th></tr>
+        <tr><td><b>生成式文本</b>(摘要/翻译)</td><td><b>BERTScore</b>(语义相似度)、ROUGE(摘要)、BLEU(翻译)</td></tr>
+        <tr><td>分类</td><td>Accuracy / Precision / Recall / F1 / AUC-ROC</td></tr>
+      </table>
+      <div class="warnbox" style="font-size:12.5px;margin:8px 0 0">口诀:"生成文本"→ BERTScore/ROUGE/BLEU;"分类"→ F1/AUC。<b>在生成题里看到 AUC、F1 就是陷阱</b>(102 的 A、B)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">6️⃣ Bedrock 组件选型(题 120 / 305 / 402)</summary>
+      <table>
+        <tr><th>组件</th><th>干什么</th></tr>
+        <tr><td>知识库 Knowledge Bases</td><td><b>只管查文档</b>回答(托管版 RAG)</td></tr>
+        <tr><td><b>代理 Agents</b></td><td><b>多步编排</b>:调 API、执行动作、比较/排序结果</td></tr>
+        <tr><td>Action Group / 自定义 API</td><td>Agent 用来<b>接外部服务</b>的机制(402)</td></tr>
+      </table>
+      <div class="warnbox" style="font-size:12.5px;margin:8px 0 0">判别:只"查文档"→ 知识库;「多步/调外部 API/执行动作/比较排序」→ Agents(305);「查文档 <b>+</b> 多步动作」→ Agents <b>+</b> 知识库(120);「Agent 要访问外部服务」→ 配<b>自定义 API(Action Group)</b>(402)。<b>MCP 是新潮干扰项</b>,考试标准答案是 Action Group。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">7️⃣ 部署 / 运营考量(题 339 / 345 / 352)</summary>
+      <table>
+        <tr><th>场景</th><th>选</th><th>别选</th></tr>
+        <tr><td>降低<b>环境影响</b>(339)</td><td>优化架构、<b>提高计算效率</b></td><td>更多机器/本地部署(更耗电)</td></tr>
+        <tr><td>大量提示 + <b>不急</b> + API(345)</td><td><b>Bedrock 批量推理(Batch,异步)</b></td><td>实时推理(贵)</td></tr>
+        <tr><td>硬性实时时限(如 30 秒)+ 直接用预训练(352)</td><td>看<b>模型尺寸</b>(小=快=低延迟)</td><td>成本/定制/温度</td></tr>
+      </table>
+    </details>
+  </div>
+
 
   <div class="note">📌 <b>这块怎么考:</b>D3 是<b>分值最高的一块(28%)</b>，也是最“实战”的一块。不考你训模型的数学，考你<b>拿到一个业务场景，会不会选对做法</b>：该调 API 还是微调？该用 RAG 还是 fine-tune？prompt 怎么写更好？模型好不好用什么指标衡量？核心四件事——<b>选型 + 推理参数</b>、<b>RAG / 向量库</b>、<b>提示工程(技巧 + 风险)</b>、<b>训练微调 + 评估</b>。本页 Aki 亲自整理核对，可放心背。</div>
 
