@@ -450,6 +450,15 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     <h1>✍️ 真题刷题</h1>
     <div class="sub">422 题 · 逐题解析 · 错题自动进错题本</div>
     <div class="warnbox">⚠️ 社区题库,非官方真题,<b>答案未逐题核对</b>。练手感/考法用;存疑处 Aki 会逐领域校准。</div>
+    <div onclick="startMock()" style="cursor:pointer;margin:14px 0 16px;padding:16px 18px;border-radius:14px;background:linear-gradient(135deg,#232F3E,#31465c);border:1px solid #FF9900;box-shadow:0 3px 14px rgba(255,153,0,.13)">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div style="min-width:0">
+          <div style="font-weight:800;font-size:17px;color:#fff">🎯 全真模考 · 65 题 / 90 分钟</div>
+          <div style="color:#cbd5e1;font-size:12.5px;margin-top:4px;line-height:1.6">按官方权重出题(D1 20% · D2 24% · D3 28% · D4 14% · D5 14%),限时倒计时、中途不看答案,交卷后出总分 + <b style="color:#FF9900">分域诊断</b>告诉你下一步补哪个领域。五个领域都刷过一轮了,来测一次真实水平 →</div>
+        </div>
+        <div style="background:#FF9900;color:#232F3E;font-weight:800;padding:11px 20px;border-radius:10px;white-space:nowrap;font-size:15px">开始模考 →</div>
+      </div>
+    </div>
     <div class="card" style="margin:14px 0 16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div style="font-weight:700;font-size:15px">📊 我的测试记录</div>
@@ -1317,11 +1326,18 @@ renderHist();
 cloudPull();
 // drill state
 let Q=[],pos=0,sel=[],graded=[],curMode='';
+let mockTimer=null,mockEndTs=0;
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-const MODEN={all:'全部 422',rand20:'随机 20 题',rand65:'随机 65 题',multi:'多选专练',hotspot:'热点/排序题',wrong:'错题重刷',D1:'D1 AI/ML 基础',D2:'D2 生成式AI基础',D3:'D3 应用基础模型',D4:'D4 负责任AI',D5:'D5 安全合规治理'};
-function persistSess(){if(!curMode)return;const s=load();s.sess=s.sess||{};s.sess[curMode]={ids:Q.map(x=>x.n),pos:pos,graded:graded.map(g=>g?{sel:g.sel.slice(),correct:g.correct}:null)};save(s);}
+const MODEN={all:'全部 422',rand20:'随机 20 题',rand65:'随机 65 题',multi:'多选专练',hotspot:'热点/排序题',wrong:'错题重刷',mock:'🎯 全真模考',D1:'D1 AI/ML 基础',D2:'D2 生成式AI基础',D3:'D3 应用基础模型',D4:'D4 负责任AI',D5:'D5 安全合规治理'};
+function persistSess(){if(!curMode||curMode==='mock')return;const s=load();s.sess=s.sess||{};s.sess[curMode]={ids:Q.map(x=>x.n),pos:pos,graded:graded.map(g=>g?{sel:g.sel.slice(),correct:g.correct}:null)};save(s);}
 function openRun(){document.getElementById('drill-home').style.display='none';document.getElementById('drill-res').style.display='none';document.getElementById('drill-run').style.display='block';}
 function resumeSess(mode,sv){curMode=mode;Q=sv.ids.map(id=>AIF_Q.find(q=>q.n===id)).filter(Boolean);pos=Math.min(sv.pos||0,Q.length-1);if(pos<0)pos=0;graded=(sv.graded||[]).slice();while(graded.length<Q.length)graded.push(null);sel=[];openRun();render();}
+function fmtT(s){s=Math.max(0,s|0);var m=(s/60)|0,ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+function mockAnswered(){return graded.filter(function(g){return g&&g.sel&&g.sel.length;}).length;}
+function renderMockBar(){if(curMode!=='mock')return;var el=document.getElementById('qscore');if(!el)return;var left=Math.round((mockEndTs-Date.now())/1000);el.innerHTML='⏱ <b>'+fmtT(left)+'</b> · 已答 '+mockAnswered()+'/'+Q.length;el.style.color=left<=300?'var(--red)':'';}
+function startMockTimer(){clearInterval(mockTimer);mockTimer=setInterval(function(){if(curMode!=='mock'){clearInterval(mockTimer);mockTimer=null;return;}var left=Math.round((mockEndTs-Date.now())/1000);renderMockBar();if(left<=0){clearInterval(mockTimer);mockTimer=null;alert('⏰ 时间到,自动交卷!');finish();}},1000);}
+function startMock(){if(!confirm('开始一次全真模考?\n\n· 按官方权重抽 65 题(D1 13 / D2 16 / D3 18 / D4 9 / D5 9)\n· 限时 90 分钟,到点自动交卷\n· 中途不显示对错,交卷后一次性出分 + 分域诊断\n· 请一次做完,刷新 / 关闭网页会作废重来'))return;var W={D1:13,D2:16,D3:18,D4:9,D5:9};var pool=[];for(var d in W){var bank=shuffle(AIF_Q.filter(function(q){return q.d===d&&q.t!=='h';}));pool=pool.concat(bank.slice(0,W[d]));}pool=shuffle(pool);Q=pool;pos=0;sel=[];graded=new Array(Q.length).fill(null);curMode='mock';mockEndTs=Date.now()+90*60*1000;openRun();render();startMockTimer();}
+function finishMock(){clearInterval(mockTimer);mockTimer=null;var total=Q.length;var cor=graded.filter(function(g){return g&&g.correct;}).length;var ans=mockAnswered();var pct=total?Math.round(cor/total*100):0;var DN={D1:'D1 AI/ML 基础',D2:'D2 生成式AI基础',D3:'D3 应用基础模型',D4:'D4 负责任AI',D5:'D5 安全合规治理'};var dtot={},dcor={};Q.forEach(function(q,i){dtot[q.d]=(dtot[q.d]||0)+1;if(graded[i]&&graded[i].correct)dcor[q.d]=(dcor[q.d]||0)+1;});var s=load();Q.forEach(function(q,i){if(graded[i]&&graded[i].sel&&graded[i].sel.length&&!graded[i].correct){if(!s.wrong.includes(q.n))s.wrong.push(q.n);}});s.done+=ans;s.correct+=cor;s.hist.unshift({ts:Date.now(),mode:'mock',name:'🎯 全真模考',done:total,cor:cor,pct:pct,total:total});if(s.hist.length>100)s.hist=s.hist.slice(0,100);if(s.sess){delete s.sess['mock'];}save(s);var weak=null,weakp=101;Object.keys(DN).forEach(function(d){var t=dtot[d]||0;if(!t)return;var p=Math.round((dcor[d]||0)/t*100);if(p<weakp){weakp=p;weak=d;}});var rows=Object.keys(DN).map(function(d){var t=dtot[d]||0,c=dcor[d]||0,p=t?Math.round(c/t*100):0;var col=p>=70?'var(--ok)':(p>=50?'var(--warn)':'var(--red)');return '<tr><td style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)">'+DN[d]+'</td><td style="padding:6px 8px;border-bottom:1px solid var(--line);text-align:center">'+c+'/'+t+'</td><td style="padding:6px 8px;border-bottom:1px solid var(--line);text-align:center;color:'+col+';font-weight:700">'+p+'%</td></tr>';}).join('');document.getElementById('drill-run').style.display='none';var box=document.getElementById('drill-res');box.style.display='block';box.innerHTML='<div class="res"><h1>🎯 全真模考完成</h1><span class="big" style="color:'+(pct>=70?'var(--ok)':'var(--warn)')+'">'+pct+'%</span><p style="font-size:15px;font-weight:700;color:'+(pct>=70?'var(--ok)':'var(--warn)')+'">'+(pct>=70?'✅ 达到及格线(官方约 700/1000 ≈ 70%)':'⚠️ 还差一点,按下面最弱领域补')+'</p><p style="color:var(--mut)">65 题 · 答对 '+cor+' · 已答 '+ans+'/65'+(ans<65?'('+(65-ans)+' 题未作答,按错计)':'')+'</p><table style="margin:16px auto;max-width:420px;width:100%;border-collapse:collapse;font-size:14px"><thead><tr style="color:var(--mut);font-size:12px"><th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)">领域</th><th style="padding:6px 8px;border-bottom:1px solid var(--line)">对/总</th><th style="padding:6px 8px;border-bottom:1px solid var(--line)">正确率</th></tr></thead><tbody>'+rows+'</tbody></table>'+(weak?'<div class="warnbox" style="max-width:440px;margin:0 auto 8px">🎯 最弱领域:<b>'+DN[weak]+' '+weakp+'%</b> — 建议优先回炉:去精讲复看 + 用「按领域刷」重练这一域。</div>':'')+'<p style="color:var(--ok);font-size:13px">✓ 已记入「测试记录」,答错的题已进错题本</p><div class="btnrow" style="justify-content:center;margin-top:18px"><button class="btn" onclick="exitDrill()">返回选模式</button><button class="btn sec" onclick="start(\'wrong\')">刷错题本</button><button class="btn sec" onclick="startMock()">再来一次</button></div></div>';renderHist();counts();}
 function start(mode){
   const st=load();const sv=st.sess&&st.sess[mode];
   if(sv&&sv.ids&&sv.ids.length&&sv.pos<sv.ids.length&&(sv.pos>0||(sv.graded||[]).some(Boolean))){
@@ -1361,11 +1377,11 @@ function hxRender(q){
   return `<div class="exp show"><div class="h">📖 解析(含正确答案)</div>${body}</div>`;
 }
 function render(){
-  const q=Q[pos];sel=graded[pos]?graded[pos].sel.slice():[];
-  document.getElementById('qpos').textContent=`第 ${pos+1}/${Q.length} 题 · #${q.n} · ${q.d} · ${q.t==='m'?'多选':q.t==='h'?'排序/匹配':'单选'}`;
-  const s=load();document.getElementById('qscore').textContent=`累计 ${s.done} 做 / ${s.correct} 对`;
+  const q=Q[pos];sel=graded[pos]?graded[pos].sel.slice():[];const mk=curMode==='mock';
+  document.getElementById('qpos').textContent=mk?`第 ${pos+1}/${Q.length} 题 · ${q.t==='m'?'多选':'单选'}`:`第 ${pos+1}/${Q.length} 题 · #${q.n} · ${q.d} · ${q.t==='m'?'多选':q.t==='h'?'排序/匹配':'单选'}`;
+  if(mk){renderMockBar();}else{document.getElementById('qscore').style.color='';const s=load();document.getElementById('qscore').textContent=`累计 ${s.done} 做 / ${s.correct} 对`;}
   document.getElementById('qprog').style.width=((pos+1)/Q.length*100)+'%';
-  let html=`<div class="qmeta">题号 ${q.n}</div><div class="qstem">${q.q}</div>`;
+  let html=(mk?'':`<div class="qmeta">题号 ${q.n}</div>`)+`<div class="qstem">${q.q}</div>`;
   if(q.t==='h'){
     var _hk=AIF_HX[q.n];
     html+=`<div class="note">本题是排序/匹配题(答案为拖拽式,无法在此评分)。下面直接给出正确${_hk&&_hk.kind==='order'?'顺序':'对应'},看懂即可。</div>`;
@@ -1379,20 +1395,31 @@ function render(){
   }
   document.getElementById('qbox').innerHTML=html;
   const g=graded[pos];
-  document.getElementById('submitBtn').style.display=(q.t==='h')?'none':'';
-  document.getElementById('submitBtn').disabled=false;
-  document.getElementById('submitBtn').textContent='提交';
-  if(q.t!=='h'&&g){showGraded();}
+  if(mk){
+    document.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',sel.includes(o.dataset.k)));
+    document.getElementById('submitBtn').style.display='';
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('submitBtn').textContent='🏁 交卷';
+    document.getElementById('nextBtn').textContent=pos===Q.length-1?'完成并交卷':'下一题';
+  }else{
+    document.getElementById('submitBtn').style.display=(q.t==='h')?'none':'';
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('submitBtn').textContent='提交';
+    document.getElementById('nextBtn').textContent='下一题';
+    if(q.t!=='h'&&g){showGraded();}
+  }
   document.getElementById('prevBtn').disabled=pos===0;
 }
 function pick(k){
-  if(graded[pos])return;
+  if(graded[pos]&&curMode!=='mock')return;
   const q=Q[pos];
   if(q.t==='m'){const i=sel.indexOf(k);if(i>=0)sel.splice(i,1);else sel.push(k);}
   else sel=[k];
   document.querySelectorAll('.opt').forEach(o=>{o.classList.toggle('sel',sel.includes(o.dataset.k))});
+  if(curMode==='mock'){graded[pos]={sel:sel.slice(),correct:q.a.split('').sort().join('')===sel.slice().sort().join('')};renderMockBar();}
 }
 function submitQ(){
+  if(curMode==='mock'){if(confirm('确定现在交卷?\n未作答的题会按错计分,交卷后不能再改。'))finish();return;}
   const q=Q[pos];if(q.t==='h')return;
   if(!sel.length){alert('先选一个答案');return;}
   const correct=q.a.split('').sort().join('')===sel.slice().sort().join('');
@@ -1425,6 +1452,7 @@ function move(d){
   pos=np;persistSess();render();
 }
 function finish(){
+  if(curMode==='mock'){finishMock();return;}
   const done=graded.filter(g=>g).length;const cor=graded.filter(g=>g&&g.correct).length;
   const _fs=load();if(_fs.sess){delete _fs.sess[curMode];}
   if(done>0){_fs.hist.unshift({ts:Date.now(),mode:curMode,name:(MODEN[curMode]||curMode),done:done,cor:cor,pct:done?Math.round(cor/done*100):0,total:Q.length});if(_fs.hist.length>100)_fs.hist=_fs.hist.slice(0,100);}
@@ -1444,6 +1472,8 @@ function finish(){
   renderHist();
 }
 function exitDrill(){
+  if(curMode==='mock'&&mockTimer){if(!confirm('模考进行中,退出会放弃本次成绩,确定退出?'))return;}
+  clearInterval(mockTimer);mockTimer=null;
   document.getElementById('drill-run').style.display='none';
   document.getElementById('drill-res').style.display='none';
   document.getElementById('drill-home').style.display='block';
