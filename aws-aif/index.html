@@ -1280,6 +1280,113 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
 
   <div class="note">📌 <b>这块怎么考:</b>D2 是<b>第二大分值(24%)</b>,几乎全是"概念题 + 场景题"——不考你会不会训练模型,考你<b>分得清术语</b>(token/embedding/FM/LLM)、<b>知道生成式AI能干什么、不能干什么</b>、以及<b>AWS 该用哪个服务</b>(Bedrock/Q/JumpStart/PartyRock)。基本没有计算题,是"理解 + 背"就能拿分的一块。本页 Aki 亲自整理核对,可放心背。</div>
 
+    <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+    <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D2 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D2 的题几乎都是「给场景、选服务 / 选做法」,坑在<b style="color:var(--txt)">相似选项分不清</b>加<b style="color:var(--txt)">题库机翻术语很烂</b>。把每组<b style="color:var(--txt)">判别开关</b>记住就能秒选。以下 6 组 = 你摘的 22 道错题的全部考点,外加一张机翻避坑表。</div>
+    <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
+      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
+        <li>写代码 / 测试 / 文档 → <b>Q Developer</b>;员工查内部数据 → <b>Q Business</b>(两个 Q 别混)</li>
+        <li>Few-shot = 给<b>「输入→输出」原样配对</b>的示例(分类给"文本→标签"、意图给"消息→意图")</li>
+        <li>LLM <b>没记忆</b> → 历史对话塞进提示;最省钱提准确性 → <b>提示工程</b></li>
+        <li>Bedrock 用<b>自定义/微调模型</b> → 必买<b>预置吞吐量</b>;微调开源省事 → <b>JumpStart</b>;低频批量 → <b>Batch</b>(半价)</li>
+        <li>输出/输入<b>数据类型</b>(文/图/视频)= <b>模态 Modality</b>;Nova 多模态求便宜 → <b>Lite</b>,可微调多模态理解 → <b>Pro</b></li>
+        <li>字面/风格像 → <b>BLEU</b>;语义像 → <b>BERTScore</b>;摘要 → <b>ROUGE</b>;分类 → <b>F1</b>;真实环境 → <b>A/B 测试</b></li>
+      </ol>
+    </div>
+    <div style="color:var(--mut);font-size:12.5px;margin-bottom:4px">↓ 展开每组看判别细节</div>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">1️⃣ Amazon Q 与 AWS 应用服务对号入座(题 12 / 316 / 249 / 189)</summary>
+      <table>
+        <tr><th>场景关键词</th><th>服务</th></tr>
+        <tr><td>写代码 / 生成测试用例 / 写文档 / 引用+许可证跟踪</td><td><b>Amazon Q Developer</b></td></tr>
+        <tr><td>员工用自然语言查公司<b>内部数据</b></td><td><b>Amazon Q Business</b></td></tr>
+        <tr><td>医疗:语音 → 结构化<b>临床记录</b></td><td><b>AWS HealthScribe</b></td></tr>
+        <tr><td>文字 → 语音</td><td>Amazon Polly</td></tr>
+        <tr><td>图像识别 / 分析</td><td>Amazon Rekognition</td></tr>
+        <tr><td>从文档 / 表单提取文字</td><td>Amazon Textract</td></tr>
+        <tr><td>自建聊天机器人的底层(意图/槽位)</td><td>Amazon Lex</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>Q <b>Developer</b> = 给<b>开发者</b>的(码/测/档);Q <b>Business</b> = 给<b>业务员工</b>的(查内部数据)。看到"现成的企业助手查内部数据"选 Q Business,看到"自建聊天机器人底层"才是 Lex。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">2️⃣ 提示工程技术家族(题 25 / 75 / 140 / 150 / 335)</summary>
+      <table>
+        <tr><th>做法/概念</th><th>要点</th></tr>
+        <tr><td><b>Few-shot 少样本</b></td><td>给几个带标签的示例再问;示例格式必须<b>和任务同构</b></td></tr>
+        <tr><td>分类任务的示例</td><td>"文本 → 积极/消极标签"</td></tr>
+        <tr><td>意图检测的示例</td><td>"用户消息 → 用户意图"(不是消息→回复)</td></tr>
+        <tr><td>让 LLM 记住多轮对话</td><td>把<b>历史对话塞进提示</b>(LLM 本身无记忆)</td></tr>
+        <tr><td>最省钱提升准确性</td><td><b>提示工程</b> &gt; RAG &gt; 微调 &gt; 重训(成本低→高)</td></tr>
+        <tr><td>系统提示 System Prompt</td><td>设定 AI 的<b>角色 + 语气 + 行为边界</b></td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>Few-shot 示例要"长得和任务的<b>输入→输出</b>一模一样"——Q75 的坑就是把配对方向搞反(要"消息→意图",不是"消息→回复")。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">3️⃣ Bedrock 自定义模型 & 微调 & 定价 ⭐考了两次(题 50 / 362 / 334 / 405)</summary>
+      <table>
+        <tr><th>场景</th><th>答案</th></tr>
+        <tr><td>在 Bedrock 上用<b>自定义/微调后</b>的模型</td><td><b>必须买预置吞吐量</b> Provisioned Throughput(硬规则)</td></tr>
+        <tr><td>微调开源 LLM 最<b>省事</b></td><td><b>SageMaker JumpStart</b>(内置微调工作流)</td></tr>
+        <tr><td>低频 / 批量 / 不要实时(如每周生成一次)</td><td><b>Batch 批处理推理</b>(可低至按需价 <b>50%</b>)</td></tr>
+        <tr><td>高频实时 + 稳定容量</td><td>预置吞吐量;偶发按量 → 按需</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>题里说"<b>通过 Bedrock</b> 用自定义模型"→ 预置吞吐量。选项里的"部署到 SageMaker 端点 / 注册到模型注册中心"都是干扰(那就不是"通过 Bedrock"用了)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">4️⃣ 模型选型维度 + Nova 家族 + 模型类型(题 281 / 302 / 344 / 190)</summary>
+      <table>
+        <tr><th>关键词</th><th>答案</th></tr>
+        <tr><td>关心"输出/输入是<b>什么类型</b>"(文本/图/视频)</td><td><b>模态 Modality</b></td></tr>
+        <tr><td>Nova:多模态 + 多语言 + <b>最便宜</b></td><td><b>Nova Lite</b></td></tr>
+        <tr><td>Nova:可<b>微调</b>、文本+图像+<b>视频理解</b></td><td><b>Nova Pro</b></td></tr>
+        <tr><td>Nova 生图 → Canvas;生视频 → Reel;纯文本最小 → Micro</td><td>—</td></tr>
+        <tr><td>预测<b>连续数值</b>(价格/销量/温度)</td><td><b>回归 Regression</b></td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"模态 = 数据类型",别和 Nova 型号名混。Nova <b>Lite</b>=便宜多模态,<b>Pro</b>=更强且可微调、能做视频理解。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">5️⃣ 评估指标怎么选(题 232 / 370 / 420)</summary>
+      <table>
+        <tr><th>要评什么</th><th>用哪个指标</th></tr>
+        <tr><td><b>字面/风格/拼写</b>相似(有参考文本,比 n-gram)</td><td><b>BLEU</b></td></tr>
+        <tr><td><b>语义</b>相似</td><td><b>BERTScore</b></td></tr>
+        <tr><td>摘要质量(召回)</td><td><b>ROUGE</b></td></tr>
+        <tr><td>分类好坏</td><td><b>F1 / AUC</b></td></tr>
+        <tr><td>FM 在<b>真实用户真实环境</b>的表现</td><td><b>A/B 测试</b></td></tr>
+        <tr><td>LLM-as-judge:答得<b>全不全</b> / 听不听话 / 拒答率</td><td>完整性 / 遵循指示 / 拒绝</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>表面像 → <b>BLEU</b>,意思像 → <b>BERTScore</b>;"实际应用/真实环境表现" → <b>A/B 测试</b>(不是专家评估、更不是训练集准确率)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">6️⃣ Bedrock 高级功能 & 参数(题 97 / 330)</summary>
+      <table>
+        <tr><th>场景</th><th>答案</th></tr>
+        <tr><td>Stable Diffusion 生成图<b>不贴提示、太随机</b></td><td>调高 <b>CFG scale</b>(无分类器引导,控制"多听提示的话")</td></tr>
+        <tr><td>可重用提示要<b>调外部 API/服务</b></td><td><b>工具配置 Tool Configuration</b>(Tool Use)</td></tr>
+        <tr><td>提示里的占位符填值</td><td>提示变量</td></tr>
+        <tr><td>分隔提示里不同段文本</td><td>特殊标记</td></tr>
+        <tr><td>控制生成何时停</td><td>停止序列</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>CFG 全称 = Classifier-Free Guidance(无分类器引导):</b>调高 → 图更贴提示、更可控;调低 → 更自由随机。图不贴提示 = 调高 CFG。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:#e04a4a;font-weight:700;font-size:13.5px;padding:5px 0">⚠ 机翻术语避坑对照(你被绕晕的元凶)</summary>
+      <div class="note" style="margin:6px 0"><b>重要:</b>你现在刷的题库是<b>社区机翻</b>,术语很烂。<b>真实考试用 AWS 官方专业译名,不会这么离谱</b>——产品名(Nova/Bedrock/SageMaker)一般保留英文或标准译名,不会出现"诺瓦""新星"这种。记<b>概念 + 英文原名</b>,遇到烂翻译先在脑子里还原成英文再判断。</div>
+      <table>
+        <tr><th>题库机翻(错/怪)</th><th>正名(英文)</th></tr>
+        <tr><td>情态</td><td>模态 Modality</td></tr>
+        <tr><td>诺瓦 / 新星</td><td>Nova</td></tr>
+        <tr><td>新星胶片</td><td>Nova Reel(生视频)</td></tr>
+        <tr><td>变压器</td><td>Transformer(模型架构)</td></tr>
+        <tr><td>"培训一名新的财务经理"</td><td>重训基础模型 retrain FM</td></tr>
+        <tr><td>"调整调频"</td><td>调整 FM(基础模型)</td></tr>
+        <tr><td>批处理</td><td>Batch inference(批量推理)</td></tr>
+        <tr><td>双语评估参考</td><td>BLEU</td></tr>
+        <tr><td>基于召回率的摘要评估工具</td><td>ROUGE</td></tr>
+      </table>
+    </details>
+  </div>
+
   <h2>🎯 三个考点任务</h2>
   <div class="card"><table>
     <tr><th>任务</th><th>你要会</th></tr>
