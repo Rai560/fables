@@ -634,6 +634,108 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
 
   <div class="note">📌 <b>这块怎么考:</b>D1 不难,考的是"基本盘"——概念分得清、场景对得上号、知道 AWS 有哪些现成 AI 服务。基本是送分题,目标<b>全对</b>,把空间留给 D2/D3。本页 Aki 亲自整理核对,可放心背。</div>
 
+    <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+    <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D1 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D1 题量最大(130)、覆盖最广,坑在<b style="color:var(--txt)">学习范式分不清</b>、<b style="color:var(--txt)">评估指标绕晕</b>、<b style="color:var(--txt)">服务对不上号</b>。把每组<b style="color:var(--txt)">判别开关</b>记住,D1 基本是送分。以下 6 组 = 你摘的错题全部考点,另有两个"名字像但完全不同"的经典坑单独标红。</div>
+    <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
+      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
+        <li>有标签 → <b>监督</b>;无标签自动分组 → <b>无监督(聚类=K-Means)</b>;归入预定义类别 → <b>分类</b>;预测数值 → <b>回归</b>;无标签找异常 → <b>自编码器</b></li>
+        <li>烦<b>误报</b>(白审/打扰) → <b>精确率</b>;怕<b>漏抓</b>(漏诊/漏欺诈) → <b>召回率</b>;对÷总 → <b>准确率</b>;不平衡/问答综合 → <b>F1</b></li>
+        <li>摸数据(统计+画图+相关矩阵) → <b>EDA</b>;造/选特征 → <b>特征工程</b>;过拟合(训练好、新数据差) → <b>加正则化 或 加数据</b></li>
+        <li>定时/批量/GB级/不要实时 → <b>批量推理</b>;实时秒回 → 实时;单个大请求 → 异步;零星小请求 → 无服务器</li>
+        <li>零代码建模 → <b>Canvas</b>;文本毒性 → <b>Comprehend</b>;语音转字幕 → <b>Transcribe</b>;模型版本管理 → <b>Model Registry</b>;监控漂移告警 → <b>Model Monitor</b>;图数据 → <b>Neptune</b></li>
+        <li>Transformer = <b>自注意力</b>(CNN=卷积 / RNN=逐个);指令微调数据 = <b>问答对</b>;图像分类省事 = <b>预训练+微调</b>;反映多样性 = <b>平衡各类别</b>(别删少数)</li>
+      </ol>
+    </div>
+
+    <div class="note" style="margin:0 0 12px;border-left:3px solid #e04a4a"><b style="color:#e04a4a">⚠ 两个"名字像但完全不同"的坑(你标的 Q138 / Q175):</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>K-NN ≠ K-Means</b>:K-<b>NN</b>(K 近邻)= <b>监督分类</b>,靠已知标签的邻居投票;K-<b>Means</b>(K 均值)= <b>无监督聚类</b>,无标签自动分群。<b>客户分群没有现成标签 → K-Means</b>。看到"划分/分组客户群体"就选 K-Means,别被 K-NN 骗。</li>
+        <li><b>精确率 ≠ 召回率</b>:<b>精确率 Precision</b> = 你报的正例里真的对的比例(高 → <b>少误报</b>);<b>召回率 Recall</b> = 真正的正例里你抓到的比例(高 → <b>少漏抓</b>)。<b>Q175</b>:员工浪费时间审"标了但其实不是欺诈"= 误报太多 → 要提<b>精确率</b>。一句话:<b>烦"错杀好人"→ 精确率;怕"放过坏人"→ 召回率</b>。</li>
+      </ul>
+    </div>
+
+    <div style="color:var(--mut);font-size:12.5px;margin-bottom:4px">↓ 展开每组看判别细节</div>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">1️⃣ 学习范式 & 任务类型对号 ⭐最高频(题 3/138/213/221/238/261/282/293/312)</summary>
+      <table>
+        <tr><th>场景关键词</th><th>答案</th></tr>
+        <tr><td>数据<b>有标签/有目标值</b>,学"输入→已知答案"</td><td><b>监督学习</b>(分类/回归)</td></tr>
+        <tr><td><b>无标签</b>,自动把相似的<b>分组/分群</b></td><td><b>无监督学习 → 聚类 → K-Means</b></td></tr>
+        <tr><td>把输入归入<b>预定义类别</b>(中性/积极/消极)</td><td><b>分类</b>(监督)</td></tr>
+        <tr><td>预测<b>连续数值</b>(房价/需求)</td><td><b>回归</b>(监督)</td></tr>
+        <tr><td><b>无标签</b>找<b>异常</b>(传感器异常值)</td><td><b>自编码器</b>(无监督,重建误差大=异常)</td></tr>
+        <tr><td>要"看得见决策过程"的分类(可解释)</td><td><b>决策树</b>(神经网络=黑盒)</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"分组/分群客户"= 无标签 = <b>聚类 K-Means</b>;干扰项 K-NN / 决策树 / SVM 全是监督分类,别选。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">2️⃣ 评估指标怎么选 ⭐易混(题 70/88/96/175/196/209/287)</summary>
+      <table>
+        <tr><th>要评什么</th><th>用哪个指标</th></tr>
+        <tr><td>对的 ÷ 总数</td><td><b>准确率 Accuracy</b></td></tr>
+        <tr><td>报的正例里对的比例 · 烦<b>误报</b></td><td><b>精确率 Precision</b></td></tr>
+        <tr><td>真正例里抓到的比例 · 怕<b>漏抓</b></td><td><b>召回率 Recall</b></td></tr>
+        <tr><td><b>类别不平衡</b> / 问答综合准确性</td><td><b>F1</b>(精确率+召回率调和)</td></tr>
+        <tr><td>文本<b>摘要</b>质量</td><td>ROUGE(无 ROUGE 选项时选 <b>F1</b>=ROUGE-F1)</td></tr>
+        <tr><td>机器<b>翻译</b>质量</td><td>BLEU</td></tr>
+        <tr><td>比较 LLM <b>毒性</b>(能自动测) · 最省钱</td><td><b>自动模型评估</b>(主观风格才用人工)</td></tr>
+        <tr><td>评估 FM <b>准确性</b></td><td>跑<b>预定义基准数据集</b></td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>准确率=对÷总;不平衡数据用准确率会骗人 → 用 <b>F1</b>。精确率 vs 召回率见上面红框。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">3️⃣ ML 生命周期 & 过拟合(题 72/109/383)</summary>
+      <table>
+        <tr><th>动作 / 现象</th><th>阶段 / 药方</th></tr>
+        <tr><td>算统计量 + 画图 + 相关矩阵"摸数据"</td><td><b>探索性数据分析 EDA</b></td></tr>
+        <tr><td>清洗/归一化/处理缺失值</td><td>数据预处理</td></tr>
+        <tr><td><b>创建/转换/挑选</b>输入变量</td><td><b>特征工程</b></td></tr>
+        <tr><td>训练集表现好、<b>新数据差</b>(过拟合)</td><td><b>加正则化</b> 或 <b>加数据</b>(选项里有哪个选哪个)</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>过拟合 = 模型太复杂死记硬背 → 降复杂度(加正则化)或喂更多数据;千万别"减正则化/加特征/多训几轮"(那是火上浇油)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">4️⃣ 推理类型选型(题 210/308)</summary>
+      <table>
+        <tr><th>场景</th><th>推理类型</th></tr>
+        <tr><td><b>定时</b>(每天/每月一次)+ <b>大批量</b> + 不要实时</td><td><b>批量推理 / 批量转换 Batch</b>(最省钱)</td></tr>
+        <tr><td>秒级响应、在线交互</td><td>实时推理(闲时也烧钱)</td></tr>
+        <tr><td>单个<b>大</b>请求、处理时间长</td><td>异步推理</td></tr>
+        <tr><td>零星、间歇的小请求</td><td>无服务器推理</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>出现"每天/每月一次""大量历史数据""不需要实时""最经济"→ 全指向 <b>批量(Batch)</b>。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">5️⃣ AWS AI 服务地图(送分·题 21/56/60/92/151/220/236/271/401 + Neptune)</summary>
+      <table>
+        <tr><th>需求关键词</th><th>服务</th></tr>
+        <tr><td>没编程经验、<b>零代码</b>建模预测</td><td><b>SageMaker Canvas</b></td></tr>
+        <tr><td>文本分析 / <b>毒性检测</b>(免训练)</td><td><b>Amazon Comprehend</b></td></tr>
+        <tr><td>语音 → 带时间戳文字 / <b>配字幕</b></td><td><b>Amazon Transcribe</b>(Polly 是反的:文字→语音)</td></tr>
+        <tr><td>存储/管理/<b>版本控制模型</b></td><td><b>SageMaker Model Registry</b>(模型文档=Model Cards,别混)</td></tr>
+        <tr><td>监控模型<b>漂移</b> + 质量下降<b>告警</b></td><td><b>SageMaker Model Monitor</b></td></tr>
+        <tr><td><b>图数据</b> / 关系网络(欺诈团伙)</td><td><b>Amazon Neptune</b></td></tr>
+        <tr><td><b>向量数据库</b>(可扩展索引 + k-NN 近邻)</td><td><b>Amazon OpenSearch</b></td></tr>
+        <tr><td>给数据<b>打标签</b>(人工/众包)</td><td><b>SageMaker Ground Truth</b>(+ Mechanical Turk)</td></tr>
+        <tr><td>拦截<b>不当图片/内容</b>(输出前)</td><td>审核 / Moderation API</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>关键词 → 服务是铁定配对,背熟就是白送分。Registry(版本管理)vs Monitor(漂移告警)vs Model Cards(文档)三个别混。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">6️⃣ 概念定义 & 数据处理(题 163/182/183/326/391)</summary>
+      <table>
+        <tr><th>概念</th><th>要点</th></tr>
+        <tr><td><b>Transformer</b> 特点</td><td><b>自注意力</b>(一次看全句·并行);CNN=卷积;RNN=逐个处理</td></tr>
+        <tr><td>MLOps 里 <b>IaC</b> 的好处</td><td>环境<b>一致</b> + 可重复 + 可版本控制</td></tr>
+        <tr><td><b>指令微调</b>的训练数据</td><td><b>问答对</b>(指令→响应);持续预训练=无标注文本</td></tr>
+        <tr><td>图像分类<b>最省事</b></td><td><b>预训练模型 + 微调</b>(迁移学习)</td></tr>
+        <tr><td>数据集反映用户<b>多样性</b></td><td><b>平衡各类别样本</b>(别删少数、别过采样多数)</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"减少偏差/反映多样性"→ 平衡类别;绝不选"删少数类/只用一个地区数据"。</div>
+    </details>
+  </div>
+
   <h2>🎯 三个考点任务</h2>
   <div class="card"><table>
     <tr><th>任务</th><th>你要会</th></tr>
