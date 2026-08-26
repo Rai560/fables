@@ -139,7 +139,48 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <button onclick="nav('hf',this)">⚡ 高频速查</button>
   <button onclick="nav('weeks',this)">📚 每周材料</button>
   <button onclick="nav('notes',this)">🗂️ 我的速查</button>
+  <button onclick="nav('review',this)">🎯 错题提炼</button>
 </nav>
+
+<div id="review" class="view"><div class="wrap">
+  <h1>🎯 错题提炼 · D1–D5 混淆点总入口</h1>
+  <div class="sub">把五个域刷题时反复错的混淆点集中到这里 — 考前统一扫一遍,不用再翻各周精讲页找</div>
+  <div class="card" style="border-left:4px solid var(--accent)">
+    <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--mut)">📌 这里只做导航、不重复内容。D1 / D2 / D3 各自的「混淆点速查卡」藏在每周精讲页顶部,点按钮直接跳过去。D4 / D5 靠关键词→服务配对已经很稳,没单独做卡,按钮直达精讲页复习。</p>
+  </div>
+
+  <div class="card wk">
+    <div class="hd"><h3>Domain 1 · AI 与 ML 基础</h3><span class="date">20% · 当前 66%</span></div>
+    <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">六组常错:学习范式&任务类型 / 评估指标 / ML生命周期&过拟合 / 推理类型 / AWS服务地图 / 概念定义。<b style="color:var(--accent)">两大坑</b>:K-NN(监督分类)≠K-Means(无监督聚类)、精确率(怕误报)≠召回率(怕漏抓)。</p>
+    <button class="btn" style="margin-top:6px" onclick="goCard('w1','card-d1')">看 D1 混淆点速查卡 →</button>
+  </div>
+
+  <div class="card wk">
+    <div class="hd"><h3>Domain 2 · 生成式 AI</h3><span class="date">24% · 当前 72%</span></div>
+    <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">六组常错:Amazon Q 对号 / Few-shot 示例结构 / Bedrock 自定义模型(预置吞吐量) / 模态&Nova 家族 / 评估指标 / CFG&工具配置。另附一张<b style="color:var(--accent)">机翻术语避坑表</b>(诺瓦=Nova、变压器=Transformer…)。</p>
+    <button class="btn" style="margin-top:6px" onclick="goCard('w2','card-d2')">看 D2 混淆点速查卡 →</button>
+  </div>
+
+  <div class="card wk">
+    <div class="hd"><h3>Domain 3 · 基础模型应用</h3><span class="date">28% · 当前 93%</span></div>
+    <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">七组常错:定制四阶梯(提示工程/RAG/微调/持续预训练) / 嵌入·向量·分块 / 提示技术家族 / 推理参数 / 评估指标 / Bedrock 组件 / 部署运营。<b style="color:var(--ok)">已从 56% 打到 93%</b>,考前扫口诀保温。</p>
+    <button class="btn" style="margin-top:6px" onclick="goCard('w3','card-d3')">看 D3 混淆点速查卡 →</button>
+  </div>
+
+  <div class="card wk">
+    <div class="hd"><h3>Domain 4 · 负责任 AI</h3><span class="date">14% · 当前 78%</span></div>
+    <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">关键词→服务配对已很稳,没单独做卡。铁配对:SageMaker Clarify(偏见/可解释) · Bedrock Guardrails(护栏) · Model Cards · Model Monitor(漂移)。决策树最可解释 vs 神经网络黑盒。</p>
+    <button class="btn" style="margin-top:6px" onclick="goCard('w4','')">进入 D4 精讲 →</button>
+  </div>
+
+  <div class="card wk">
+    <div class="hd"><h3>Domain 5 · 安全·合规·治理</h3><span class="date">14% · 当前 71%</span></div>
+    <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">关键词→服务铁配对,没单独做卡:IAM(权限) · KMS(加密) · VPC+PrivateLink(私网) · CloudTrail(审计) · Macie(找敏感数据) · Artifact(合规报告) · 共担责任模型。</p>
+    <button class="btn" style="margin-top:6px" onclick="goCard('w5','')">进入 D5 精讲 →</button>
+  </div>
+
+  <div class="foot">Aki 陪跑 · 错题提炼随刷题持续更新</div>
+</div></div>
 
 <!-- HOME -->
 <div id="home" class="view on"><div class="wrap">
@@ -634,7 +675,7 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
 
   <div class="note">📌 <b>这块怎么考:</b>D1 不难,考的是"基本盘"——概念分得清、场景对得上号、知道 AWS 有哪些现成 AI 服务。基本是送分题,目标<b>全对</b>,把空间留给 D2/D3。本页 Aki 亲自整理核对,可放心背。</div>
 
-    <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+    <div id="card-d1" class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D1 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D1 题量最大(130)、覆盖最广,坑在<b style="color:var(--txt)">学习范式分不清</b>、<b style="color:var(--txt)">评估指标绕晕</b>、<b style="color:var(--txt)">服务对不上号</b>。把每组<b style="color:var(--txt)">判别开关</b>记住,D1 基本是送分。以下 6 组 = 你摘的错题全部考点,另有两个"名字像但完全不同"的经典坑单独标红。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
@@ -908,7 +949,7 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <button class="btn sec" style="margin-bottom:14px" onclick="nav('weeks',document.querySelectorAll('nav button')[3])">← 每周材料</button>
   <h1>第 3 周 · Domain 3：应用基础模型</h1>
   <div class="sub">Applications of Foundation Models · 占分 28%(最高) · 8/17–8/23</div>
-  <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+  <div id="card-d3" class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D3 七组混淆点速查 · 错题精炼(考前扫这个)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D3 的题几乎都是「给场景、选做法」,坑在<b style="color:var(--txt)">相似选项分不清</b>。把每组的<b style="color:var(--txt)">判别开关</b>记住就能秒选。以下 7 组 = 你摘的 19 道错题的全部考点。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 7 条):</b>
@@ -1382,7 +1423,7 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
 
   <div class="note">📌 <b>这块怎么考:</b>D2 是<b>第二大分值(24%)</b>,几乎全是"概念题 + 场景题"——不考你会不会训练模型,考你<b>分得清术语</b>(token/embedding/FM/LLM)、<b>知道生成式AI能干什么、不能干什么</b>、以及<b>AWS 该用哪个服务</b>(Bedrock/Q/JumpStart/PartyRock)。基本没有计算题,是"理解 + 背"就能拿分的一块。本页 Aki 亲自整理核对,可放心背。</div>
 
-    <div class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
+    <div id="card-d2" class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.06),var(--card))">
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D2 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D2 的题几乎都是「给场景、选服务 / 选做法」,坑在<b style="color:var(--txt)">相似选项分不清</b>加<b style="color:var(--txt)">题库机翻术语很烂</b>。把每组<b style="color:var(--txt)">判别开关</b>记住就能秒选。以下 6 组 = 你摘的 22 道错题的全部考点,外加一张机翻避坑表。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
@@ -1670,6 +1711,7 @@ const EXAM = new Date('2026-09-18T09:00:00+08:00');
 (function(){var d=Math.ceil((EXAM-new Date())/864e5);var el=document.getElementById('cd');if(el)el.textContent=d>0?d:0;})();
 // nav
 function nav(id,btn){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');window.scrollTo(0,0);}
+function goCard(v,cid){nav(v,document.querySelectorAll('nav button')[3]);setTimeout(function(){var e=document.getElementById(cid);if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},60);}
 // storage
 const SK='aif_v1';
 const CLOUD="https://api.jsonbin.io/v3/b/6a700590da38895dfeb1c0b6";
