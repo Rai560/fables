@@ -146,7 +146,128 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
   <h1>🎯 错题提炼 · D1–D5 混淆点总入口</h1>
   <div class="sub">把五个域刷题时反复错的混淆点集中到这里 — 考前统一扫一遍,不用再翻各周精讲页找</div>
   <div class="card" style="border-left:4px solid var(--accent)">
-    <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--mut)">📌 这里只做导航、不重复内容。D1 / D2 / D3 各自的「混淆点速查卡」藏在每周精讲页顶部,点按钮直接跳过去。D4 / D5 靠关键词→服务配对已经很稳,没单独做卡,按钮直达精讲页复习。</p>
+    <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--mut)">📌 顶部这张 <b style="color:var(--accent)">🏛️ 官方 Pretest 错题卡</b>是跨 D1–D5 的判别开关合集(考前必扫)。下面 D1 / D2 / D3 各自的「混淆点速查卡」藏在每周精讲页顶部,点按钮跳过去;D4 / D5 靠关键词→服务配对已很稳,按钮直达精讲页复习。</p>
+  </div>
+
+  <div id="card-official" class="card" style="border:1px solid var(--accent);border-left:4px solid var(--accent);background:linear-gradient(180deg,rgba(255,153,0,.09),var(--card))">
+    <h3 style="color:var(--accent);margin-top:0;font-size:16px">🏛️ 官方 Pretest 错题 · 判别开关卡(跨 D1–D5 · 考前必扫)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">来源 = AWS 官方 Official Pretest(65 题),首考 <b style="color:var(--red)">60%(39/65)</b>。这是官方考法、官方答案键,比社区题库准得多。26 道错题拆开看,其实是 <b style="color:var(--txt)">7 组"长得像但不一样"</b>在反复绊你 — 把每组<b style="color:var(--txt)">判别开关</b>背死,官方题也能稳上 70%+。</div>
+    <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 7 条):</b>
+      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
+        <li><b>未标记</b>数据学领域 → <b>持续预训练</b>;<b>标注示例</b>学任务 → <b>指令微调</b>;学行业术语 → <b>域适应微调</b>;微调<b>不改速度</b>,只增领域理解</li>
+        <li>权限 → <b>IAM</b>(≠KMS加密) / API审计"谁何时调" → <b>CloudTrail</b>(≠CloudWatch指标) / 合规文档 → <b>Artifact</b> / 找PII → <b>Macie</b> / 偏见·毒性·可解释 → <b>Clarify</b> / 人类标注数据集 → <b>Ground Truth</b> / 模型文档 → <b>Model Cards</b></li>
+        <li>摘要 → <b>ROUGE</b> / 翻译 → <b>BLEU</b> / 语义相似 → <b>BERTScore</b> / 分类 → 准确率类 / <b>回归预测数值 → MAE·MAPE·MSE</b></li>
+        <li>注入"要求忽略指令、输出禁忌" = <b>忽略提示模板</b>;防御 = <b>限制输入</b>(下拉列表 > 自由文本框) + 模板加"处理无关请求"指令</li>
+        <li>减幻觉 = <b>RAG + 断言式提示</b>(不是减参数/限token);负责任AI = <b>测数据泄露 + 监控偏见</b>(不是"用全部数据"/"只用开源")</li>
+        <li>自定义模型透明审计 = <b>Model Cards + Clarify</b>(AI服务卡只对AWS托管服务);<b>发布前</b>测性能 = <b>模型评估</b>阶段(部署后才是监控)</li>
+        <li>成本:<b>提示工程 &lt; RAG &lt; 微调</b>;推理参数 = 温度·TopP·TopK·MaxTokens·停止序列;<b>延迟只看输入+输出词元数</b>;S3不走公网 = <b>网关端点</b></li>
+      </ol>
+    </div>
+
+    <div class="note" style="margin:0 0 12px;border-left:3px solid #e04a4a"><b style="color:#e04a4a">⚠ 6 对"名字像但完全不同"的坑(错得最惨全在这):</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>IAM ≠ KMS</b>:授权/权限(用户·组·角色)→ <b>IAM</b>;KMS 只管<b>加密密钥</b>。(Q5 你选了 KMS)</li>
+        <li><b>CloudTrail ≠ CloudWatch</b>:记录<b>谁在何时调了哪个 API</b>(审计)→ <b>CloudTrail</b>;CloudWatch 是<b>性能指标/日志</b>。(Q15 你选了 CloudWatch)</li>
+        <li><b>Model Cards ≠ Registry ≠ Monitor</b>:文档(训练细节·性能)→ <b>Model Cards</b>;版本目录/审批 → <b>Registry</b>;部署后漂移告警 → <b>Monitor</b>。(Q17/Q26)</li>
+        <li><b>指令微调 ≠ 持续预训练 ≠ 域适应微调</b>:有标注示例→指令微调;大量未标记→持续预训练;学领域术语→域适应微调。(Q2/Q4 连错)</li>
+        <li><b>A2I ≠ Clarify</b>:A2I = 生产阶段"人工审核每条响应";选模型/评估毒性/查偏见 → <b>Clarify</b>。(Q22 你选了 A2I)</li>
+        <li><b>分类指标 ≠ 回归指标</b>:预测数值(年销量)= 回归 → <b>MAE/MAPE</b>;准确率/召回率/F1 只用于分类。(Q58 你用了分类指标)</li>
+      </ul>
+    </div>
+
+    <div class="note" style="margin:0 0 12px;border-left:3px solid var(--accent2)"><b style="color:var(--accent2)">🧩 你标"完全不懂"的 4 个,先记这个:</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>偏差 vs 方差(Q14)</b>:偏差高=模型太笨、连训练集都学不好(欠拟合);方差高=把噪声也背下来(过拟合)。<b>过拟合 = 低偏差 + 高方差</b>。钩子:偏差=笨,方差=钻牛角尖。</li>
+        <li><b>S3 不走公网(Q30)</b>:选 <b>网关端点(Gateway Endpoint)</b>。S3接入点=访问入口;VPC流日志=只记录;中转网关=连多个VPC,都不对。</li>
+        <li><b>推理参数 &amp; 延迟(Q45/Q65)</b>:推理参数只有 温度·TopP·TopK·MaxTokens·停止序列;<b>延迟只跟输入+输出词元数有关</b>,温度/TopP/TopK 不影响速度。嵌入/Image_uri/Inference_instances 都不是推理参数。</li>
+        <li><b>向量数据库(Q54)</b>:OpenSearch · DocumentDB · Aurora PostgreSQL(pgvector) 支持向量搜索;Redshift/DynamoDB/RDS Oracle 不行。</li>
+      </ul>
+    </div>
+
+    <div style="color:var(--mut);font-size:12.5px;margin-bottom:4px">↓ 展开每组看判别细节 + 对应错题</div>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">1️⃣ 定制四阶梯 &amp; 微调内部区分 ⭐连错3道(Q2/Q4/Q6)</summary>
+      <table>
+        <tr><th>场景关键词</th><th>用哪种技术</th></tr>
+        <tr><td>改输入·最便宜·先试</td><td><b>提示工程</b></td></tr>
+        <tr><td>接外部/私有知识塞进提示</td><td><b>RAG</b></td></tr>
+        <tr><td>有<b>标注</b>的"输入→输出"示例·学<b>特定任务</b></td><td><b>基于指令的微调</b></td></tr>
+        <tr><td>学<b>特定行业术语/领域</b>(未强调标注)</td><td><b>域适应微调</b>(Q2)</td></tr>
+        <tr><td><b>大量未标记</b>数据·学领域语言知识</td><td><b>持续预训练</b>(Q4)</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>题里出现"<b>未经标记/未标注</b>"→ 持续预训练;"标注示例"→ 指令微调;"行业术语但没说标注"→ 域适应微调。<b>Q6</b>:微调改的是词汇量+领域理解,<b>不改处理速度</b>(速度由架构/硬件决定)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">2️⃣ AWS 服务配对铁表 ⭐送分区(Q5/Q15/Q17/Q19/Q22/Q26/Q40/Q49)</summary>
+      <table>
+        <tr><th>需求关键词</th><th>服务</th><th>你选错成</th></tr>
+        <tr><td>授权/权限(用户·组·角色)</td><td><b>IAM</b></td><td>KMS(Q5)</td></tr>
+        <tr><td>记录谁何时调 API · 审计</td><td><b>CloudTrail</b></td><td>CloudWatch(Q15)</td></tr>
+        <tr><td>下载安全合规文档</td><td><b>Artifact</b></td><td>Q1✅</td></tr>
+        <tr><td>发现/保护 PII</td><td><b>Macie</b></td><td>Q64✅</td></tr>
+        <tr><td>偏见检测·FM毒性·可解释</td><td><b>SageMaker Clarify</b></td><td>A2I(Q22)·Monitor(Q19)</td></tr>
+        <tr><td>人类反馈<b>标注</b>数据集(RLHF)</td><td><b>Ground Truth</b></td><td>Autopilot(Q40)</td></tr>
+        <tr><td>模型文档(训练细节·性能·审计)</td><td><b>Model Cards</b></td><td>AI服务卡(Q49)</td></tr>
+        <tr><td>模型版本目录/审批</td><td><b>Model Registry</b></td><td>ECR(Q17)</td></tr>
+        <tr><td>数据清理准备(低代码)</td><td><b>Data Wrangler</b></td><td>Q37✅</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>关键词→服务是铁定配对。<b>A2I</b>=生产人工审核,不是选模型/评估;<b>Model Cards</b>(文档)≠<b>Registry</b>(版本)≠<b>Monitor</b>(漂移),这三个最爱一起考。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">3️⃣ 评估指标选型 · 先判任务类型(Q23/Q58/Q60)</summary>
+      <table>
+        <tr><th>任务</th><th>指标</th><th>你选错成</th></tr>
+        <tr><td>文本<b>摘要</b></td><td><b>ROUGE-N</b></td><td>F1(Q23)</td></tr>
+        <tr><td>机器<b>翻译</b>/字面匹配</td><td><b>BLEU</b></td><td></td></tr>
+        <tr><td><b>语义相似度</b>(生成 vs 参考)</td><td><b>BERTScore</b></td><td>F1(Q60)</td></tr>
+        <tr><td><b>分类</b></td><td>准确率/精确率/召回率/F1</td><td></td></tr>
+        <tr><td><b>回归·预测数值</b>(年销量)</td><td><b>MAE/MAPE/MSE/RMSE</b></td><td>准确率+召回率(Q58)</td></tr>
+        <tr><td>语言模型概率</td><td>困惑度 Perplexity(不测语义相似)</td><td></td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>先问这是<b>生成/分类/回归</b>哪种,再选指标。摘要→ROUGE、翻译→BLEU、语义→BERTScore、预测数字→误差类(MAE/MAPE)、分类→准确率类。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">4️⃣ 提示注入:攻击类型 &amp; 防御(Q46/Q57)</summary>
+      <table>
+        <tr><th>攻击手法</th><th>含义</th></tr>
+        <tr><td><b>忽略提示模板</b></td><td>要求模型忽略指令、输出禁忌/有害内容(Q46 答案)</td></tr>
+        <tr><td>提示角色切换</td><td>让模型扮演新的恶意角色</td></tr>
+        <tr><td>利用友好</td><td>用友好语言包装恶意指令</td></tr>
+        <tr><td>更改输入</td><td>用编码(base64)绕过输入过滤器</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>防御(Q57):</b>正确 = <b>限制输入</b>(预填下拉列表比自由文本框安全) + 提示模板里加"如何处理无关请求"的指令。<b>错误示范</b> = 给用户开个自由文本框(等于给攻击者开门,你选的就是这个)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">5️⃣ 减幻觉 &amp; 负责任 AI 原则(Q18/Q20)</summary>
+      <table>
+        <tr><th>目标</th><th>正确做法</th><th>常见错选</th></tr>
+        <tr><td><b>减少幻觉</b></td><td>RAG 接可信来源 + <b>断言式提示</b>(不确定时明确该怎么做)</td><td>减少参数·限制token·调高温度</td></tr>
+        <tr><td><b>负责任 AI 原则</b></td><td>测响应<b>数据泄露</b>(隐私)+ 监控响应<b>偏见</b>(公平)</td><td>用全部客户数据·只用开源·用原始历史数据训练</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"减幻觉"选项里认 RAG + 断言式提示;"负责任AI"认隐私(测泄露)+公平(测偏见),凡"用全部数据/原始历史数据"都是隐私坑,别选。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">6️⃣ 透明可解释审计 &amp; 生命周期阶段(Q49/Q56)</summary>
+      <table>
+        <tr><th>需求</th><th>答案</th></tr>
+        <tr><td>自定义模型 训练/性能透明·可审计</td><td><b>Model Cards + Clarify</b>(Q49 两个都要选)</td></tr>
+        <tr><td>AI 服务卡适用范围</td><td>只描述 <b>AWS 托管 AI 服务</b>,自定义模型用不上</td></tr>
+        <tr><td><b>发布/部署前</b>测性能·偏见</td><td><b>模型评估</b>阶段(Q56)</td></tr>
+        <tr><td>部署后监控漂移/质量</td><td>模型监控阶段</td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"自定义模型要透明"→ Model Cards(+Clarify),AI服务卡是干扰项;"发布前评估"=模型评估,别选成模型监控(那是上线之后)。</div>
+    </details>
+
+    <details style="margin:6px 0"><summary style="cursor:pointer;color:var(--accent2);font-weight:600;font-size:13.5px;padding:5px 0">7️⃣ 推理参数 · 延迟 · 成本 · 网络(Q30/Q36/Q45/Q65)</summary>
+      <table>
+        <tr><th>问什么</th><th>答案</th></tr>
+        <tr><td>三种改进技术<b>成本从低到高</b>(Q36)</td><td><b>提示工程 &lt; RAG &lt; 微调</b>(提示工程不花额外钱;RAG需向量库;微调需GPU再训练)</td></tr>
+        <tr><td><b>推理参数</b>有哪些(Q65)</td><td>温度 · Top P · Top K · Max Tokens · 停止序列(嵌入/Image_uri/Inference_instances <b>不是</b>)</td></tr>
+        <tr><td>影响 LLM <b>延迟</b>的因素(Q45)</td><td><b>输入提示词元数 + 输出响应词元数</b>(温度/TopP/TopK 不影响速度)</td></tr>
+        <tr><td>S3/DynamoDB <b>不走公网</b>(Q30)</td><td><b>网关端点 Gateway Endpoint</b></td></tr>
+      </table>
+      <div class="note" style="margin-top:8px"><b>判别开关:</b>"最省钱/最先试"→提示工程;推理参数记"温度+TopP+TopK+MaxTokens+停止序列";延迟=数词元(输入+输出),跟随机性参数无关;"不经互联网访问S3"=网关端点。</div>
+    </details>
   </div>
 
   <div class="card wk">
