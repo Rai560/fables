@@ -270,6 +270,33 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     </details>
   </div>
 
+  <div class="card" style="border:1px solid var(--accent2);border-left:4px solid var(--accent2)">
+    <h3 style="color:var(--accent2);margin-top:0;font-size:16px">🌐 中文机考 · 机翻黑话解码卡(考前必扫)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">你 9/18 考的是<b style="color:var(--txt)">中文机考</b>,服务名会被翻得很怪。第一反应先把烂中文<b style="color:var(--txt)">还原成英文原名</b>再判断,别被字面绊倒(Q10「及时处理」就是这么坑掉的)。官方译名比社区题库规范些,但一样会别扭。</div>
+    <table>
+      <tr><th>看到的中文(怪/机翻)</th><th>真身(英文)</th><th>干嘛的</th></tr>
+      <tr><td>及时 / 及时处理</td><td><b>Prompt</b>(Management)</td><td>管理·复用提示词模板</td></tr>
+      <tr><td>诺瓦 / 新星 / 新诺瓦</td><td><b>Nova</b></td><td>Amazon 自研 FM 家族</td></tr>
+      <tr><td>新星精简版</td><td><b>Nova Lite</b></td><td>便宜·多模态·多语言</td></tr>
+      <tr><td>新诺瓦画布</td><td><b>Nova Canvas</b></td><td>文生图</td></tr>
+      <tr><td>新星胶片</td><td><b>Nova Reel</b></td><td>文生视频</td></tr>
+      <tr><td>波利</td><td><b>Polly</b></td><td>文字→语音(旁白/朗读)</td></tr>
+      <tr><td>转录 / 转录服务</td><td><b>Transcribe</b></td><td>语音→文字</td></tr>
+      <tr><td>云轨迹</td><td><b>CloudTrail</b></td><td>API 审计:谁何时调了啥</td></tr>
+      <tr><td>云监控</td><td><b>CloudWatch</b></td><td>性能指标 / 日志</td></tr>
+      <tr><td>变压器</td><td><b>Transformer</b></td><td>模型架构</td></tr>
+      <tr><td>情态</td><td><b>Modality 模态</b></td><td>数据类型(文/图/视频)</td></tr>
+    </table>
+    <div class="note" style="margin:10px 0 0;border-left:3px solid var(--accent)"><b style="color:var(--accent)">🔁 顺带记死一个真概念(不是机翻):人在回路中 = Human-in-the-Loop(HITL)</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>意思:</b>让人参与 AI 流程,由人审核 / 纠正 / 批准模型输出 — 给 AI 兜底,保安全、防偏见、高风险决策留人拍板。</li>
+        <li><b>对应服务 = Amazon A2I(Augmented AI)</b>:模型<b>低置信度</b>预测时自动转人工复核。看到「低置信度需人工审核」「ML 流程加人工审查」→ 选 A2I。</li>
+        <li>训练侧的 <b>RLHF</b>(人给输出打分再调模型)也是一种 HITL。</li>
+        <li><b>反向坑:</b>题目要「<b>完全自动化 / 去人工 / 提速降本</b>」→ HITL 是<b>错</b>选项(它加人力、变慢)。选不选,看题目要「更安全」还是「更快省」。</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="card wk">
     <div class="hd"><h3>Domain 1 · AI 与 ML 基础</h3><span class="date">20% · 当前 66%</span></div>
     <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">六组常错:学习范式&任务类型 / 评估指标 / ML生命周期&过拟合 / 推理类型 / AWS服务地图 / 概念定义。<b style="color:var(--accent)">两大坑</b>:K-NN(监督分类)≠K-Means(无监督聚类)、精确率(怕误报)≠召回率(怕漏抓)。</p>
@@ -1647,6 +1674,11 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
         <tr><td>批处理</td><td>Batch inference(批量推理)</td></tr>
         <tr><td>双语评估参考</td><td>BLEU</td></tr>
         <tr><td>基于召回率的摘要评估工具</td><td>ROUGE</td></tr>
+        <tr><td>及时 / 及时处理</td><td>Prompt Management(提示管理)</td></tr>
+        <tr><td>波利</td><td>Polly(文字转语音)</td></tr>
+        <tr><td>转录服务</td><td>Transcribe(语音转文字)</td></tr>
+        <tr><td>新星精简版 / 新诺瓦画布</td><td>Nova Lite / Nova Canvas(文生图)</td></tr>
+        <tr><td>云轨迹 / 云监控</td><td>CloudTrail(审计) / CloudWatch(指标)</td></tr>
       </table>
     </details>
   </div>
