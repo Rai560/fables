@@ -301,6 +301,45 @@ ol.cheat li:last-child{margin-bottom:0}
     </div>
   </div>
 
+  <div class="card" style="border:1px solid var(--warn);border-left:4px solid var(--warn);background:linear-gradient(180deg,rgba(245,158,11,.08),var(--card))">
+    <h3 style="color:var(--warn);margin-top:0;font-size:16px">🎯 09-07 模考错因反射卡(78% · 14 错都在这 4 组)</h3>
+    <div style="color:var(--mut);font-size:13px;margin-bottom:10px">这次错的不散,全挤在下面 4 个<b style="color:var(--txt)">判别开关没锁死</b>。考前把每组的开关句念熟,看到关键词直接秒配对,别停下来想。</div>
+
+    <div class="note" style="border-left:3px solid var(--warn)"><b style="color:var(--warn)">① 可解释性 / 透明度 / 监控 三兄弟(最大坑,5 题全挂)</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>漂移 / 推理质量下降 → 要自动告警</b> = <b style="color:var(--accent)">SageMaker Model Monitor</b>(别选 Clarify、别选 A2I)</li>
+        <li><b>查偏见 / 公平性 / 特征归因</b> = <b>Clarify</b>｜<b>低置信度转人工兜底</b> = <b>A2I</b></li>
+        <li><b>要"看得见模型内部怎么决策"</b>(白盒) = <b style="color:var(--accent)">决策树</b>,不是逻辑回归</li>
+        <li><b>透明度报告放什么</b> = 特征重要性 / 模型怎么决策的解释,<b>不是</b>贴训练代码</li>
+      </ul>
+    </div>
+
+    <div class="note" style="margin:10px 0 0;border-left:3px solid var(--accent)"><b style="color:var(--accent)">② 任务 → 模型/服务 配对反射(4 题)</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>摘要模型评估</b> = <b style="color:var(--accent)">ROUGE</b>(不是 F1!这条你刚做成 chip 又错了,靠做题反射不是靠读)</li>
+        <li><b>批量生成文本</b> = <b>Transformer</b>;扩散模型 = 图像,别混</li>
+        <li><b>DeepAR 预测需求</b> = 喂<b>时间序列/历史数据</b>,不是图像</li>
+        <li><b>限制聊天机器人只答某话题</b> = <b>Guardrails</b>;温度只管随机性,管不了话题范围</li>
+      </ul>
+    </div>
+
+    <div class="note" style="margin:10px 0 0;border-left:3px solid var(--accent2)"><b style="color:var(--accent2)">③ Agent / Bedrock AgentCore(2026 新考点,M6 只对 1/3)</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>大规模部署/托管多个 Agent</b>(隔离+身份+可观测+免运维) = <b style="color:var(--accent2)">Bedrock AgentCore</b>(不是 SageMaker)</li>
+        <li>AgentCore 里面:<b>隔离长跑执行(最长 8h 异步)</b> = <b>Runtime</b>;<b>连外部工具/API</b> = Gateway;身份 = Identity</li>
+      </ul>
+    </div>
+
+    <div class="note" style="margin:10px 0 0"><b>④ 网络 / RAG 零散(4 题)</b>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.9;font-size:13px">
+        <li><b>不走公网 / 私网访问 AWS 服务</b> = <b style="color:var(--accent)">VPC 端点 / PrivateLink</b>。互联网网关是干<b>相反</b>的事(这题你选反了)</li>
+        <li><b>OpenSearch 建向量库</b>靠 <b>k-NN 向量检索</b>,不是 S3 集成</li>
+        <li><b>用公司自己的数据让 LLM 生成</b> = <b>RAG / 微调</b>,不能用裸的现成预训练模型</li>
+        <li><b>特征工程</b> = 创建/选择相关特征,<b>不是</b>"收集数据"</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="card wk">
     <div class="hd"><h3>Domain 1 · AI 与 ML 基础</h3><span class="date">20% · 当前 66%</span></div>
     <p style="color:var(--mut);font-size:13px;margin:6px 0 4px">六组常错:学习范式&任务类型 / 评估指标 / ML生命周期&过拟合 / 推理类型 / AWS服务地图 / 概念定义。<b style="color:var(--accent)">两大坑</b>:K-NN(监督分类)≠K-Means(无监督聚类)、精确率(怕误报)≠召回率(怕漏抓)。</p>
