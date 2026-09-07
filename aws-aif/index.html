@@ -41,6 +41,10 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
 .ck li:before{content:"\2610";position:absolute;left:0;color:var(--accent);font-size:16px}
 .note{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.32);border-radius:9px;padding:11px 14px;margin:12px 0;font-size:13.5px}
 .note b{color:var(--warn)}
+.cb{display:inline-block;background:rgba(0,0,0,.18);border:1px solid rgba(245,158,11,.25);border-radius:7px;padding:3px 9px;margin:4px 6px 0 0;line-height:1.7;font-size:12.5px}
+ol.cheat{padding-left:20px;margin:8px 0 0}
+ol.cheat li{margin-bottom:9px;line-height:1.4}
+ol.cheat li:last-child{margin-bottom:0}
 .warnbox{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.3);border-radius:9px;padding:11px 14px;margin:12px 0;font-size:13.5px}
 .wk{border-left:4px solid var(--accent2)}
 .wk .hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px}
@@ -153,14 +157,14 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🏛️ 官方 Pretest 错题 · 判别开关卡(跨 D1–D5 · 考前必扫)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">来源 = AWS 官方 Official Pretest(65 题),首考 <b style="color:var(--red)">60%(39/65)</b>。这是官方考法、官方答案键,比社区题库准得多。26 道错题拆开看,其实是 <b style="color:var(--txt)">7 组"长得像但不一样"</b>在反复绊你 — 把每组<b style="color:var(--txt)">判别开关</b>背死,官方题也能稳上 70%+。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 7 条):</b>
-      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
-        <li><b>未标记</b>数据学领域 → <b>持续预训练</b>;<b>标注示例</b>学任务 → <b>指令微调</b>;学行业术语 → <b>域适应微调</b>;微调<b>不改速度</b>,只增领域理解</li>
-        <li>权限 → <b>IAM</b>(≠KMS加密) / API审计"谁何时调" → <b>CloudTrail</b>(≠CloudWatch指标) / 合规文档 → <b>Artifact</b> / 找PII → <b>Macie</b> / 偏见·毒性·可解释 → <b>Clarify</b> / 人类标注数据集 → <b>Ground Truth</b> / 模型文档 → <b>Model Cards</b></li>
-        <li>摘要 → <b>ROUGE</b> / 翻译 → <b>BLEU</b> / 语义相似 → <b>BERTScore</b> / 分类 → 准确率类 / <b>回归预测数值 → MAE·MAPE·MSE</b></li>
-        <li>注入"要求忽略指令、输出禁忌" = <b>忽略提示模板</b>;防御 = <b>限制输入</b>(下拉列表 > 自由文本框) + 模板加"处理无关请求"指令</li>
-        <li>减幻觉 = <b>RAG + 断言式提示</b>(不是减参数/限token);负责任AI = <b>测数据泄露 + 监控偏见</b>(不是"用全部数据"/"只用开源")</li>
-        <li>自定义模型透明审计 = <b>Model Cards + Clarify</b>(AI服务卡只对AWS托管服务);<b>发布前</b>测性能 = <b>模型评估</b>阶段(部署后才是监控)</li>
-        <li>成本:<b>提示工程 &lt; RAG &lt; 微调</b>;推理参数 = 温度·TopP·TopK·MaxTokens·停止序列;<b>延迟只看输入+输出词元数</b>;S3不走公网 = <b>网关端点</b></li>
+      <ol class="cheat" style="margin:8px 0 0;padding-left:20px;font-size:13px">
+        <li><span class="cb"><b>未标记</b>数据学领域 → <b>持续预训练</b></span><span class="cb"><b>标注示例</b>学任务 → <b>指令微调</b></span><span class="cb">学行业术语 → <b>域适应微调</b></span><span class="cb">微调<b>不改速度</b>,只增领域理解</span></li>
+        <li><span class="cb">权限 → <b>IAM</b>(≠KMS加密)</span><span class="cb">API审计"谁何时调" → <b>CloudTrail</b>(≠CloudWatch指标)</span><span class="cb">合规文档 → <b>Artifact</b></span><span class="cb">找PII → <b>Macie</b></span><span class="cb">偏见·毒性·可解释 → <b>Clarify</b></span><span class="cb">人类标注数据集 → <b>Ground Truth</b></span><span class="cb">模型文档 → <b>Model Cards</b></span></li>
+        <li><span class="cb">摘要 → <b>ROUGE</b></span><span class="cb">翻译 → <b>BLEU</b></span><span class="cb">语义相似 → <b>BERTScore</b></span><span class="cb">分类 → 准确率类</span><span class="cb"><b>回归预测数值 → MAE·MAPE·MSE</b></span></li>
+        <li><span class="cb">注入"要求忽略指令、输出禁忌" = <b>忽略提示模板</b></span><span class="cb">防御 = <b>限制输入</b>(下拉列表 > 自由文本框) + 模板加"处理无关请求"指令</span></li>
+        <li><span class="cb">减幻觉 = <b>RAG + 断言式提示</b>(不是减参数/限token)</span><span class="cb">负责任AI = <b>测数据泄露 + 监控偏见</b>(不是"用全部数据"/"只用开源")</span></li>
+        <li><span class="cb">自定义模型透明审计 = <b>Model Cards + Clarify</b>(AI服务卡只对AWS托管服务)</span><span class="cb"><b>发布前</b>测性能 = <b>模型评估</b>阶段(部署后才是监控)</span></li>
+        <li><span class="cb">成本:<b>提示工程 &lt; RAG &lt; 微调</b></span><span class="cb">推理参数 = 温度·TopP·TopK·MaxTokens·停止序列</span><span class="cb"><b>延迟只看输入+输出词元数</b></span><span class="cb">S3不走公网 = <b>网关端点</b></span></li>
       </ol>
     </div>
 
@@ -827,13 +831,13 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D1 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D1 题量最大(130)、覆盖最广,坑在<b style="color:var(--txt)">学习范式分不清</b>、<b style="color:var(--txt)">评估指标绕晕</b>、<b style="color:var(--txt)">服务对不上号</b>。把每组<b style="color:var(--txt)">判别开关</b>记住,D1 基本是送分。以下 6 组 = 你摘的错题全部考点,另有两个"名字像但完全不同"的经典坑单独标红。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
-      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
-        <li>有标签 → <b>监督</b>;无标签自动分组 → <b>无监督(聚类=K-Means)</b>;归入预定义类别 → <b>分类</b>;预测数值 → <b>回归</b>;无标签找异常 → <b>自编码器</b></li>
-        <li>烦<b>误报</b>(白审/打扰) → <b>精确率</b>;怕<b>漏抓</b>(漏诊/漏欺诈) → <b>召回率</b>;对÷总 → <b>准确率</b>;不平衡/问答综合 → <b>F1</b></li>
-        <li>摸数据(统计+画图+相关矩阵) → <b>EDA</b>;造/选特征 → <b>特征工程</b>;过拟合(训练好、新数据差) → <b>加正则化 或 加数据</b></li>
-        <li>定时/批量/GB级/不要实时 → <b>批量推理</b>;实时秒回 → 实时;单个大请求 → 异步;零星小请求 → 无服务器</li>
-        <li>零代码建模 → <b>Canvas</b>;文本毒性 → <b>Comprehend</b>;语音转字幕 → <b>Transcribe</b>;模型版本管理 → <b>Model Registry</b>;监控漂移告警 → <b>Model Monitor</b>;图数据 → <b>Neptune</b></li>
-        <li>Transformer = <b>自注意力</b>(CNN=卷积 / RNN=逐个);指令微调数据 = <b>问答对</b>;图像分类省事 = <b>预训练+微调</b>;反映多样性 = <b>平衡各类别</b>(别删少数)</li>
+      <ol class="cheat" style="margin:8px 0 0;padding-left:20px;font-size:13px">
+        <li><span class="cb">有标签 → <b>监督</b></span><span class="cb">无标签自动分组 → <b>无监督(聚类=K-Means)</b></span><span class="cb">归入预定义类别 → <b>分类</b></span><span class="cb">预测数值 → <b>回归</b></span><span class="cb">无标签找异常 → <b>自编码器</b></span></li>
+        <li><span class="cb">烦<b>误报</b>(白审/打扰) → <b>精确率</b></span><span class="cb">怕<b>漏抓</b>(漏诊/漏欺诈) → <b>召回率</b></span><span class="cb">对÷总 → <b>准确率</b></span><span class="cb">不平衡/问答综合 → <b>F1</b></span></li>
+        <li><span class="cb">摸数据(统计+画图+相关矩阵) → <b>EDA</b></span><span class="cb">造/选特征 → <b>特征工程</b></span><span class="cb">过拟合(训练好、新数据差) → <b>加正则化 或 加数据</b></span></li>
+        <li><span class="cb">定时/批量/GB级/不要实时 → <b>批量推理</b></span><span class="cb">实时秒回 → 实时</span><span class="cb">单个大请求 → 异步</span><span class="cb">零星小请求 → 无服务器</span></li>
+        <li><span class="cb">零代码建模 → <b>Canvas</b></span><span class="cb">文本毒性 → <b>Comprehend</b></span><span class="cb">语音转字幕 → <b>Transcribe</b></span><span class="cb">模型版本管理 → <b>Model Registry</b></span><span class="cb">监控漂移告警 → <b>Model Monitor</b></span><span class="cb">图数据 → <b>Neptune</b></span></li>
+        <li><span class="cb">Transformer = <b>自注意力</b>(CNN=卷积 / RNN=逐个)</span><span class="cb">指令微调数据 = <b>问答对</b></span><span class="cb">图像分类省事 = <b>预训练+微调</b></span><span class="cb">反映多样性 = <b>平衡各类别</b>(别删少数)</span></li>
       </ol>
     </div>
 
@@ -1575,13 +1579,13 @@ ul{padding-left:19px;margin:7px 0}li{margin:5px 0}
     <h3 style="color:var(--accent);margin-top:0;font-size:16px">🎯 D2 六组混淆点速查 · 错题精炼(考前扫这个)</h3>
     <div style="color:var(--mut);font-size:13px;margin-bottom:10px">D2 的题几乎都是「给场景、选服务 / 选做法」,坑在<b style="color:var(--txt)">相似选项分不清</b>加<b style="color:var(--txt)">题库机翻术语很烂</b>。把每组<b style="color:var(--txt)">判别开关</b>记住就能秒选。以下 6 组 = 你摘的 22 道错题的全部考点,外加一张机翻避坑表。</div>
     <div class="note" style="margin:0 0 12px"><b>⚡ 总口诀(先背这 6 条):</b>
-      <ol style="margin:8px 0 0;padding-left:20px;line-height:1.95;font-size:13px">
-        <li>写代码 / 测试 / 文档 → <b>Q Developer</b>;员工查内部数据 → <b>Q Business</b>(两个 Q 别混)</li>
+      <ol class="cheat" style="margin:8px 0 0;padding-left:20px;font-size:13px">
+        <li><span class="cb">写代码 / 测试 / 文档 → <b>Q Developer</b></span><span class="cb">员工查内部数据 → <b>Q Business</b>(两个 Q 别混)</span></li>
         <li>Few-shot = 给<b>「输入→输出」原样配对</b>的示例(分类给"文本→标签"、意图给"消息→意图")</li>
-        <li>LLM <b>没记忆</b> → 历史对话塞进提示;最省钱提准确性 → <b>提示工程</b></li>
-        <li>Bedrock 用<b>自定义/微调模型</b> → 必买<b>预置吞吐量</b>;微调开源省事 → <b>JumpStart</b>;低频批量 → <b>Batch</b>(半价)</li>
-        <li>输出/输入<b>数据类型</b>(文/图/视频)= <b>模态 Modality</b>;Nova 多模态求便宜 → <b>Lite</b>,可微调多模态理解 → <b>Pro</b></li>
-        <li>字面/风格像 → <b>BLEU</b>;语义像 → <b>BERTScore</b>;摘要 → <b>ROUGE</b>;分类 → <b>F1</b>;真实环境 → <b>A/B 测试</b></li>
+        <li><span class="cb">LLM <b>没记忆</b> → 历史对话塞进提示</span><span class="cb">最省钱提准确性 → <b>提示工程</b></span></li>
+        <li><span class="cb">Bedrock 用<b>自定义/微调模型</b> → 必买<b>预置吞吐量</b></span><span class="cb">微调开源省事 → <b>JumpStart</b></span><span class="cb">低频批量 → <b>Batch</b>(半价)</span></li>
+        <li><span class="cb">输出/输入<b>数据类型</b>(文/图/视频)= <b>模态 Modality</b></span><span class="cb">Nova 多模态求便宜 → <b>Lite</b>,可微调多模态理解 → <b>Pro</b></span></li>
+        <li><span class="cb">字面/风格像 → <b>BLEU</b></span><span class="cb">语义像 → <b>BERTScore</b></span><span class="cb">摘要 → <b>ROUGE</b></span><span class="cb">分类 → <b>F1</b></span><span class="cb">真实环境 → <b>A/B 测试</b></span></li>
       </ol>
     </div>
     <div style="color:var(--mut);font-size:12.5px;margin-bottom:4px">↓ 展开每组看判别细节</div>
