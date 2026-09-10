@@ -76,7 +76,9 @@ input.inp:focus{outline:none;border-color:var(--accent)}
 .calhd{display:flex;align-items:center;margin-bottom:10px;gap:8px}
 .calhd .m{font-weight:800;font-size:16px;flex:1;text-align:center}
 .calnav{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:9px;width:36px;height:34px;font-size:16px;cursor:pointer;font-family:inherit}
-.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.calgrid{display:grid;grid-template-columns:22px repeat(7,minmax(0,1fr));gap:4px;align-items:stretch}
+.calw.wk{opacity:.55}
+.calcell.wk{aspect-ratio:auto;background:transparent;border:none;color:var(--ink2);opacity:.6;font-size:10.5px;font-weight:700;cursor:default;min-height:0}
 .calw{color:var(--ink2);font-size:11px;text-align:center;padding:1px 0 3px;font-weight:700}
 .calcell{aspect-ratio:1;border-radius:10px;background:var(--card2);border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--ink2);gap:2px}
 .calcell.blank{background:transparent;cursor:default}
@@ -311,6 +313,7 @@ function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"
 function pad(n){return (n<10?"0":"")+n;}
 function fmtTime(sec){var m=Math.floor(sec/60),s=sec%60;return m+":"+(s<10?"0":"")+s;}
 function dstr(ts){var d=new Date(ts);return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function weekNo(d){var s=new Date(d.getFullYear(),0,1);var days=Math.floor((d-s)/86400000);return Math.floor((days+s.getDay())/7)+1;}
 function fmtDate(ts){var d=new Date(ts);return (d.getMonth()+1)+"月"+d.getDate()+"日 "+pad(d.getHours())+":"+pad(d.getMinutes());}
 function fmtDay(ds){var p=ds.split("-");return (+p[1])+"月"+(+p[2])+"日";}
 function num(v){var n=parseFloat(v);return isNaN(n)?0:n;}
@@ -390,19 +393,28 @@ function thumb(img,act,ei,lg){return '<button class="exthumb'+(lg?' lg':'')+(img
 
 /* ---- calendar ---- */
 function monthCal(y,m){
-  var first=new Date(y,m,1), off=(first.getDay()+6)%7, dim=new Date(y,m+1,0).getDate();
+  var first=new Date(y,m,1), off=first.getDay(), dim=new Date(y,m+1,0).getDate();
   var today=dstr(Date.now());
   var h='<div class="calhd"><button class="calnav" data-action="cal-prev">‹</button><div class="m">'+y+' 年 '+(m+1)+' 月</div><button class="calnav" data-action="cal-next">›</button></div>';
   h+='<div class="calgrid">';
-  ["一","二","三","四","五","六","日"].forEach(function(w){h+='<div class="calw">'+w+'</div>';});
-  for(var i=0;i<off;i++)h+='<div class="calcell blank"></div>';
+  h+='<div class="calw wk">周</div>';
+  ["日","一","二","三","四","五","六"].forEach(function(w){h+='<div class="calw">'+w+'</div>';});
+  var cells=[];
+  for(var i=0;i<off;i++)cells.push(null);
+  for(var d=1;d<=dim;d++)cells.push(d);
+  while(cells.length%7)cells.push(null);
   var used={};
-  for(var d=1;d<=dim;d++){
-    var ds=y+"-"+pad(m+1)+"-"+pad(d);
-    var recs=dayRecords(ds), parts=dayParts(recs);
-    parts.forEach(function(p){used[p]=1;});
-    var dots="";parts.slice(0,3).forEach(function(p){dots+='<span class="dot" style="background:'+PCOL[p]+'"></span>';});
-    h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+'" data-action="opday" data-date="'+ds+'"><span>'+d+'</span><span class="dots">'+dots+'</span></div>';
+  for(var r=0;r<cells.length/7;r++){
+    h+='<div class="calcell wk">'+weekNo(new Date(y,m,1-off+r*7))+'</div>';
+    for(var c=0;c<7;c++){
+      var dd=cells[r*7+c];
+      if(dd==null){h+='<div class="calcell blank"></div>';continue;}
+      var ds=y+"-"+pad(m+1)+"-"+pad(dd);
+      var recs=dayRecords(ds), parts=dayParts(recs);
+      parts.forEach(function(p){used[p]=1;});
+      var dots="";parts.slice(0,3).forEach(function(p){dots+='<span class="dot" style="background:'+PCOL[p]+'"></span>';});
+      h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+'" data-action="opday" data-date="'+ds+'"><span>'+dd+'</span><span class="dots">'+dots+'</span></div>';
+    }
   }
   h+='</div>';
   var lg="";PARTS.forEach(function(p){if(used[p])lg+='<span class="lg"><span class="d" style="background:'+PCOL[p]+'"></span>'+p+'</span>';});
