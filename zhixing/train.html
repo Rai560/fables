@@ -76,11 +76,11 @@ input.inp:focus{outline:none;border-color:var(--accent)}
 .calhd{display:flex;align-items:center;margin-bottom:10px;gap:8px}
 .calhd .m{font-weight:800;font-size:16px;flex:1;text-align:center}
 .calnav{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:9px;width:36px;height:34px;font-size:16px;cursor:pointer;font-family:inherit}
-.calgrid{display:grid;grid-template-columns:22px repeat(7,minmax(0,1fr));gap:4px;align-items:stretch}
+.calgrid{display:grid;grid-template-columns:22px repeat(7,minmax(0,1fr));gap:4px}
 .calw.wk{opacity:.55}
 .calcell.wk{aspect-ratio:auto;background:transparent;border:none;color:var(--ink2);opacity:.6;font-size:10.5px;font-weight:700;cursor:default;min-height:0}
 .calw{color:var(--ink2);font-size:11px;text-align:center;padding:1px 0 3px;font-weight:700}
-.calcell{aspect-ratio:1;border-radius:10px;background:var(--card2);border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--ink2);gap:2px}
+.calcell{height:44px;border-radius:10px;background:var(--card2);border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--ink2);gap:2px}
 .calcell.blank{background:transparent;cursor:default}
 .calcell.today{box-shadow:inset 0 0 0 2px var(--accent)}
 .calcell.selected{box-shadow:inset 0 0 0 2px #6aa0c8}
@@ -91,8 +91,8 @@ input.inp:focus{outline:none;border-color:var(--accent)}
 .selp{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px;padding:10px 12px;background:var(--card2);border-radius:11px;font-size:13px;color:var(--ink2)}
 .selp .selp-n{font-size:12px;margin-top:2px}
 .selp .chev{color:var(--ink2);font-size:20px}
-.calcell .dots{display:flex;gap:2px;height:7px}
-.calcell .dot{width:6px;height:6px;border-radius:50%}
+.calcell .caldots{display:flex;gap:2px;height:7px;justify-content:center}
+.calcell .caldot{width:6px;height:6px;border-radius:50%}
 .calleg{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:11px;justify-content:center}
 .calleg .lg{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink2)}
 .calleg .lg .d{width:9px;height:9px;border-radius:50%}
@@ -293,10 +293,7 @@ function seed(){
   function byName(n){for(var i=0;i<L.length;i++)if(L[i].name===n)return L[i];return L[0];}
   function it(name,sets,reps,w){var e=byName(name);return {exId:e.id,name:e.name,part:e.part,gear:e.gear,img:e.img,rest:e.rest,sets:mkSets(sets,reps,w)};}
   return {theme:"dark",defaultRest:120,body:{weight:75,height:178,log:[]},library:L,
-    programs:[
-      {id:uid(),name:"卧推 · 重量日（力量）",items:[it("杠铃卧推",5,3,78),it("上斜哑铃卧推",3,7,0),it("窄距卧推",3,9,0)]},
-      {id:uid(),name:"卧推 · 容量日（增肌）",items:[it("杠铃卧推",4,8,66),it("上斜杠铃卧推",3,11,0),it("哑铃飞鸟",3,13,0),it("三头下压",3,13,0)]}
-    ],
+    programs:[],
     session:null,history:[]};
 }
 var S;
@@ -305,6 +302,10 @@ try{var raw=JSON.parse(localStorage.getItem(KEY)); S=(raw&&raw.programs&&raw.lib
   (S.programs||[]).forEach(function(p){(p.items||[]).forEach(function(it){fix(it.sets);});});
   if(S.session)S.session.ex.forEach(function(e){fix(e.sets);});
   (S.history||[]).forEach(function(r){r.ex.forEach(function(e){fix(e.sets);});});})();
+(function noseed(){if(S._noseed)return;S._noseed=true;
+  if(!(S.history&&S.history.length)&&!S.session){var sd=["卧推 · 重量日（力量）","卧推 · 容量日（增肌）"];
+    S.programs=(S.programs||[]).filter(function(p){return sd.indexOf(p.name)<0;});}
+})();
 if(!S.body)S.body={weight:75,height:178,log:[]};
 if(!S.body.log)S.body.log=[];
 var _fresh=!localStorage.getItem(KEY);
@@ -421,8 +422,8 @@ function monthCal(y,m){
       var ds=y+"-"+pad(m+1)+"-"+pad(dd);
       var recs=dayRecords(ds), parts=dayParts(recs);
       parts.forEach(function(p){used[p]=1;});
-      var dots="";parts.slice(0,3).forEach(function(p){dots+='<span class="dot" style="background:'+PCOL[p]+'"></span>';});
-      h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+(ds===sel?' selected':'')+((c===0||c===6)?' we':'')+'" data-action="pickday" data-date="'+ds+'"><span>'+dd+'</span><span class="dots">'+dots+'</span></div>';
+      var dots="";parts.slice(0,3).forEach(function(p){dots+='<span class="caldot" style="background:'+PCOL[p]+'"></span>';});
+      h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+(ds===sel?' selected':'')+((c===0||c===6)?' we':'')+'" data-action="pickday" data-date="'+ds+'"><span>'+dd+'</span><span class="caldots">'+dots+'</span></div>';
     }
   }
   h+='</div>';
@@ -688,7 +689,7 @@ document.addEventListener("click",function(ev){
   /* calendar */
   if(a==="cal-prev"){cal.m--;if(cal.m<0){cal.m=11;cal.y--;}render();return;}
   if(a==="cal-next"){cal.m++;if(cal.m>11){cal.m=0;cal.y++;}render();return;}
-  if(a==="pickday"){sel=t.getAttribute("data-date");render();return;}
+  if(a==="pickday"){var nd=t.getAttribute("data-date");if(nd===sel){view={name:"day",date:nd};render();}else{sel=nd;render();}return;}
   if(a==="opday"){view={name:"day",date:t.getAttribute("data-date")};render();return;}
   /* programs */
   if(a==="openprog"){view={name:"prog",id:id};render();return;}
