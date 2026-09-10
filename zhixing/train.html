@@ -82,8 +82,15 @@ input.inp:focus{outline:none;border-color:var(--accent)}
 .calw{color:var(--ink2);font-size:11px;text-align:center;padding:1px 0 3px;font-weight:700}
 .calcell{aspect-ratio:1;border-radius:10px;background:var(--card2);border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--ink2);gap:2px}
 .calcell.blank{background:transparent;cursor:default}
-.calcell.today{border-color:var(--accent)}
+.calcell.today{box-shadow:inset 0 0 0 2px var(--accent)}
+.calcell.selected{box-shadow:inset 0 0 0 2px #6aa0c8}
+.calcell.today.selected{box-shadow:inset 0 0 0 2px var(--accent)}
 .calcell.has{color:var(--ink);font-weight:800;background:var(--card)}
+.calcell.we{color:#6f9fc4}
+.calw.we{color:#6f9fc4}
+.selp{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px;padding:10px 12px;background:var(--card2);border-radius:11px;font-size:13px;color:var(--ink2)}
+.selp .selp-n{font-size:12px;margin-top:2px}
+.selp .chev{color:var(--ink2);font-size:20px}
 .calcell .dots{display:flex;gap:2px;height:7px}
 .calcell .dot{width:6px;height:6px;border-radius:50%}
 .calleg{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:11px;justify-content:center}
@@ -305,6 +312,7 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){alert(
 var view={name:"home"};
 var now=new Date();
 var cal={y:now.getFullYear(),m:now.getMonth()};
+var sel=dstr(Date.now());
 var rp={mode:"month",y:now.getFullYear(),m:now.getMonth()};
 document.documentElement.setAttribute("data-theme", S.theme||"dark");
 
@@ -383,6 +391,7 @@ function render(){
   else if(v==="day")app.innerHTML=viewDay(view.date);
   else if(v==="lib")app.innerHTML=viewLib();
   else if(v==="exedit")app.innerHTML=viewExEdit();
+  else if(v==="tpl")app.innerHTML=viewTpl();
   else if(v==="report")app.innerHTML=viewReport();
   else if(v==="me")app.innerHTML=viewMe();
   var tab=navTab(v);
@@ -398,7 +407,7 @@ function monthCal(y,m){
   var h='<div class="calhd"><button class="calnav" data-action="cal-prev">‹</button><div class="m">'+y+' 年 '+(m+1)+' 月</div><button class="calnav" data-action="cal-next">›</button></div>';
   h+='<div class="calgrid">';
   h+='<div class="calw wk">周</div>';
-  ["日","一","二","三","四","五","六"].forEach(function(w){h+='<div class="calw">'+w+'</div>';});
+  ["日","一","二","三","四","五","六"].forEach(function(w,wi){h+='<div class="calw'+((wi===0||wi===6)?" we":"")+'">'+w+'</div>';});
   var cells=[];
   for(var i=0;i<off;i++)cells.push(null);
   for(var d=1;d<=dim;d++)cells.push(d);
@@ -413,7 +422,7 @@ function monthCal(y,m){
       var recs=dayRecords(ds), parts=dayParts(recs);
       parts.forEach(function(p){used[p]=1;});
       var dots="";parts.slice(0,3).forEach(function(p){dots+='<span class="dot" style="background:'+PCOL[p]+'"></span>';});
-      h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+'" data-action="opday" data-date="'+ds+'"><span>'+dd+'</span><span class="dots">'+dots+'</span></div>';
+      h+='<div class="calcell'+(recs.length?' has':'')+(ds===today?' today':'')+(ds===sel?' selected':'')+((c===0||c===6)?' we':'')+'" data-action="pickday" data-date="'+ds+'"><span>'+dd+'</span><span class="dots">'+dots+'</span></div>';
     }
   }
   h+='</div>';
@@ -421,12 +430,17 @@ function monthCal(y,m){
   if(lg)h+='<div class="calleg">'+lg+'</div>';
   return h;
 }
+function selPanel(){
+  var recs=dayRecords(sel), isToday=(sel===dstr(Date.now()));
+  var lbl=fmtDay(sel)+(isToday?' · 今天':'');
+  if(!recs.length)return '<div class="selp"><span style="font-weight:800">'+lbl+'</span><span class="selp-n">这天没有训练记录</span></div>';
+  var sets=0,names=[];recs.forEach(function(o){o.r.ex.forEach(function(e){names.push(e.name);e.sets.forEach(function(s){sets++;});});});
+  return '<div class="selp" data-action="opday" data-date="'+sel+'" style="cursor:pointer"><div><div style="font-weight:800;color:var(--ink)">'+lbl+'</div><div class="selp-n">'+esc(names.slice(0,3).join("、"))+(names.length>3?" 等":"")+' · '+sets+' 组</div></div><div class="chev">›</div></div>';
+}
 
-function viewHome(){
-  var h="";
-  if(S.session){var sp=pget(S.session.programId);h+='<div class="card" style="border-color:var(--accent);cursor:pointer" data-action="resume"><div class="ph" style="display:flex;align-items:center;gap:8px"><div style="flex:1"><div style="font-weight:800;font-size:16px">进行中：'+esc(S.session.name)+'</div><div class="meta" style="color:var(--ink2);font-size:13px;margin-top:3px">点这里继续本次训练</div></div><div class="chev">›</div></div></div>';}
-  h+='<div class="card">'+monthCal(cal.y,cal.m)+'</div>';
-  h+='<h2 class="vt">我的训练</h2>';
+function viewTpl(){
+  var h='<div class="subhd"><button class="back" data-action="nav" data-view="home">‹ 返回</button><div class="tt">训练模板</div></div>';
+  h+='<div style="color:var(--ink2);font-size:13px;margin:0 2px 12px">选一个模板打勾开始训练，或新建 / 编辑（⚙）。</div>';
   S.programs.forEach(function(p){
     var sets=0;p.items.forEach(function(e){sets+=e.sets.length;});
     var ps={};p.items.forEach(function(e){if(e.part)ps[e.part]=1;});
@@ -434,7 +448,16 @@ function viewHome(){
     h+='<div class="card pcard" data-action="openprog" data-id="'+p.id+'"><div class="ph"><div class="pn">'+esc(p.name)+'</div><div class="chev">›</div></div>'+
        '<div class="meta">'+dots+p.items.length+' 个动作 · 共 '+sets+' 组</div></div>';
   });
-  h+='<button class="btn gho blk" data-action="newprog" style="margin:4px 0 14px">＋ 新建训练</button>';
+  if(!S.programs.length)h+='<div class="empty">还没有训练模板，点下面新建一个。</div>';
+  h+='<button class="btn gho blk" data-action="newprog" style="margin:4px 0 14px">＋ 新建训练模板</button>';
+  return h;
+}
+
+function viewHome(){
+  var h="";
+  if(S.session){var sp=pget(S.session.programId);h+='<div class="card" style="border-color:var(--accent);cursor:pointer" data-action="resume"><div class="ph" style="display:flex;align-items:center;gap:8px"><div style="flex:1"><div style="font-weight:800;font-size:16px">进行中：'+esc(S.session.name)+'</div><div class="meta" style="color:var(--ink2);font-size:13px;margin-top:3px">点这里继续本次训练</div></div><div class="chev">›</div></div></div>';}
+  h+='<div class="card">'+monthCal(cal.y,cal.m)+selPanel()+'</div>';
+  h+='<button class="btn pri blk" data-action="nav" data-view="tpl" style="margin:2px 0 14px">开始训练 · 选择模板</button>';
   h+='<div class="foot">数据只存在这台设备的浏览器里 · 记得定期在「我的」里导出备份</div>';
   return h;
 }
@@ -665,6 +688,7 @@ document.addEventListener("click",function(ev){
   /* calendar */
   if(a==="cal-prev"){cal.m--;if(cal.m<0){cal.m=11;cal.y--;}render();return;}
   if(a==="cal-next"){cal.m++;if(cal.m>11){cal.m=0;cal.y++;}render();return;}
+  if(a==="pickday"){sel=t.getAttribute("data-date");render();return;}
   if(a==="opday"){view={name:"day",date:t.getAttribute("data-date")};render();return;}
   /* programs */
   if(a==="openprog"){view={name:"prog",id:id};render();return;}
