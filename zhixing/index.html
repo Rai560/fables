@@ -266,6 +266,7 @@ function home(){
     return '<div class="cc'+(ch.st==="locked"?" lk":"")+'" data-ch="'+ch.id+'">'+badge+'<div class="cn">'+ch.num+'</div><div class="ct">'+ch.title+'</div><div class="cd">'+ch.desc+'</div><div class="cm"><span style="color:var(--warn)">'+stars+'</span><span>'+tot+'节'+(tot?" | "+p+"%":" | 编写中")+'</span>'+(S.quiz[ch.id]?'<span style="color:var(--ok)">测试:'+S.quiz[ch.id].pct+'%</span>':'')+'</div>'+(tot?'<div class="pb"><div class="pf" style="width:'+p+'%"></div></div>':'')+'</div>'
   }).join("");
   g.innerHTML+='<div class="cc" data-ch="wb" style="border-left:4px solid var(--err)"><div class="cn">工具</div><div class="ct">错题本</div><div class="cd">答错的题集中复习。</div><div class="cm"><span>'+S.wrong.length+' 道</span></div></div>';
+  g.innerHTML+='<a class="cc" href="train.html" target="_blank" rel="noopener" style="border-left:4px solid var(--ac);text-decoration:none;color:inherit;display:block"><div class="cn">工具</div><div class="ct">训练记录器 \uD83C\uDFCB</div><div class="cd">铁血调练习日志:训练计划、组数重量、递减组、组间环形计时。数据只存在你自己手机。</div><div class="cm"><span style="color:var(--ac)">点击打开 \u2192</span></div></a>';
 }
 
 // ===== READER =====
