@@ -602,7 +602,7 @@ function viewDay(ds){
       });
       h+='<div class="row" style="margin-top:6px"><button class="btn gho sm" data-action="dayaddset" data-ri="'+idx+'" data-ex="'+ei+'">＋ 加一组</button></div></div>';
     });
-    h+='<div class="row" style="margin-top:6px"><button class="btn gho sm" data-action="dayadditem" data-ri="'+idx+'">＋ 添加动作</button></div>';
+    h+='<div class="row" style="margin-top:6px"><button class="btn gho sm" data-action="dayadditem" data-ri="'+idx+'">＋ 添加动作</button>'+(r.ex.length>=2?'<button class="btn gho sm" data-action="reorder-rec" data-ri="'+idx+'">≡ 调整顺序</button>':'')+'</div>';
     h+='<div class="row" style="margin-top:8px"><button class="btn gho sm" data-action="copy-today" data-ri="'+idx+'">复制到今天</button>'+
        '<button class="btn gho sm" data-action="copy-date" data-ri="'+idx+'">复制到指定日期</button>'+
        '<span class="sp" style="flex:1"></span><button class="btn danger sm" data-action="delrec" data-ri="'+idx+'">删除</button></div></div>';
@@ -796,6 +796,7 @@ document.addEventListener("click",function(ev){
   /* set menu */
   if(a==="setmenu"){openSetMenu(ex,st);return;}
   if(a==="reorder"){openReorder(id);return;}
+  if(a==="reorder-rec"){openReorderRec(+ri);return;}
   if(a==="sm-close"){closeSetMenu();return;}
   if(a==="sm-warm"){var sw=curSet();sw.warm=!sw.warm;save();closeSetMenu();render();return;}
   if(a==="sm-drop"){var sd=curSet();if(!sd.drop)sd.drop=[];var mw=(sd.aw!=null?sd.aw:sd.w)||0,mr=(sd.ar!=null?sd.ar:sd.r)||0;var lst=sd.drop.length?sd.drop[sd.drop.length-1]:{w:mw,r:mr};sd.drop.push({w:Math.round((lst.w||0)*0.8),r:lst.r||mr||0});save();closeSetMenu();render();return;}
@@ -881,10 +882,11 @@ function gdUp(){if(!GD.active)return;
 /* ---------- reorder exercises (training view) ---------- */
 var roWrap=document.getElementById("reord"), rolist=document.getElementById("rolist");
 var RO={id:null,live:false,list:[]};
-function openReorder(id){var p=pget(id);if(!p)return;var live=liveOf(id);RO.id=id;RO.live=!!live;var src=live?live.ex:p.items;RO.list=src.slice();renderReorder();roWrap.classList.add("show");}
+function openReorder(id){var p=pget(id);if(!p)return;var live=liveOf(id);RO.mode="prog";RO.id=id;RO.live=!!live;RO.ri=-1;var src=live?live.ex:p.items;RO.list=src.slice();renderReorder();roWrap.classList.add("show");}
+function openReorderRec(ri){var r=S.history[ri];if(!r)return;RO.mode="rec";RO.ri=ri;RO.id=null;RO.live=false;RO.list=(r.ex||[]).slice();renderReorder();roWrap.classList.add("show");}
 function renderReorder(){var h="";RO.list.forEach(function(e,i){h+='<div class="roitem" data-idx="'+i+'"><span class="rohandle">≡</span>'+thumb(e.img,"none")+'<div class="roname">'+esc(e.name)+'</div><button class="robtn" data-action="ro-up" data-i="'+i+'">▲</button><button class="robtn" data-action="ro-dn" data-i="'+i+'">▼</button></div>';});rolist.innerHTML=h;}
 function closeReorder(){roWrap.classList.remove("show");RO.id=null;RO.list=[];}
-function saveReorder(){var p=pget(RO.id);if(p){if(RO.live&&S.session&&S.session.programId===RO.id){S.session.ex=RO.list.slice();}else{p.items=RO.list.slice();}save();}closeReorder();render();}
+function saveReorder(){if(RO.mode==="rec"){var r=S.history[RO.ri];if(r){r.ex=RO.list.slice();save();}}else{var p=pget(RO.id);if(p){if(RO.live&&S.session&&S.session.programId===RO.id){S.session.ex=RO.list.slice();}else{p.items=RO.list.slice();}save();}}closeReorder();render();}
 roWrap.addEventListener("click",function(e){
   if(e.target===roWrap){closeReorder();return;}
   var t=e.target.closest("[data-action]");if(!t)return;var a=t.getAttribute("data-action");
