@@ -1007,6 +1007,72 @@ footer .count{color:var(--accent);font-weight:600}
     </div>
   </article>
 
+
+  <article class="story" id="s-info" data-id="info" data-disc="cs" data-disc-label="&#128187; 计算机 · 逻辑 · 信息"
+           data-title="几道烽火" data-teaser="边关烽燧上，小卒想给三样军情各配一道烽火，图个公道。老烽卒却把最常报的「平安」拨了一小撮湿柴，把难得一遇的「压境」堆足了狼粪。凭什么平安的分量轻、压境的分量重？" data-date="2026-09-28"
+           data-concept="&#39321;&#20892;&#20449;&#24687;&#29109; / &#20449;&#24687;=&#28040;&#38500;&#30340;&#19981;&#30830;&#23450;&#24615;（Shannon entropy）">
+    <div class="tags">
+      <span class="tag">计算机 · 信息</span>
+      <span class="tag">意外 · 不确定性</span>
+      <span class="tag level">研究生</span>
+    </div>
+    <h2 class="story-title">几道烽火</h2>
+    <p class="story-sub">第 13 篇 · 收录于 2026-09-28</p>
+    <div class="fable">
+      <p>边关最险的那道山口上，立着一座烽燧。烽燧里住着一老一少两个烽卒，专管夜里向京城报信。</p>
+      <p>报的信，来来去去就那么几样：「平安无事」「小股游骑」「大军压境」。京城那头，日夜有人盯着这道烽火，好照着调兵。</p>
+      <p>老烽卒管着一垛柴、一囤狼粪，那是点烽火的本钱，烧一道少一道，金贵得很。</p>
+      <p>小卒刚上任，想了个「公道」法子：三样军情，一样配一道烽火——平安烧一道，游骑烧两道，压境烧三道，清清楚楚，谁也不亏。</p>
+      <p>老烽卒摇头，问他：「这一年到头，你数数，哪样军情最多？」</p>
+      <p>小卒一想：「那自然是『平安无事』，十个夜里九个都太平。」</p>
+      <p>「既是九个夜里都太平，」老烽卒说，「京城那头，不用你烧，闭着眼也猜得着今夜多半平安。你偏夜夜为这『早猜着了』的事，烧掉一整道烽火——图什么？」</p>
+      <p>老烽卒重新分了柴：最常有的「平安」，只拨一小撮湿柴、燃个短短的火苗，一瞥就过；难得一遇的「大军压境」，才舍得堆足了狼粪，烧一柱冲天的浓烟。</p>
+      <p>小卒还是不服：「军情就是军情，凭什么平安的分量轻，压境的分量重？」</p>
+      <p>老烽卒指着远处漆黑的山口：</p>
+      <blockquote>
+        <p>「你只当报信是把话『送出去』。错了。报信是替京城那头，把心里那点『拿不准』给<strong>抹平</strong>。</p>
+        <p>他早笃定今夜太平，你这道『平安』的火，抹掉的『拿不准』本就没多少——分量自然轻。他做梦没想到大军会来，你这柱『压境』的浓烟，一下抹掉了他天大的『没想到』——这一柱烟，才抵得千军。</p>
+        <p>消息值几个钱，从来不看它烧了多少柴、喊得多响，只看它替人抹掉了多少『没料到』。人家早料到的，你说破天，也是零。」</p>
+      </blockquote>
+      <p class="turn">· · ·</p>
+      <p class="noindent">小卒怔在垛口。他忽然懂了：这座烽燧夜夜要烧多少柴，压根不由他定——</p>
+      <p><strong>是由那座山口「有多难猜」定的。山口越太平、越好猜，一囤狼粪能省下大半；山口越是风云不定、夜夜出人意料，才要夜夜备足了烟火，去追那一份份『没想到』。</strong></p>
+    </div>
+    <details class="reveal">
+      <summary><span class="chev">&#9654;</span>&#128273; 揭晓 · 这讲的是什么</summary>
+      <div class="body">
+        <p>这篇讲的是信息论的地基、也是整个数字时代的地基：<strong>信息熵（Shannon entropy）</strong>，以及它背后那个反直觉的洞见——<strong>信息，就是被消除掉的不确定性。</strong></p>
+        <div class="callout">一条消息的分量，不在于它多长、多响，而在于它替你消掉了多少「没想到」。你早已笃定的事，说破天也是零；越是出乎意料的事，一个字抵千金。这就是把「信息」第一次变成可精确计量之物的起点。</div>
+        <h4>意外的多少 = 信息的多少</h4>
+        <p>Claude Shannon 的做法是：一条消息带来的信息量，等于它的「意外程度」（self-information），用它发生的概率 p 来算，为 <strong>&minus;log&#8202;p</strong>。概率越小（越意外）的消息，信息量越大；一件<strong>必然发生</strong>的事（p&#8202;=&#8202;1），信息量恰好为 <strong>0</strong>——正如那道「早猜着了」的平安烽火，抹掉的不确定性本就没多少。以 2 为底取对数时，信息的单位就是我们熟悉的<strong>比特（bit）</strong>：一个比特，正好是「一次公平抛硬币」那么多的意外。</p>
+        <h4>信息熵 H：一个信源「平均有多难猜」</h4>
+        <p>把一个消息源里每条消息的意外程度，按它出现的概率加权平均，就是这个源的<strong>信息熵</strong>：<strong>H = &minus;&#931;&#8202;p&#8202;log&#8202;p</strong>。它衡量的正是这个源整体「<strong>有多难猜、有多不确定</strong>」——也就是故事里那座山口的「难猜程度」。山口若十夜九平安（概率极不均匀、极好猜），熵就低；山口若风云不定、各种军情半斤八两（概率均匀、最难猜），熵就最高。而 Shannon 的<strong>信源编码定理</strong>进一步证明：给常来的消息配短码、给罕见的配长码（正是老烽卒重分柴薪的做法），平均码长最省也省不过这个熵值——熵，就是「无损压缩」的理论极限。</p>
+        <h4>故事里的隐喻分别对应什么</h4>
+        <div class="tblwrap">
+        <table>
+          <tr><th>故事里的东西</th><th>对应的概念</th></tr>
+          <tr><td>京城那头「拿不准」今夜军情</td><td>不确定性（uncertainty）：尚待消除的疑问</td></tr>
+          <tr><td>一道烽火替京城「抹平」的那点拿不准</td><td>这条消息的信息量 = 它消除的不确定性</td></tr>
+          <tr><td>「平安」十夜有九、早猜得着</td><td>高概率消息 p&#8202;&rarr;&#8202;1，意外少，信息量小（&minus;log&#8202;p 趋近 0）</td></tr>
+          <tr><td>「大军压境」难得一遇、做梦没想到</td><td>低概率消息 p&#8202;&rarr;&#8202;0，意外大，信息量大（&minus;log&#8202;p 很大）</td></tr>
+          <tr><td>常来的报短火苗、罕见的堆冲天浓烟</td><td>高频配短码、低频配长码：最优编码 / 无损压缩</td></tr>
+          <tr><td>「山口有多难猜」定了夜夜烧多少柴</td><td>信息熵 H = 信源平均不确定性 = 平均每条消息的信息量</td></tr>
+          <tr><td>太平好猜的山口能省下大半狼粪</td><td>低熵信源可高度压缩；越可预测，所需比特越少</td></tr>
+        </table>
+        </div>
+        <h4>出处与边界（诚实标注）</h4>
+        <p>信息熵由美国数学家、工程师 <strong>Claude E. Shannon（克劳德·香农）</strong>在 1948 年的奠基性论文《A Mathematical Theory of Communication》（<em>Bell System Technical Journal</em> 27: 379&ndash;423, 623&ndash;656）中提出，一举把「信息」变成了可用比特精确度量的物理量，被公认为信息论的开山之作，也是数字通信、数据压缩、密码学乃至今日大语言模型的共同源头。</p>
+        <p>两点诚实的边界：① 信息熵的公式 H&#8202;=&#8202;&minus;&#931;&#8202;p&#8202;log&#8202;p，与物理学（热力学 / 统计力学）里的<strong>热力学熵</strong>在数学形式上高度相似，二者也确有深刻联系，但语境与含义不同，不可简单等同。坊间流传冯·诺依曼建议香农借用「熵」这个名字的轶事（「反正没人真懂熵是什么，辩论起来你总占上风」），<strong>属广为转述的逸闻，缺确切一手出处，姑妄听之</strong>。② 这里的信息量只计「意外 / 可预测性」，<strong>不衡量消息对读者是否『有意义、有用』</strong>——一串完全随机的乱码熵极高，却未必对你有半点用处。香农本人也明确：信息论处理的是通信的工程问题，而非语义。</p>
+        <div class="callout">一句话收尾：下回你觉得某句话「等于没说」，别只怪它废。它多半是把你早就知道的事又说了一遍——在香农的账本上，这样的话，分量恰好是零。真正金贵的，是那些让你「没想到」的消息。</div>
+        <p class="srcs">参考：<a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)" target="_blank" rel="noopener">Entropy (information theory) &middot; Wikipedia</a> &middot; <a href="https://en.wikipedia.org/wiki/A_Mathematical_Theory_of_Communication" target="_blank" rel="noopener">A Mathematical Theory of Communication &middot; Wikipedia</a> &middot; Shannon, C. E. (1948)《A Mathematical Theory of Communication》<em>Bell System Technical Journal</em> 27: 379&ndash;423, 623&ndash;656（<a href="https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf" target="_blank" rel="noopener">原文 PDF</a>）</p>
+      </div>
+    </details>
+    <div class="story-foot">
+      <span>难度：研究生 · 领域：信息论/通信/数据压缩</span>
+      <button class="markread" data-id="info">○ 标记温故</button>
+    </div>
+  </article>
+
 </div>
 
 <footer>
