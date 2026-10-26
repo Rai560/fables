@@ -1267,6 +1267,72 @@ footer .count{color:var(--accent);font-weight:600}
     </div>
   </article>
 
+  <article class="story" id="s-simpson" data-id="simpson" data-disc="prob" data-disc-label="&#128202; 概率 · 统计 · 决策科学"
+           data-title="高下" data-teaser="县里要给更高明的郎中挂匾赏田，标准很简单：看谁一年救活的人多。徐郎中救活九十，柳郎中只救活七十，高下立判。可老仵作把医案按病情轻重一拆，发现不论轻症还是重症，柳郎中救回的成数竟都比徐郎中高……" data-date="2026-10-26"
+           data-concept="辛普森悖论（Simpson's paradox）">
+    <div class="tags">
+      <span class="tag">统计 · 汇总陷阱</span>
+      <span class="tag">潜藏变量 · 因果</span>
+      <span class="tag level">研究生</span>
+    </div>
+    <h2 class="story-title">高下</h2>
+    <p class="story-sub">第 17 篇 · 收录于 2026-10-26</p>
+    <div class="fable">
+      <p>县城里有两位郎中。一位姓徐，坐堂在最热闹的十字街口，门庭若市；一位姓柳，住在偏僻的城南，铺子冷清，门口却常有人用门板抬着快咽气的病人，往他那儿送。</p>
+      <p>年底，新到任的知县想从两人里挑一位，挂一块「杏林圣手」的匾，还赏良田十亩。怎么挑？知县说得干脆：「看谁一年里救活的人多。」</p>
+      <p>师爷翻了整整一年的医案，算得清清楚楚：徐郎中这一年接诊一百人，救活了九十；柳郎中也接诊一百人，只救活了七十。</p>
+      <p>「九十对七十，高下立判。」知县提笔就要写徐郎中的名字。</p>
+      <p>坐在角落的老仵作却咳嗽了一声，慢慢开口：「大人且慢。这笔账，怕是算颠倒了。」</p>
+      <p>他把两摞医案重新分作两堆：一堆是风寒、咳嗽、跌打的「轻症」，一堆是痈疽、急症、十人九死的「重症」。分完，他指着数目一桩桩念：</p>
+      <p>「同是轻症——徐郎中接了九十人，救活八十七；柳郎中只接了十人，这十个，全活。」</p>
+      <p>「同是重症——徐郎中只接了十人，救活三人；柳郎中接了九十人，救活了六十。」</p>
+      <p>知县愣住了：「这么说……不论轻病重病，柳郎中救回的，反倒成数更高？」</p>
+      <p>「正是。」老仵作点头，「那些被人从鬼门关口抬来、别家都摆手不敢接的，十之八九都送到了柳郎中门上。徐郎中坐堂闹市，挑的是看一眼就知能治的；柳郎中铺子冷清，接的是看一眼就觉没救的。论同样轻重的病，柳郎中的手，从来比徐郎中稳。」</p>
+      <blockquote>
+        <p>「可一合到总数里，柳郎中手里尽是难病、死症，一大堆本就难救的人，活活把他的总数往下坠。您若凭这『九十对七十』挂匾赏田——赏的是『挑病人挑得精』，罚的是『什么病都敢接』。</p>
+        <p>日子一长，还有谁肯接那些抬进门就剩半口气的人？」</p>
+      </blockquote>
+      <p class="turn">· · ·</p>
+      <p class="noindent">知县搁下了笔。他头一回明白：把一堆深浅不一、人数悬殊的事，囫囵揉成一个「总数」去比，那总数会骗人。</p>
+      <p><strong>徐郎中的九十、柳郎中的七十，差的从来不是手艺——是两人手里病人的轻重。分开一类一类地看，柳郎中样样更高；合起来算总账，他反倒垫了底。不是他退步了，是那本「总账」，替他接下的那些最难救的人，悄悄替他背了黑锅。</strong></p>
+    </div>
+    <details class="reveal">
+      <summary><span class="chev">&#9654;</span>&#128273; 揭晓 · 这讲的是什么</summary>
+      <div class="body">
+        <p>这篇讲的是概率统计里最会骗过人眼的一个陷阱：<strong>辛普森悖论（Simpson's paradox）</strong>。</p>
+        <div class="callout">同一个趋势，在每一个分组里都朝着同一个方向；可一旦把各组数据合并成一个「总数」，趋势竟会消失、甚至整个反转。柳郎中明明在轻症、重症每一类里都救得比徐郎中多，合起来的总救活率却更低——<strong>不是他手艺差，是「合并」这个动作本身，在骗人。</strong></div>
+        <h4>为什么「分开看样样更强，合起来反而更弱」</h4>
+        <p>症结在两样东西凑到了一起：一个<strong>潜藏变量（confounder，这里是病情轻重）</strong>，加上<strong>各组人数悬殊</strong>。重症无论谁来治，救活率天然就低；而柳郎中接的重症病人（九十人）远比徐郎中（十人）多。于是柳郎中的总数，被一大批「本就难救」的病人往下拖。病情轻重对救活率的影响，盖过了医术本身的差别；合并时各组的「分量」（人数）又天差地别，总数便被人数最多、也最棘手的那一组主导了。把人数拉回一样，或者分组来看，柳郎中更强的真相立刻显形。</p>
+        <h4>它不止是一道算术题（几个真实的回声）</h4>
+        <p><strong>招生版</strong>：1973 年加州大学伯克利分校研究生招生，按总数看，男生录取率（44%）明显高于女生（35%），几乎像铁证如山的性别歧视；可按院系拆开，女生的录取率反而略占上风。真相是——女生更多报考了竞争激烈、录取率本就低的院系。那份「总数里的歧视」，其实是「报考专业的分布」这个潜藏变量造出来的假象（Bickel 等，1975）。<strong>医学版</strong>：两种肾结石疗法，疗法 A 在小结石、大结石两类里都比 B 有效，合起来却显得 B 更好——因为医生把更难治的大结石，多数交给了 A（Charig 等，1986）。这，正是柳郎中的故事。</p>
+        <h4>诚实一点：悖论不替你做决定</h4>
+        <p>要紧的是——辛普森悖论本身，<strong>并不告诉你该信「分组」还是该信「总数」</strong>。两种口径哪个对，取决于数据背后的<strong>因果结构</strong>：那个潜藏变量，到底是不是真正的原因？伯克利那例，该看分院系（因为报考哪个专业是真实原因），所以「歧视」是假象；可换一种数据，有时反而该信合并后的总数。光盯着数字，解不开这道题——得想清楚谁导致了谁。统计学家 Judea Pearl 等人正是用因果推断的工具，来判断到底该不该合并。</p>
+        <h4>故事里的隐喻分别对应什么</h4>
+        <div class="tblwrap">
+        <table>
+          <tr><th>故事里的东西</th><th>对应的概念</th></tr>
+          <tr><td>把医案分成「轻症 / 重症」两堆</td><td>按潜藏变量给数据分层（stratify）</td></tr>
+          <tr><td>不论轻症重症，柳郎中救活的成数都更高</td><td>每个分组内部的真实趋势（柳的医术确实更强）</td></tr>
+          <tr><td>合计总数，柳反而更低（70 对 90）</td><td>辛普森悖论：合并后趋势消失甚至反转</td></tr>
+          <tr><td>九死一生的重症，大多被抬到柳郎中门上</td><td>潜藏 / 混淆变量（confounder）在各组分布不均</td></tr>
+          <tr><td>重症无论谁治，救活率天然就低</td><td>潜藏变量对结果的影响，盖过了「处理方式」本身</td></tr>
+          <tr><td>柳接九十个重症、徐只接十个</td><td>各分组样本量悬殊，总数被大组主导</td></tr>
+          <tr><td>凭总数挂匾赏田，反倒罚了敢接难病的人</td><td>用错误的汇总口径，得出颠倒是非的结论</td></tr>
+        </table>
+        </div>
+        <h4>出处与边界（诚实标注）</h4>
+        <p>「辛普森悖论」由统计学家 <strong>Edward H. Simpson</strong> 在 1951 年的论文里首次系统描述；更早，Karl Pearson（1899）、Udny Yule（1903）已注意到类似效应，故它也叫 <strong>Yule&ndash;Simpson 效应</strong>。而「Simpson's paradox」这个名字，是 <strong>Colin R. Blyth</strong> 在 1972 年才起的。文中两个真实案例（伯克利招生、肾结石疗法）均为学界反复引用的经典实例，数字取自原始研究，非杜撰。</p>
+        <div class="callout">一句话收尾：下回有人甩来一个「总数」「平均值」或「总体趋势」就急着下结论，先别信——问一句：这堆数据，是不是把深浅不一、人数悬殊的几拨人，硬揉成了一团？拆开一看，结论很可能整个翻过来。真正会骗人的，往往不是数字本身，而是「合并」这个动作。</div>
+        <p class="srcs">参考：<a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">Simpson's paradox &middot; Wikipedia</a> &middot; Simpson, E. H. (1951)《The Interpretation of Interaction in Contingency Tables》<em>J. R. Statist. Soc. B</em> 13(2): 238&ndash;241（命名者 Colin R. Blyth, 1972；类似效应可上溯 Pearson 1899、Yule 1903） &middot; Bickel, Hammel &amp; O'Connell (1975)《Sex Bias in Graduate Admissions: Data From Berkeley》<em>Science</em> 187(4175): 398&ndash;404 &middot; Charig et al. (1986)《Comparison of treatment of renal calculi by open surgery, percutaneous nephrolithotomy, and extracorporeal shockwave lithotripsy》<em>Br. Med. J.</em> 292(6524): 879&ndash;882</p>
+      </div>
+    </details>
+    <div class="story-foot">
+      <span>难度：研究生 · 领域：概率/统计/因果推断</span>
+      <button class="markread" data-id="simpson">○ 标记温故</button>
+    </div>
+  </article>
+
+
 </div>
 
 <footer>
